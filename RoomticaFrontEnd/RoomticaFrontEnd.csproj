@@ -6,4 +6,23 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.70.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\caracteristica_habitacion.proto" GrpcServices="Client">
+      <Link>Protos\caracteristica_habitacion.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_habitacion.proto" GrpcServices="Client">
+      <Link>Protos\tipo_habitacion.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
 </Project>

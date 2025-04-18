@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package caracteristica_habitacion;
+
+service CaracteristicaHabitacionService{
+	rpc GetAll(EmptyCH) returns(CaracteristicaHabitaciones);
+	rpc GetByCaracteristica(CaracteristicaHabitacionCaracteristica) returns(CaracteristicaHabitaciones);
+	rpc GetById(CaracteristicaHabitacionId) returns(CaracteristicaHabitacion);
+	rpc Create(CaracteristicaHabitacion) returns(CaracteristicaHabitacion);
+	rpc Update(CaracteristicaHabitacion) returns(CaracteristicaHabitacion);
+	rpc Delete(CaracteristicaHabitacionId) returns(EmptyCH);
+}
+message EmptyCH{}
+
+message CaracteristicaHabitacion{
+	int32 id = 1;
+	string caracteristica = 2;
+	bool estado = 3;
+}
+
+message CaracteristicaHabitaciones{
+	repeated CaracteristicaHabitacion caracteristicaHabitaciones = 1;
+}
+
+message CaracteristicaHabitacionId{
+	int32 id = 1;
+}
+
+message CaracteristicaHabitacionCaracteristica{
+	string caracteristica = 1;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package tipo_habitacion;
+
+service TipoHabitacionService{
+	rpc GetAll(EmptyTH) returns(TipoHabitaciones);
+	rpc GetByTipo(TipoHabitacionTipo) returns(TipoHabitaciones);
+	rpc GetById(TipoHabitacionId) returns(TipoHabitacion);
+	rpc Create(TipoHabitacion) returns(TipoHabitacion);
+	rpc Update(TipoHabitacion) returns(TipoHabitacion);
+	rpc Delete(TipoHabitacionId) returns(EmptyTH);
+}
+
+
+
+message EmptyTH{}
+
+
+message TipoHabitacion{
+	int32 id = 1;
+	string tipo = 2;
+	string descripccion = 3;
+	bool estado = 4;
+}
+message TipoHabitacionId{
+	int32 id = 1;
+}
+
+message TipoHabitacionTipo{
+	string tipo = 1;
+}
+
+message TipoHabitaciones{
+	repeated TipoHabitacion tipoHabitaciones = 1;
+}
