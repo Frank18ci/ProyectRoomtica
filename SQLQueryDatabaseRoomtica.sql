@@ -193,3 +193,44 @@ create table consumo(
 )
 go
 
+
+
+create or alter proc usp_listar_caracteristica_habitacion
+as
+	select * from caracteristica_habitacion
+go
+
+INSERT INTO caracteristica_habitacion (caracteristica, estado) VALUES
+('Vista al mar', 1),
+('Aire acondicionado', 1),
+('Televisión por cable', 1),
+('Caja fuerte', 1),
+('Minibar', 1),
+('Balcón', 1),
+('Cama king size', 1),
+('No fumadores', 1),
+('Accesible para discapacitados', 1),
+('Jacuzzi', 1);
+
+
+exec usp_listar_caracteristica_habitacion
+go
+
+
+INSERT INTO tipo_habitacion (tipo, descripccion, estado) VALUES
+('Individual', 'Habitación para una persona con cama individual.', 1),
+('Doble', 'Habitación con dos camas individuales o una doble.', 1),
+('Suite', 'Habitación amplia con sala y comodidades extras.', 1),
+('Familiar', 'Habitación para familias, con varias camas.', 1),
+('Económica', 'Habitación básica con servicios mínimos.', 1),
+('Premium', 'Habitación de lujo con servicios exclusivos.', 1);
+go
+
+
+create or alter proc usp_listar_tipo_habitacion
+as
+	select * from tipo_habitacion
+go
+
+exec usp_listar_tipo_habitacion
+go
