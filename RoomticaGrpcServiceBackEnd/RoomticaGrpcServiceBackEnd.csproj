@@ -7,9 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\caracteristica_habitacion.proto" GrpcServices="Server" />
+      <Protobuf Include="Protos\caracteristica_habitacion.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\tipo_habitacion.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+      <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\caracteristica_habitacion_tipo_habitacion.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Google.Protobuf.WellKnownTypes;
 
 namespace RoomticaGrpcServiceBackEnd.Services
 {
@@ -35,7 +36,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
             }
             return temporal;
         }
-        public override Task<TipoHabitaciones> GetAll(EmptyTH request, ServerCallContext context)
+        public override Task<TipoHabitaciones> GetAll(Empty request, ServerCallContext context)
         {
             TipoHabitaciones tipoHabitaciones = new TipoHabitaciones();
             tipoHabitaciones.TipoHabitaciones_.AddRange(ListtipoHabitaciones);

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomticaFrontEnd.Models;
 using RoomticaGrpcServiceBackEnd;
-
+using Google.Protobuf.WellKnownTypes;
 namespace RoomticaFrontEnd.Controllers
 {
     public class TipoHabitacionController : Controller
@@ -13,7 +13,7 @@ namespace RoomticaFrontEnd.Controllers
         {
             var chanal = GrpcChannel.ForAddress("http://localhost:5225");
             tipoHabitacionService = new TipoHabitacionService.TipoHabitacionServiceClient(chanal);
-            var request = new EmptyTH();
+            var request = new Empty();
             var mensaje = await tipoHabitacionService.GetAllAsync(request);
             List<TipoHabitacionModel> tipoHabitacionModels = new List<TipoHabitacionModel>();
             foreach(var item in mensaje.TipoHabitaciones_)

@@ -20,6 +20,9 @@
     <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\caracteristica_habitacion.proto" GrpcServices="Client">
       <Link>Protos\caracteristica_habitacion.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\caracteristica_habitacion_tipo_habitacion.proto" GrpcServices="Client">
+      <Link>Protos\caracteristica_habitacion_tipo_habitacion.proto</Link>
+    </Protobuf>
     <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_habitacion.proto" GrpcServices="Client">
       <Link>Protos\tipo_habitacion.proto</Link>
     </Protobuf>
