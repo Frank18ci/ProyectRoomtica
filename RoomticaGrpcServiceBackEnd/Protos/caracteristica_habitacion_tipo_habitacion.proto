@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+import "google/protobuf/empty.proto";
+package caracteristica_habitacion_tipo_habitacion;
+
+service CaracteristicaHabitacionTipoHabitacionService{
+	rpc GetAll(google.protobuf.Empty) returns(CaracteristicaHabitacionTipoHabitaciones);
+	rpc GetByCaracteristicaHabitacionId(CaracteristicaHabitacionTipoHabitacionId) returns(CaracteristicaHabitacionTipoHabitaciones);
+	rpc GetById(CaracteristicaHabitacionTipoHabitacionId) returns(CaracteristicaHabitacionTipoHabitacion);
+	rpc Create(CaracteristicaHabitacionTipoHabitacion) returns(CaracteristicaHabitacionTipoHabitacion);
+	rpc Update(CaracteristicaHabitacionTipoHabitacion) returns(CaracteristicaHabitacionTipoHabitacion);
+	rpc Delete(CaracteristicaHabitacionTipoHabitacionId) returns(google.protobuf.Empty);
+}
+message CaracteristicaHabitacionTipoHabitacion{
+	int32 id_caracteristica_habitacion = 1;
+	int32 id_tipo_habitacion = 2;
+	bool estado = 3;
+}
+message CaracteristicaHabitacionTipoHabitacionId{
+	int32 id_caracteristica_habitacion = 1;
+	int32 id_tipo_habitacion = 2;
+}
+message CaracteristicaHabitacionTipoHabitaciones{
+	repeated CaracteristicaHabitacionTipoHabitacion caracteristicaHabitacionTipoHabitaciones = 1;
+}
+

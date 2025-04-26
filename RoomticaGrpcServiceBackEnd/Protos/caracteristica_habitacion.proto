@@ -4,15 +4,17 @@ option csharp_namespace = "RoomticaGrpcServiceBackEnd";
 
 package caracteristica_habitacion;
 
+import "google/protobuf/empty.proto";
+
+
 service CaracteristicaHabitacionService{
-	rpc GetAll(EmptyCH) returns(CaracteristicaHabitaciones);
+	rpc GetAll(google.protobuf.Empty) returns(CaracteristicaHabitaciones);
 	rpc GetByCaracteristica(CaracteristicaHabitacionCaracteristica) returns(CaracteristicaHabitaciones);
 	rpc GetById(CaracteristicaHabitacionId) returns(CaracteristicaHabitacion);
 	rpc Create(CaracteristicaHabitacion) returns(CaracteristicaHabitacion);
 	rpc Update(CaracteristicaHabitacion) returns(CaracteristicaHabitacion);
-	rpc Delete(CaracteristicaHabitacionId) returns(EmptyCH);
+	rpc Delete(CaracteristicaHabitacionId) returns(google.protobuf.Empty);
 }
-message EmptyCH{}
 
 message CaracteristicaHabitacion{
 	int32 id = 1;

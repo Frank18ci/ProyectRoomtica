@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using Microsoft.Data.SqlClient;
 using RoomticaGrpcServiceBackEnd;
 
@@ -8,7 +9,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
     {
         private readonly ILogger<CaracteristicaHabitacionImpl> _logger;
-        private readonly String cadena = "server=CARPIO\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=CARPIO\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
         private List<CaracteristicaHabitacion> caracteristicaHabitacions;
         public CaracteristicaHabitacionImpl(ILogger<CaracteristicaHabitacionImpl> logger)
         {
@@ -37,7 +38,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
             }
             return temporal;
         }
-        public override Task<CaracteristicaHabitaciones> GetAll(EmptyCH request, ServerCallContext context)
+        public override Task<CaracteristicaHabitaciones> GetAll(Empty request, ServerCallContext context)
         {
             CaracteristicaHabitaciones caracteristicaHabitaciones = new CaracteristicaHabitaciones();
             caracteristicaHabitaciones.CaracteristicaHabitaciones_.AddRange(caracteristicaHabitacions);
