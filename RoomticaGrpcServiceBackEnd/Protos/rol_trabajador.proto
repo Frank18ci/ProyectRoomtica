@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package rol_trabajador;
+
+import "google/protobuf/empty.proto";
+
+service RolTrabajadorService {
+    rpc GetAll(google.protobuf.Empty) returns (RolTrabajadores);
+    rpc GetByRol(RolTrabajadorRol) returns (RolTrabajadores);
+    rpc GetById(RolTrabajadorId) returns (RolTrabajador);
+    rpc Create(RolTrabajador) returns (RolTrabajador);
+    rpc Update(RolTrabajador) returns (RolTrabajador);
+    rpc Delete(RolTrabajadorId) returns (google.protobuf.Empty);
+}
+
+message RolTrabajador {
+    int32 id = 1;
+    string rol = 2;
+    bool estado = 3;
+}
+
+message RolTrabajadores {
+    repeated RolTrabajador rolTrabajadores = 1;
+}
+
+message RolTrabajadorId {
+    int32 id = 1;
+}
+
+message RolTrabajadorRol {
+    string rol = 1;
+}

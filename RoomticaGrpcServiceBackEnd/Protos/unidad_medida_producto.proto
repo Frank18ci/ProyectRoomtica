@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package unidad_medida_producto;
+
+import "google/protobuf/empty.proto";
+
+service UnidadMedidaProductoService {
+    rpc GetAll(google.protobuf.Empty) returns (UnidadMedidaProductos);
+    rpc GetByUnidad(UnidadMedidaProductoUnidad) returns (UnidadMedidaProductos);
+    rpc GetById(UnidadMedidaProductoId) returns (UnidadMedidaProducto);
+    rpc Create(UnidadMedidaProducto) returns (UnidadMedidaProducto);
+    rpc Update(UnidadMedidaProducto) returns (UnidadMedidaProducto);
+    rpc Delete(UnidadMedidaProductoId) returns (google.protobuf.Empty);
+}
+
+message UnidadMedidaProducto {
+    int32 id = 1;
+    string unidad = 2;
+    bool estado = 3;
+}
+
+message UnidadMedidaProductos {
+    repeated UnidadMedidaProducto unidadMedidaProductos = 1;
+}
+
+message UnidadMedidaProductoId {
+    int32 id = 1;
+}
+
+message UnidadMedidaProductoUnidad {
+    string unidad = 1;
+}

@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package tipo_sexo;
+
+import "google/protobuf/empty.proto";
+
+service TipoSexoService {
+    rpc GetAll(google.protobuf.Empty) returns (TipoSexos);
+    rpc GetByTipo(TipoSexoTipo) returns (TipoSexos);
+    rpc GetById(TipoSexoId) returns (TipoSexo);
+    rpc Create(TipoSexo) returns (TipoSexo);
+    rpc Update(TipoSexo) returns (TipoSexo);
+    rpc Delete(TipoSexoId) returns (google.protobuf.Empty);
+}
+
+message TipoSexo {
+    int32 id = 1;
+    string tipo = 2;
+    bool estado = 3;
+}
+
+message TipoSexos {
+    repeated TipoSexo tipoSexos = 1;
+}
+
+message TipoSexoId {
+    int32 id = 1;
+}
+
+message TipoSexoTipo {
+    string tipo = 1;
+}

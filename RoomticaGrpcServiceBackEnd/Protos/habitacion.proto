@@ -1,0 +1,31 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package habitacion;
+import "google/protobuf/empty.proto"; 
+
+service HabitacionServices{
+	rpc GetAll(google.protobuf.Empty) returns(Habitaciones);
+	rpc GetById(HabitacionId) returns(Habitacion);
+	rpc Create(Habitacion) returns(Habitacion);
+	rpc Update(Habitacion) returns(Habitacion);
+	rpc Delete(HabitacionId) returns(google.protobuf.Empty);
+}
+message Habitacion{
+	int32 id = 1;
+    string numero = 2;
+    string piso = 3;
+    double precio_diario = 4;
+    int32 id_tipo = 5;
+    int32 id_estado = 6;
+    bool estado = 7;
+
+}
+message Habitaciones{
+	repeated Habitacion habitaciones = 1;
+}
+
+message HabitacionId{
+	int32 id = 1;
+}

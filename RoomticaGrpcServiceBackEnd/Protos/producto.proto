@@ -1,0 +1,33 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package producto;
+
+import "google/protobuf/empty.proto";
+
+service ProductoService {
+    rpc GetAll(google.protobuf.Empty) returns (Productos);
+    rpc GetById(ProductoId) returns (Producto);
+    rpc Create(Producto) returns (Producto);
+    rpc Update(Producto) returns (Producto);
+    rpc Delete(ProductoId) returns (google.protobuf.Empty);
+}
+
+message Producto {
+    int32 id = 1;
+    string nombre = 2;
+    int32 id_unidad_medida_producto = 3;
+    int32 id_categoria_producto = 4;
+    double precio_unico = 5;
+    int32 cantidad = 6;
+    bool estado = 7;
+}
+
+message Productos {
+    repeated Producto productos = 1;
+}
+
+message ProductoId {
+    int32 id = 1;
+}
