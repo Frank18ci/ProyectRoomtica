@@ -14,129 +14,121 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Esta es seccion de inicio -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Roomtica</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
+    <!-- ------- -->
+    <div class="container">
+      <!-- Section 1: Interactive Buttons -->
+      <section id="interactive-buttons">
+        <button class="interactive-btn" onclick="handleButtonClick('Button 1')">
+          <i class="bi bi-fan"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >Recepcion</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="bi bi-gear"></i>
-                Configuracion</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Recepcion</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Inventario
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <div class="container-xl">
-      <div class="my-2">
-        <h1 class="text-center">Habitaciones</h1>
-      </div>
-      <div class="my-5">
-        <button type="button" class="btn btn-dark rounded-circle">
-          <i class="bi bi-body-text"></i>
+        <button class="interactive-btn" onclick="handleButtonClick('Button 2')">
+          <i class="bi bi-p-circle"></i>
         </button>
-        <button type="button" class="btn btn-primary rounded-circle">21</button>
-        <button type="button" class="btn btn-success rounded-circle">2</button>
-        <button type="button" class="btn btn-warning rounded-circle">2</button>
-      </div>
+        <button class="interactive-btn" onclick="handleButtonClick('Button 3')">
+          <img src="img/netflix.ico" alt="Netflix" />
+        </button>
+        <button class="interactive-btn" onclick="handleButtonClick('Button 4')">
+          <i class="bi bi-youtube"></i>
+        </button>
+        <button class="interactive-btn" onclick="handleButtonClick('Button 5')">
+          <i class="bi bi-wifi"></i>
+        </button>
+      </section>
 
-      <div class="my-2">
-        <!-- contenedor card -->
-        <div class="d-flex gap-5 align-items-center my-5">
-          <div>Piso 1</div>
-          <!-- Card -->
-          <div class="card p-1 shadow">
-            <div class="border-success border p-5 text-center">
-                <span>1</span>
-                <p>Rusbel</p>
-                <button class="btn btn-primary rounded">Disponible</button>
-            </div>
-          </div>
-          <div class="card p-1 shadow">
-            <div class="border-success border p-5 text-center">
-                <span>1</span>
-                <p>Rusbel</p>
-                <button class="btn btn-primary rounded">Disponible</button>
-            </div>
-          </div>
-          <div class="card p-1 shadow">
-            <div class="border-success border p-5 text-center">
-                <span>1</span>
-                <p>Rusbel</p>
-                <button class="btn btn-primary rounded">Disponible</button>
-            </div>
-          </div>
-        </div>
+      <!-- Section 2: Guest Data -->
+      <section id="guest-data">
+        <h2>1. Datos del Huesped</h2>
+        <hr>
+        <form id="guest-form">
+          <label for="nationality">Nacionalidad(*):</label>
+          <input type="text" id="nationality" required />
 
-        <div class="d-flex gap-5 align-items-center my-2">
-            <div>Piso 2</div>
-            <!-- Card -->
-            <div class="card p-1 shadow">
-              <div class="border-success border p-5 text-center">
-                  <span>1</span>
-                  <p>Rusbel</p>
-                  <button class="btn btn-primary rounded">Disponible</button>
-              </div>
-            </div>
-            <div class="card p-1 shadow">
-              <div class="border-success border p-5 text-center">
-                  <span>1</span>
-                  <p>Rusbel</p>
-                  <button class="btn btn-primary rounded">Disponible</button>
-              </div>
-            </div>
-            <div class="card p-1 shadow">
-              <div class="border-success border p-5 text-center">
-                  <span>1</span>
-                  <p>Rusbel</p>
-                  <button class="btn btn-primary rounded">Disponible</button>
-              </div>
-            </div>
-          </div>
-      </div>
+          <label for="document-type">Documento(*):</label>
+          <select id="document-type" required>
+            <option value="ID">DNI</option>
+            <option value="Passport">Passport</option>
+          </select>
+
+          <label for="document-number">N° Documento(*):</label>
+          <input type="text" id="document-number" required />
+          <br>
+          <br>
+          <button class="btn-registrar" type="button" onclick="consultDocument()">Consultar Documento</button>
+          <br>
+          <br>
+          <label for="first-surname">Primer Apellido(*):</label>
+          <input type="text" id="first-surname" required />
+
+          <label for="second-surname">Segundo Apellido(*):</label>
+          <input type="text" id="second-surname" />
+
+          <label for="names">Nombres(*):</label>
+          <input type="text" id="names" required />
+
+          <label for="dob">Fecha de Nacimiento(*):</label>
+          <input type="date" id="dob" required />
+
+          <label for="phone">Telefono(*):</label>
+          <input type="tel" id="phone" required />
+
+          <label for="address">Direccion(*):</label>
+          <input type="text" id="address" required />
+
+          <label for="sex">Sexo(*):</label>
+          <select id="sex" required>
+            <option value="Male">Hombre</option>
+            <option value="Female">Muejer</option>
+          </select>
+
+          <label for="vehicle-plate">Placa de vehiculo(*):</label>
+          <input type="text" id="vehicle-plate" required />
+          <br>
+          <br>
+          <button type="submit" class="btn-registrar">Registrar Huesped</button>
+          <br>
+          <br>
+        </form>
+      </section>
+
+      <!-- Section 3: Additional Guests -->
+      <section id="additional-guests">
+        <h2>Otro Huesped</h2>
+        <form id="additional-guest-form">
+          <label for="additional-nationality">Nacionalidad(*):</label>
+          <input type="text" id="additional-nationality" required />
+
+          <label for="additional-document-type">Documento(*):</label>
+          <select id="additional-document-type" required>
+            <option value="ID">DNI</option>
+            <option value="Passport">Passport</option>
+          </select>
+
+          <label for="additional-document-number">N° Documento(*):</label>
+          <input type="text" id="additional-document-number" required />
+
+          <label for="additional-first-surname">Primer Apellido(*):</label>
+          <input type="text" id="additional-first-surname" required />
+
+          <label for="additional-second-surname">Segundo Apellido(*):</label>
+          <input type="text" id="additional-second-surname" />
+
+          <label for="additional-names">Nombres(*):</label>
+          <input type="text" id="additional-names" required />
+
+          <br>
+          <br>
+          <button type="submit" class="btn-registrar">Registrar Huesped Adicional</button>
+          <br>
+          <br>
+        </form>
+      </section>
     </div>
+
+    <script src="script.js"></script>
+  
 
     <!-- ------- -->
     <script
