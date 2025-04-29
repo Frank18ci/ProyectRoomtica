@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package tipo_comprobante;
+
+import "google/protobuf/empty.proto";
+
+service TipoComprobanteService {
+    rpc GetAll(google.protobuf.Empty) returns (TipoComprobantes);
+    rpc GetByTipo(TipoComprobanteTipo) returns (TipoComprobantes);
+    rpc GetById(TipoComprobanteId) returns (TipoComprobante);
+    rpc Create(TipoComprobante) returns (TipoComprobante);
+    rpc Update(TipoComprobante) returns (TipoComprobante);
+    rpc Delete(TipoComprobanteId) returns (google.protobuf.Empty);
+}
+
+message TipoComprobante {
+    int32 id = 1;
+    string tipo = 2;
+    bool estado = 3;
+}
+
+message TipoComprobantes {
+    repeated TipoComprobante tipoComprobantes = 1;
+}
+
+message TipoComprobanteId {
+    int32 id = 1;
+}
+
+message TipoComprobanteTipo {
+    string tipo = 1;
+}

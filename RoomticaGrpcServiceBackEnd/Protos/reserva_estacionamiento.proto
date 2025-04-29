@@ -1,0 +1,32 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package reserva_estacionamiento;
+
+import "google/protobuf/empty.proto";
+
+service ReservaEstacionamientoService {
+    rpc GetAll(google.protobuf.Empty) returns (ReservaEstacionamientos);
+    rpc GetById(ReservaEstacionamientoId) returns (ReservaEstacionamiento);
+    rpc Create(ReservaEstacionamiento) returns (ReservaEstacionamiento);
+    rpc Update(ReservaEstacionamiento) returns (ReservaEstacionamiento);
+    rpc Delete(ReservaEstacionamientoId) returns (google.protobuf.Empty);
+}
+
+message ReservaEstacionamiento {
+    int32 id_reserva = 1;
+    int32 id_estacionamiento = 2;
+    int32 cantidad = 3;
+    double precio_estacionamiento = 4;
+    bool estado = 5;
+}
+
+message ReservaEstacionamientos {
+    repeated ReservaEstacionamiento reservaEstacionamientos = 1;
+}
+
+message ReservaEstacionamientoId {
+    int32 id_reserva = 1;
+    int32 id_estacionamiento = 2;
+}

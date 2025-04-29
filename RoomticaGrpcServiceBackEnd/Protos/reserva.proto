@@ -1,0 +1,35 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package reserva;
+
+import "google/protobuf/empty.proto";
+
+service ReservaService {
+    rpc GetAll(google.protobuf.Empty) returns (Reservas);
+    rpc GetById(ReservaId) returns (Reserva);
+    rpc Create(Reserva) returns (Reserva);
+    rpc Update(Reserva) returns (Reserva);
+    rpc Delete(ReservaId) returns (google.protobuf.Empty);
+}
+
+message Reserva {
+    int32 id = 1;
+    int32 id_habitacion = 2;
+    int32 id_cliente = 3;
+    int32 id_trabajador = 4;
+    int32 id_tipo_reserva = 5;
+    string fecha_ingreso = 6;
+    string fecha_salida = 7;
+    double costo_alojamiento = 8;
+    bool estado = 9;
+}
+
+message Reservas {
+    repeated Reserva reservas = 1;
+}
+
+message ReservaId {
+    int32 id = 1;
+}

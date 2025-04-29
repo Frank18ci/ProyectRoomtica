@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package tipo_documento;
+
+import "google/protobuf/empty.proto";
+
+service TipoDocumentoService {
+    rpc GetAll(google.protobuf.Empty) returns (TipoDocumentos);
+    rpc GetByTipo(TipoDocumentoTipo) returns (TipoDocumentos);
+    rpc GetById(TipoDocumentoId) returns (TipoDocumento);
+    rpc Create(TipoDocumento) returns (TipoDocumento);
+    rpc Update(TipoDocumento) returns (TipoDocumento);
+    rpc Delete(TipoDocumentoId) returns (google.protobuf.Empty);
+}
+
+message TipoDocumento {
+    int32 id = 1;
+    string tipo = 2;
+    bool estado = 3;
+}
+
+message TipoDocumentos {
+    repeated TipoDocumento tipoDocumentos = 1;
+}
+
+message TipoDocumentoId {
+    int32 id = 1;
+}
+
+message TipoDocumentoTipo {
+    string tipo = 1;
+}

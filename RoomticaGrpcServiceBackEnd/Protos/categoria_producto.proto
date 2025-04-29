@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package categoria_producto;
+
+import "google/protobuf/empty.proto";
+
+service CategoriaProductoService {
+    rpc GetAll(google.protobuf.Empty) returns (CategoriaProductos);
+    rpc GetByCategoria(CategoriaProductoCategoria) returns (CategoriaProductos);
+    rpc GetById(CategoriaProductoId) returns (CategoriaProducto);
+    rpc Create(CategoriaProducto) returns (CategoriaProducto);
+    rpc Update(CategoriaProducto) returns (CategoriaProducto);
+    rpc Delete(CategoriaProductoId) returns (google.protobuf.Empty);
+}
+
+message CategoriaProducto {
+    int32 id = 1;
+    string categoria = 2;
+    bool estado = 3;
+}
+
+message CategoriaProductos {
+    repeated CategoriaProducto categoriaProductos = 1;
+}
+
+message CategoriaProductoId {
+    int32 id = 1;
+}
+
+message CategoriaProductoCategoria {
+    string categoria = 1;
+}

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package estado_habitacion;
+
+import "google/protobuf/empty.proto"; 
+
+service EstadoHabitacionServices{
+	rpc GetAll(google.protobuf.Empty) returns(EstadoHabitaciones);
+	rpc GetByEstado(EstadoHabitacionEstado) returns(EstadoHabitaciones);
+	rpc GetById(EstadoHabitacionId) returns(EstadoHabitacion);
+	rpc Create(EstadoHabitacion) returns(EstadoHabitacion);
+	rpc Update(EstadoHabitacion) returns(EstadoHabitacion);
+	rpc Delete(EstadoHabitacionId) returns(google.protobuf.Empty);
+}
+message EstadoHabitacion{
+	int32 id = 1;
+	string estado_habitacion = 2;
+	bool estado = 3;
+}
+message EstadoHabitaciones{
+	repeated EstadoHabitacion estadoHabitaciones = 1;
+}
+
+message EstadoHabitacionId{
+	int32 id = 1;
+}
+
+message EstadoHabitacionEstado{
+	bool estado = 1;
+}

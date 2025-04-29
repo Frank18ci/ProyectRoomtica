@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package tipo_nacionalidad;
+
+import "google/protobuf/empty.proto";
+
+service TipoNacionalidadService {
+    rpc GetAll(google.protobuf.Empty) returns (TipoNacionalidades);
+    rpc GetByTipo(TipoNacionalidadTipo) returns (TipoNacionalidades);
+    rpc GetById(TipoNacionalidadId) returns (TipoNacionalidad);
+    rpc Create(TipoNacionalidad) returns (TipoNacionalidad);
+    rpc Update(TipoNacionalidad) returns (TipoNacionalidad);
+    rpc Delete(TipoNacionalidadId) returns (google.protobuf.Empty);
+}
+
+message TipoNacionalidad {
+    int32 id = 1;
+    string tipo = 2;
+    bool estado = 3;
+}
+
+message TipoNacionalidades {
+    repeated TipoNacionalidad tipoNacionalidades = 1;
+}
+
+message TipoNacionalidadId {
+    int32 id = 1;
+}
+
+message TipoNacionalidadTipo {
+    string tipo = 1;
+}

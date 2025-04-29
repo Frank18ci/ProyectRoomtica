@@ -1,0 +1,32 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package consumo;
+
+import "google/protobuf/empty.proto";
+
+service ConsumoService {
+    rpc GetAll(google.protobuf.Empty) returns (Consumos);
+    rpc GetById(ConsumoId) returns (Consumo);
+    rpc Create(Consumo) returns (Consumo);
+    rpc Update(Consumo) returns (Consumo);
+    rpc Delete(ConsumoId) returns (google.protobuf.Empty);
+}
+
+message Consumo {
+    int32 id = 1;
+    int32 id_reserva = 2;
+    int32 id_producto = 3;
+    int32 cantidad = 4;
+    double precio_venta = 5;
+    bool estado = 6;
+}
+
+message Consumos {
+    repeated Consumo consumos = 1;
+}
+
+message ConsumoId {
+    int32 id = 1;
+}

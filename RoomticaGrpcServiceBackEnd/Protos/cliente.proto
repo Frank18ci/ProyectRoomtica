@@ -1,0 +1,39 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package cliente;
+
+import "google/protobuf/empty.proto";
+
+service ClienteService {
+    rpc GetAll(google.protobuf.Empty) returns (Clientes);
+    rpc GetById(ClienteId) returns (Cliente);
+    rpc Create(Cliente) returns (Cliente);
+    rpc Update(Cliente) returns (Cliente);
+    rpc Delete(ClienteId) returns (google.protobuf.Empty);
+}
+
+message Cliente {
+    int32 id = 1;
+    string primer_nombre = 2;
+    string segundo_nombre = 3;
+    string primer_apellido = 4;
+    string segundo_apellido = 5;
+    int32 id_tipo_documento = 6;
+    string numero_documento = 7;
+    string telefono = 8;
+    string email = 9;
+    string fecha_nacimiento = 10;
+    int32 id_tipo_nacionalidad = 11;
+    int32 id_tipo_sexo = 12;
+    bool estado = 13;
+}
+
+message Clientes {
+    repeated Cliente clientes = 1;
+}
+
+message ClienteId {
+    int32 id = 1;
+}

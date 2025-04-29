@@ -1,0 +1,35 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package tipo_estacionamiento;
+
+import "google/protobuf/empty.proto";
+
+service TipoEstacionamientoService {
+    rpc GetAll(google.protobuf.Empty) returns (TipoEstacionamientos);
+    rpc GetByTipo(TipoEstacionamientoTipo) returns (TipoEstacionamientos);
+    rpc GetById(TipoEstacionamientoId) returns (TipoEstacionamiento);
+    rpc Create(TipoEstacionamiento) returns (TipoEstacionamiento);
+    rpc Update(TipoEstacionamiento) returns (TipoEstacionamiento);
+    rpc Delete(TipoEstacionamientoId) returns (google.protobuf.Empty);
+}
+
+message TipoEstacionamiento {
+    int32 id = 1;
+    string tipo = 2;
+    double costo = 3;
+    bool estado = 4;
+}
+
+message TipoEstacionamientos {
+    repeated TipoEstacionamiento tipoEstacionamientos = 1;
+}
+
+message TipoEstacionamientoId {
+    int32 id = 1;
+}
+
+message TipoEstacionamientoTipo {
+    string tipo = 1;
+}

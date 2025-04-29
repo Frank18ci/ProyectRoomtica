@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "RoomticaGrpcServiceBackEnd";
+
+package tipo_reserva;
+
+import "google/protobuf/empty.proto";
+
+service TipoReservaService {
+    rpc GetAll(google.protobuf.Empty) returns (TipoReservas);
+    rpc GetByTipo(TipoReservaTipo) returns (TipoReservas);
+    rpc GetById(TipoReservaId) returns (TipoReserva);
+    rpc Create(TipoReserva) returns (TipoReserva);
+    rpc Update(TipoReserva) returns (TipoReserva);
+    rpc Delete(TipoReservaId) returns (google.protobuf.Empty);
+}
+
+message TipoReserva {
+    int32 id = 1;
+    string tipo = 2;
+    bool estado = 3;
+}
+
+message TipoReservas {
+    repeated TipoReserva tipoReservas = 1;
+}
+
+message TipoReservaId {
+    int32 id = 1;
+}
+
+message TipoReservaTipo {
+    string tipo = 1;
+}
