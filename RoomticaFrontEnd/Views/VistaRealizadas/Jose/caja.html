@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body class="bg-light">
+    
+    <!-- MENU -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Roomtica</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"
+                  >Recepcion</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="bi bi-gear"></i>
+                  Configuracion</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Recepcion</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Inventario
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+        <div class="container mt-5">
+            <!-- Caja -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h6 class="text-muted">Caja</h6>
+                    <h3 class="fw-bold">USD 343.50</h3>
+                    <hr>
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="col-12">
+                            <i class="bi bi-cart text-primary me-2"></i>
+                            <strong>Ventas</strong><br>
+                            <span class="text-success fw-bold">95.84%</span><br>
+                            <small class="text-muted">USD 230.50</small><br>
+                            <!-- Barra del Progeso del dia aprox 250 dola -->
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 95.84%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-dark w-100 mb-2">🕒 Turno</button>
+                        <button class="btn btn-danger w-100">🚗 Autos Propios</button>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Filtro de Fechas -->
+            <div class="d-flex gap-2 mb-4">
+                <div class="col-6">
+                    Fecha Inicio
+                    <input type="date" class="form-control" placeholder="Fecha Inicio">
+                </div>
+                <div class="col-6">
+                    Fecha Fin
+                    <input type="date" class="form-control" placeholder="Fecha Fin">
+                </div>
+                
+            </div>
+        
+            <!-- Tabla -->
+            <table class="table table-striped">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Código</th>
+                    <th>Usuario</th>
+                    <th>N° Documento</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-body">
+                  <th>XXX</th>
+                  <th>XXX</th>
+                  <th>XXX</th>
+                  <th>XXX</th>
+                  <th>XXX</th>
+                  <th><a href="#" class="text-success">Ver</a></th>
+                </tbody>
+              </table>
+        </div>
+        
+    
+    <!-- ICONOS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+</body>
+</html>
