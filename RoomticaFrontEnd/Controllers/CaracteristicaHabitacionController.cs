@@ -21,8 +21,7 @@ namespace RoomticaFrontEnd.Controllers
                 caracteristicaHabitacionModels.Add(new CaracteristicaHabitacionModel()
                 {
                     Id = item.Id,
-                    Caracteristica = item.Caracteristica,
-                    estado = item.Estado
+                    Caracteristica = item.Caracteristica
                 });
             }
             return View(caracteristicaHabitacionModels);

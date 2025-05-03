@@ -8,7 +8,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class TipoNacionalidadImpl : TipoNacionalidadService.TipoNacionalidadServiceBase
     {
         private readonly ILogger<TipoNacionalidadImpl> _logger;
-        private readonly string cadena = "server=LAPTOP-H88MA8IF\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
 
         public TipoNacionalidadImpl(ILogger<TipoNacionalidadImpl> logger)
         {
@@ -22,7 +22,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
             using (SqlConnection cn = new SqlConnection(cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_listar_tipo_nacionalidades", cn);
+                SqlCommand cmd = new SqlCommand("usp_listar_tipo_nacionalidad", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader dr = cmd.ExecuteReader();
 

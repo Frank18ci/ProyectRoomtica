@@ -9,12 +9,14 @@ go
 
 use db_roomtica
 go
+
 create table caracteristica_habitacion(
 	id int identity(1, 1) primary key,
 	caracteristica varchar(100),
 	estado bit,
 )
 go
+
 create table tipo_habitacion(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
@@ -200,22 +202,22 @@ go
 INSERT INTO caracteristica_habitacion (caracteristica, estado) VALUES
 ('Vista al mar', 1),
 ('Aire acondicionado', 1),
-('Televisión por cable', 1),
+('TelevisiÃ³n por cable', 1),
 ('Caja fuerte', 1),
 ('Minibar', 1),
-('Balcón', 1),
+('BalcÃ³n', 1),
 ('Cama king size', 1),
 ('No fumadores', 1),
 ('Accesible para discapacitados', 1),
 ('Jacuzzi', 1);
 
 INSERT INTO tipo_habitacion (tipo, descripccion, estado) VALUES
-('Individual', 'Habitación para una persona con cama individual.', 1),
-('Doble', 'Habitación con dos camas individuales o una doble.', 1),
-('Suite', 'Habitación amplia con sala y comodidades extras.', 1),
-('Familiar', 'Habitación para familias, con varias camas.', 1),
-('Económica', 'Habitación básica con servicios mínimos.', 1),
-('Premium', 'Habitación de lujo con servicios exclusivos.', 1);
+('Individual', 'HabitaciÃ³n para una persona con cama individual.', 1),
+('Doble', 'HabitaciÃ³n con dos camas individuales o una doble.', 1),
+('Suite', 'HabitaciÃ³n amplia con sala y comodidades extras.', 1),
+('Familiar', 'HabitaciÃ³n para familias, con varias camas.', 1),
+('EconÃ³mica', 'HabitaciÃ³n bÃ¡sica con servicios mÃ­nimos.', 1),
+('Premium', 'HabitaciÃ³n de lujo con servicios exclusivos.', 1);
 
 
 INSERT INTO caracteristica_habitacion_tipo_habitacion (id_caracteristica_habitacion, id_tipo_habitacion, estado) VALUES
@@ -245,7 +247,7 @@ INSERT INTO rol_trabajador (rol, estado) VALUES
 INSERT INTO tipo_documento (tipo, estado) VALUES
 ('DNI', 1),
 ('Pasaporte', 1),
-('Carnet de Extranjería', 1);
+('Carnet de ExtranjerÃ­a', 1);
 
 INSERT INTO tipo_nacionalidad (tipo, estado) VALUES
 ('Peruana', 1),
@@ -666,27 +668,27 @@ INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado)
 ('304', '3', 400.00, 1, 1, 1);
 
 INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) VALUES
-('Carlos', 'Andrés', 'Pérez', 'Ramírez', 'cperez', '1234', 1500.00, 1, '12345678', '987654321', 'carlos@example.com', 1, 1),
-('Ana', 'María', 'Lopez', 'Díaz', 'alopez', 'abcd', 2000.00, 1, '87654321', '912345678', 'ana@example.com', 2, 1),
+('Carlos', 'AndrÃ©s', 'PÃ©rez', 'RamÃ­rez', 'cperez', '1234', 1500.00, 1, '12345678', '987654321', 'carlos@example.com', 1, 1),
+('Ana', 'MarÃ­a', 'Lopez', 'DÃ­az', 'alopez', 'abcd', 2000.00, 1, '87654321', '912345678', 'ana@example.com', 2, 1),
 ('Luis', 'Fernando', 'Mendoza', 'Vega', 'lmendoza', 'pass', 1300.00, 1, '11223344', '987123456', 'luis@example.com', 3, 1),
 ('Elena', 'Paola', 'Torres', 'Gomez', 'etorres', '3210', 1250.00, 1, '22334455', '999123123', 'elena@example.com', 1, 1),
-('Raúl', 'David', 'Cruz', 'Santos', 'rcruz', 'qwerty', 1100.00, 2, '33445566', '988654321', 'raul@example.com', 4, 1),
-('Patricia', 'Sofia', 'Morales', 'Núñez', 'pmorales', 'asdf', 1700.00, 1, '44556677', '911223344', 'patricia@example.com', 2, 1),
+('RaÃºl', 'David', 'Cruz', 'Santos', 'rcruz', 'qwerty', 1100.00, 2, '33445566', '988654321', 'raul@example.com', 4, 1),
+('Patricia', 'Sofia', 'Morales', 'NÃºÃ±ez', 'pmorales', 'asdf', 1700.00, 1, '44556677', '911223344', 'patricia@example.com', 2, 1),
 ('Javier', 'Enrique', 'Vargas', 'Alva', 'jvargas', 'password', 1800.00, 3, '55667788', '944332211', 'javier@example.com', 1, 1),
-('Lucía', 'Isabel', 'Cáceres', 'Mora', 'lcaceres', '9876', 1400.00, 1, '66778899', '922334455', 'lucia@example.com', 3, 1),
-('Ricardo', 'Manuel', 'Salas', 'Ibañez', 'rsalas', '7410', 1600.00, 2, '77889900', '933221100', 'ricardo@example.com', 1, 1),
-('Verónica', 'Fernanda', 'Reyes', 'Palacios', 'vreyes', '3698', 2000.00, 1, '88990011', '911223311', 'vero@example.com', 2, 1);
+('LucÃ­a', 'Isabel', 'CÃ¡ceres', 'Mora', 'lcaceres', '9876', 1400.00, 1, '66778899', '922334455', 'lucia@example.com', 3, 1),
+('Ricardo', 'Manuel', 'Salas', 'IbaÃ±ez', 'rsalas', '7410', 1600.00, 2, '77889900', '933221100', 'ricardo@example.com', 1, 1),
+('VerÃ³nica', 'Fernanda', 'Reyes', 'Palacios', 'vreyes', '3698', 2000.00, 1, '88990011', '911223311', 'vero@example.com', 2, 1);
 
 INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) VALUES
-('Mario', 'Andrés', 'Gómez', 'Paz', 1, '11111111', '900000001', 'mario@gmail.com', '1990-01-01', 1, 1, 1),
-('Lucía', 'María', 'Salinas', 'Lopez', 1, '22222222', '900000002', 'lucia@gmail.com', '1985-05-12', 1, 2, 1),
+('Mario', 'AndrÃ©s', 'GÃ³mez', 'Paz', 1, '11111111', '900000001', 'mario@gmail.com', '1990-01-01', 1, 1, 1),
+('LucÃ­a', 'MarÃ­a', 'Salinas', 'Lopez', 1, '22222222', '900000002', 'lucia@gmail.com', '1985-05-12', 1, 2, 1),
 ('Carmen', 'Patricia', 'Torres', 'Vega', 2, '33333333', '900000003', 'carmen@gmail.com', '1992-07-21', 2, 2, 1),
-('Raúl', 'Ignacio', 'Vargas', 'Soto', 1, '44444444', '900000004', 'raul@gmail.com', '1988-03-14', 3, 1, 1),
+('RaÃºl', 'Ignacio', 'Vargas', 'Soto', 1, '44444444', '900000004', 'raul@gmail.com', '1988-03-14', 3, 1, 1),
 ('Elena', 'Gabriela', 'Martinez', 'Aguilar', 3, '55555555', '900000005', 'elena@gmail.com', '1995-11-30', 4, 2, 1),
 ('Pedro', 'Manuel', 'Reyes', 'Delgado', 1, '66666666', '900000006', 'pedro@gmail.com', '1991-09-05', 1, 1, 1),
-('Claudia', 'Patricia', 'Nuñez', 'Ibarra', 2, '77777777', '900000007', 'claudia@gmail.com', '1987-06-25', 2, 2, 1),
+('Claudia', 'Patricia', 'NuÃ±ez', 'Ibarra', 2, '77777777', '900000007', 'claudia@gmail.com', '1987-06-25', 2, 2, 1),
 ('Jorge', 'Eduardo', 'Flores', 'Pineda', 1, '88888888', '900000008', 'jorge@gmail.com', '1993-08-19', 3, 1, 1),
-('Mónica', 'Isabel', 'Ramirez', 'Quispe', 3, '99999999', '900000009', 'monica@gmail.com', '1997-12-22', 4, 2, 1),
+('MÃ³nica', 'Isabel', 'Ramirez', 'Quispe', 3, '99999999', '900000009', 'monica@gmail.com', '1997-12-22', 4, 2, 1),
 ('Felipe', 'Antonio', 'Ponce', 'Cornejo', 1, '10101010', '900000010', 'felipe@gmail.com', '1990-04-02', 1, 1, 1);
 
 INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado) VALUES
@@ -712,11 +714,12 @@ INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, 
 (8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
 (9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
 (10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
-go
+
 
 create or alter proc usp_listar_productos 
 as
 	select p.id, p.nombre, ump.unidad, cp.categoria, precio_unico, cantidad, p.estado from producto p 
 	join unidad_medida_producto ump on p.id_unidad_medida_producto = ump.id 
 	join categoria_producto cp on p.id_categoria_producto = cp.id
+
 go
