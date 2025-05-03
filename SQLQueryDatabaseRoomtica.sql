@@ -281,70 +281,372 @@ INSERT INTO categoria_producto (categoria, estado) VALUES
 ('Souvenirs', 1);
 go
 
+------------------------------------
+------------------------------------
+
 create or alter proc usp_listar_tipo_habitacion
 as
 	select * from tipo_habitacion
 go
+
+------------------------------------
+------------------------------------
 
 create or alter proc usp_listar_caracteristica_habitacion
 as
 	select * from caracteristica_habitacion
 go
 
+------------------------------------
+------------------------------------
+
 create or alter proc usp_listar_caracteristica_habitacion_tipo_habitacion
 as
     select * from caracteristica_habitacion_tipo_habitacion
 go
+
+------------------------------------
+------------------------------------
 
 create or alter proc usp_listar_estado_habitacion
 as
     select * from estado_habitacion
 go
 
+------------------------------------
+------------------------------------
+
 create or alter proc usp_listar_rol_trabajador
 as
     select * from rol_trabajador
 go
+CREATE or alter proc usp_insertar_rol_trabajador
+    @rol NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO rol_trabajador(rol, estado)
+    VALUES (@rol, @estado);
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+go
+CREATE or alter proc usp_actualizar_rol_trabajador
+    @id INT,
+    @rol NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    UPDATE rol_trabajador
+    SET
+        rol = @rol,
+        estado = @estado
+    WHERE id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_rol_trabajador
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE rol_trabajador
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+------------------------------------
+------------------------------------
 
 create or alter proc usp_listar_tipo_documento
 as
     select * from tipo_documento
 go
+CREATE or alter proc usp_insertar_tipo_documento
+    @tipo NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO tipo_documento(tipo, estado)
+    VALUES (@tipo, @estado);
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+go
+CREATE or alter proc usp_actualizar_tipo_documento
+    @id INT,
+    @tipo NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    UPDATE tipo_documento
+    SET
+        tipo = @tipo,
+        estado = @estado
+    WHERE id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_tipo_documento
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE tipo_documento
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
 
 create or alter proc usp_listar_tipo_nacionalidad
 as
     select * from tipo_nacionalidad
 go
+CREATE or alter proc usp_insertar_tipo_nacionalidad
+    @tipo NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO tipo_nacionalidad(tipo, estado)
+    VALUES (@tipo, @estado);
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+go
+CREATE or alter proc usp_actualizar_tipo_nacionalidad
+    @id INT,
+    @tipo NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    UPDATE tipo_nacionalidad
+    SET
+        tipo = @tipo,
+        estado = @estado
+    WHERE id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_tipo_nacionalidad
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE tipo_nacionalidad
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
 
 create or alter proc usp_listar_tipo_sexo
 as
     select * from tipo_sexo
 go
+go
+CREATE or alter proc usp_insertar_tipo_sexo
+    @tipo NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO tipo_sexo(tipo, estado)
+    VALUES (@tipo, @estado);
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+go
+CREATE or alter proc usp_actualizar_tipo_sexo
+    @id INT,
+    @tipo NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    UPDATE tipo_sexo
+    SET
+        tipo = @tipo,
+        estado = @estado
+    WHERE id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_tipo_sexo
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE tipo_sexo
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
 
 create or alter proc usp_listar_tipo_estacionamiento
 as
     select * from tipo_estacionamiento
 go
 
+------------------------------------
+------------------------------------
+
 create or alter proc usp_listar_tipo_reserva
 as
     select * from tipo_reserva
 go
+
+------------------------------------
+------------------------------------
 
 create or alter proc usp_listar_tipo_comprobante
 as
     select * from tipo_comprobante
 go
 
+------------------------------------
+------------------------------------
+
 create or alter proc usp_listar_unidad_medida_producto
 as
     select * from unidad_medida_producto
 go
-
+CREATE or alter proc usp_insertar_unidad_medida_producto
+    @unidad NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO unidad_medida_producto(unidad, estado)
+    VALUES (@unidad, @estado);
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+go
+CREATE or alter proc usp_actualizar_unidad_medida_producto
+    @id INT,
+    @unidad NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    UPDATE unidad_medida_producto
+    SET
+        unidad = @unidad,
+        estado = @estado
+    WHERE Id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_unidad_medida_producto
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE unidad_medida_producto
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+------------------------------------
+------------------------------------
 create or alter proc usp_listar_categoria_producto
 as
     select * from categoria_producto
 go
+CREATE or alter proc usp_insertar_categoria_producto
+    @categoria NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO categoria_producto(categoria, estado)
+    VALUES (@categoria, @estado);
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+go
+CREATE or alter proc usp_actualizar_categoria_producto
+    @id INT,
+    @categoria NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    UPDATE categoria_producto
+    SET
+        categoria = @categoria,
+        estado = @estado
+    WHERE Id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_categoria_producto
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE categoria_producto
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+create or alter proc usp_listar_productos
+as
+    select * from producto
+go
+CREATE or alter proc usp_crear_producto
+    @nombre NVARCHAR(100),
+    @id_unidad_medida_producto INT,
+    @id_categoria_producto INT,
+    @precio_unico DECIMAL(18, 2),
+    @cantidad INT,
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO producto (Nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado)
+    VALUES (@nombre, @id_unidad_medida_producto, @id_categoria_producto, @precio_unico, @cantidad, @estado);
+
+    
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+GO
+
+CREATE or alter proc usp_actualizar_producto
+	@id INT,
+    @nombre NVARCHAR(100),
+    @id_unidad_medida_producto INT,
+    @id_categoria_producto INT,
+    @precio_unico DECIMAL(18, 2),
+    @cantidad INT,
+    @estado BIT
+AS
+BEGIN
+    UPDATE producto
+    SET
+        Nombre = @nombre,
+        id_unidad_medida_producto = @id_unidad_medida_producto,
+		id_categoria_producto = @id_categoria_producto,
+		precio_unico = @precio_unico,
+		cantidad = @cantidad,
+		estado =@estado
+    WHERE id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_producto
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE producto
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+
 
 --Insertando datos de uso
 
@@ -407,5 +709,3 @@ INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, 
 (8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
 (9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
 (10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
-
-

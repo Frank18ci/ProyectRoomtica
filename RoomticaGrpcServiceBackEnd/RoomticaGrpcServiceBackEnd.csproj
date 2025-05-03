@@ -11,10 +11,21 @@
 	  <Protobuf Include="Protos\tipo_habitacion.proto" GrpcServices="Server" />
       <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\caracteristica_habitacion_tipo_habitacion.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\producto.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\unidad_medida_producto.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\categoria_producto.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_sexo.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_documento.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_nacionalidad.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\rol_trabajador.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.71.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
   </ItemGroup>
 
