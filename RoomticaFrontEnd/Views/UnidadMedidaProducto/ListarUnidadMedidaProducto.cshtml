@@ -11,7 +11,6 @@
             <tr>
                 <th>Id</th>
                 <th>Caracterisiticas</th>
-                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -21,8 +20,8 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Unidad</td>
-                    <td>@item.Estado</td>
                     <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Detail</a> |
                         <a asp-action="Editar" asp-route-id="@item.Id">Editar</a> |
                         <a asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a>
                     </td>

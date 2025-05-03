@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RoomticaFrontEnd.Models.CaracteristicaHabitacionModel>
+﻿@model IEnumerable<RoomticaFrontEnd.Models.ProductoDTOModel>
 @{
     ViewData["Title"] = "Listar Caracteristicas Habitacion";
 }
@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Caracterisiticas</th>
+                <th>Nombre</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -18,7 +18,7 @@
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.Caracteristica</td>
+                    <td>@item.Nombre</td>
                     <td>@item.estado</td>
                     <td>
                         <a asp-action="Detail" asp-route-id="@item.Id">Editar</a>

@@ -6,6 +6,5 @@ namespace RoomticaFrontEnd.Models
     {
         public int ?  Id {  get; set; }
         public string ? Unidad { get; set; }
-        public bool ? Estado { get; set; }
     }
 }

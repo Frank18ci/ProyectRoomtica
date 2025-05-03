@@ -21,12 +21,27 @@ namespace RoomticaFrontEnd.Controllers
                 unidadMedidaProductoModels.Add(new UnidadMedidaProductoModel()
                 {
                     Id = item.Id,
-                    Unidad = item.Unidad,
-                    Estado = item.Estado
+                    Unidad = item.Unidad
                 });
             }
             return View(unidadMedidaProductoModels);
         }
+        public async Task<IActionResult> Details(int id = 0)
+        {
+            var chanal = GrpcChannel.ForAddress("http://localhost:5225");
+            UnidadMedidaProductoService = new UnidadMedidaProductoService.UnidadMedidaProductoServiceClient(chanal);
+            var request = new UnidadMedidaProductoId()
+            {
+                Id = id,
+            };
+            var mensaje = await UnidadMedidaProductoService.GetByIdAsync(request);
+            UnidadMedidaProductoModel unidadMedidaProductoModel = new UnidadMedidaProductoModel()
+            {
+                Id = mensaje.Id,
+                Unidad = mensaje.Unidad
+            };
+            return View(unidadMedidaProductoModel);
+        }
+        }
 
     }
-}

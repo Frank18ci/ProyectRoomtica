@@ -9,7 +9,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
     {
 
         private readonly ILogger<ProductoImpl> _logger;
-        private readonly string cadena = "server=LAPTOP-H88MA8IF\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
 
         public ProductoImpl(ILogger<ProductoImpl> logger)
         {
@@ -29,12 +29,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
                 while (dr.Read())
                 {
-                    productos.Productos_.Add(new Producto
+                    productos.Productos_.Add(new ProductoDTO
                     {
                         Id = dr.GetInt32(0),
                         Nombre = dr.GetString(1),
-                        IdUnidadMedidaProducto = dr.GetInt32(2),
-                        IdCategoriaProducto = dr.GetInt32(3),
+                        UnidadMedidaProducto = dr.GetString(2),
+                        CategoriaProducto = dr.GetString(3),
                         PrecioUnico = dr.GetDouble(4),
                         Cantidad = dr.GetInt32(5),
                         Estado = dr.GetBoolean(6)
