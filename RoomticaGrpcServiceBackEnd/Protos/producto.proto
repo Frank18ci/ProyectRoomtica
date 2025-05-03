@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service ProductoService {
     rpc GetAll(google.protobuf.Empty) returns (Productos);
+    rpc GetByIdDTO(ProductoId) returns (ProductoDTO);
     rpc GetById(ProductoId) returns (Producto);
     rpc Create(Producto) returns (Producto);
     rpc Update(Producto) returns (Producto);
@@ -23,9 +24,18 @@ message Producto {
     int32 cantidad = 6;
     bool estado = 7;
 }
+message ProductoDTO{
+    int32 id = 1;
+    string nombre = 2;
+    string unidad_medida_producto = 3;
+    string categoria_producto = 4;
+    double precio_unico = 5;
+    int32 cantidad = 6;
+    bool estado = 7;
+}
 
 message Productos {
-    repeated Producto productos = 1;
+    repeated ProductoDTO productos = 1;
 }
 
 message ProductoId {
