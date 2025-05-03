@@ -1,6 +1,9 @@
 use master
 go
 
+drop database db_roomtica
+go
+
 create database db_roomtica
 go
 
@@ -709,3 +712,11 @@ INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, 
 (8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
 (9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
 (10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
+go
+
+create or alter proc usp_listar_productos 
+as
+	select p.id, p.nombre, ump.unidad, cp.categoria, precio_unico, cantidad, p.estado from producto p 
+	join unidad_medida_producto ump on p.id_unidad_medida_producto = ump.id 
+	join categoria_producto cp on p.id_categoria_producto = cp.id
+go
