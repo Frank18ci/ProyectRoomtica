@@ -8,7 +8,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class RolTrabajadorImpl : RolTrabajadorService.RolTrabajadorServiceBase
     {
         private readonly ILogger<RolTrabajadorImpl> _logger;
-        private readonly string cadena = "server=LAPTOP-H88MA8IF\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
 
         public RolTrabajadorImpl(ILogger<RolTrabajadorImpl> logger)
         {

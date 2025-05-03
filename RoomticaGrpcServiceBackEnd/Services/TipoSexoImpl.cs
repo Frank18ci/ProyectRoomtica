@@ -7,7 +7,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class TipoSexoImpl : TipoSexoService.TipoSexoServiceBase
     {
         private readonly ILogger<TipoSexoImpl> _logger;
-        private readonly string cadena = "server=LAPTOP-H88MA8IF\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
 
         public TipoSexoImpl(ILogger<TipoSexoImpl> logger)
         {

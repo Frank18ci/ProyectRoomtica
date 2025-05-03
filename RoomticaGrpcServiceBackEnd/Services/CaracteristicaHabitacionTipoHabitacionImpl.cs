@@ -7,7 +7,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class CaracteristicaHabitacionTipoHabitacionImpl : CaracteristicaHabitacionTipoHabitacionService.CaracteristicaHabitacionTipoHabitacionServiceBase
     {
         private readonly ILogger<CaracteristicaHabitacionTipoHabitacionImpl> _logger;
-        private readonly string cadena = "server=LAPTOP-H88MA8IF\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
         private List<CaracteristicaHabitacionTipoHabitacion> caracteristicaHabitacionTipoHabitaciones;
         public CaracteristicaHabitacionTipoHabitacionImpl(ILogger<CaracteristicaHabitacionTipoHabitacionImpl> logger)
         {

@@ -6,12 +6,14 @@ go
 
 use db_roomtica
 go
+
 create table caracteristica_habitacion(
 	id int identity(1, 1) primary key,
 	caracteristica varchar(100),
 	estado bit,
 )
 go
+
 create table tipo_habitacion(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
@@ -709,3 +711,6 @@ INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, 
 (8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
 (9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
 (10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
+
+select * from rol_trabajador
+go
