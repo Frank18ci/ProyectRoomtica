@@ -9,7 +9,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
     {
         private readonly ILogger<CaracteristicaHabitacionImpl> _logger;
-        private readonly string cadena = "server=CARPIO\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=LAPTOP-H88MA8IF\\SQLEXPRESS;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
         private List<CaracteristicaHabitacion> caracteristicaHabitacions;
         public CaracteristicaHabitacionImpl(ILogger<CaracteristicaHabitacionImpl> logger)
         {

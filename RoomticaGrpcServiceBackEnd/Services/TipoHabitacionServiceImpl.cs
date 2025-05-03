@@ -8,7 +8,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
     {
         private readonly ILogger<TipoHabitacionServiceImpl> logger;
         private List<TipoHabitacion> ListtipoHabitaciones;
-        private readonly string cadena = "server=CARPIO\\SQLEXPRESS; trusted_connection=true; database=db_roomtica; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena = "server=LAPTOP-H88MA8IF\\SQLEXPRESS; trusted_connection=true; database=db_roomtica; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
         public TipoHabitacionServiceImpl(ILogger<TipoHabitacionServiceImpl> logger)
         {
             this.logger = logger;

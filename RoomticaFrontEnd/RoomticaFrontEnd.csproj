@@ -23,8 +23,29 @@
     <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\caracteristica_habitacion_tipo_habitacion.proto" GrpcServices="Client">
       <Link>Protos\caracteristica_habitacion_tipo_habitacion.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\categoria_producto.proto" GrpcServices="Client">
+      <Link>Protos\categoria_producto.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\producto.proto" GrpcServices="Client">
+      <Link>Protos\producto.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\rol_trabajador.proto" GrpcServices="Client">
+      <Link>Protos\rol_trabajador.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_documento.proto" GrpcServices="Client">
+      <Link>Protos\tipo_documento.proto</Link>
+    </Protobuf>
     <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_habitacion.proto" GrpcServices="Client">
       <Link>Protos\tipo_habitacion.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_nacionalidad.proto" GrpcServices="Client">
+      <Link>Protos\tipo_nacionalidad.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_sexo.proto" GrpcServices="Client">
+      <Link>Protos\tipo_sexo.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\unidad_medida_producto.proto" GrpcServices="Client">
+      <Link>Protos\unidad_medida_producto.proto</Link>
     </Protobuf>
   </ItemGroup>
 
