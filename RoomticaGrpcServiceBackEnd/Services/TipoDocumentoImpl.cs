@@ -8,11 +8,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class TipoDocumentoImpl : TipoDocumentoService.TipoDocumentoServiceBase
     {
         private readonly ILogger<TipoDocumentoImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena ;
 
-        public TipoDocumentoImpl(ILogger<TipoDocumentoImpl> logger)
+        public TipoDocumentoImpl(ILogger<TipoDocumentoImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
 
         public override Task<TipoDocumentos> GetAll(Empty request, ServerCallContext context)

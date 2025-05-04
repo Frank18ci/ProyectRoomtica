@@ -8,16 +8,28 @@
 
   <ItemGroup>
       <Protobuf Include="Protos\caracteristica_habitacion.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\tipo_habitacion.proto" GrpcServices="Server" />
-      <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\caracteristica_habitacion_tipo_habitacion.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\producto.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\unidad_medida_producto.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\categoria_producto.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\tipo_sexo.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\tipo_documento.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\tipo_nacionalidad.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\cliente.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\consumo.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\estacionamiento.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\estado_habitacion.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\habitacion.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\pago.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\producto.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\reserva.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\reserva_estacionamiento.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\rol_trabajador.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_Comprobante.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_documento.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_estacionamiento.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_habitacion.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_nacionalidad.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_reserva.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tipo_sexo.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\trabajador.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\unidad_medida_producto.proto" GrpcServices="Server" />
+	  
   </ItemGroup>
 
   <ItemGroup>

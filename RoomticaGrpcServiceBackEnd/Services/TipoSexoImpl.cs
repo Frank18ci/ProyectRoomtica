@@ -1,17 +1,19 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace RoomticaGrpcServiceBackEnd.Services
 {
     public class TipoSexoImpl : TipoSexoService.TipoSexoServiceBase
     {
         private readonly ILogger<TipoSexoImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena ;
 
-        public TipoSexoImpl(ILogger<TipoSexoImpl> logger)
+        public TipoSexoImpl(ILogger<TipoSexoImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
 
         public override Task<TipoSexos> GetAll(Empty request, ServerCallContext context)

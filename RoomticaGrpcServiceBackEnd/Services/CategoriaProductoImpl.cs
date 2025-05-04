@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaGrpcServiceBackEnd.Services
@@ -8,12 +9,13 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class CategoriaProductoImpl : CategoriaProductoService.CategoriaProductoServiceBase
     {
         private readonly ILogger<CategoriaProductoImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena;
         private List<CategoriaProducto> categoriaProductos;
 
-        public CategoriaProductoImpl(ILogger<CategoriaProductoImpl> logger)
+        public CategoriaProductoImpl(ILogger<CategoriaProductoImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
+            cadena = configuration.GetConnectionString("DefaultConnection");
             categoriaProductos = ListarCategoriaProductos();
         }
 
@@ -28,11 +30,11 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    temporal.Add(new CategoriaProducto()
+                    temporal.Add(new CategoriaProducto
                     {
                         Id = dr.GetInt32(0),
                         Categoria = dr.GetString(1),
-                        Estado = dr.GetBoolean(2)
+                        //Estado = dr.GetBoolean(2)
                     });
                 }
                 dr.Close();
@@ -42,27 +44,23 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
         public override Task<CategoriaProductos> GetAll(Empty request, ServerCallContext context)
         {
-            CategoriaProductos response = new CategoriaProductos();
-            response.CategoriaProductos_.AddRange(categoriaProductos);
-            return Task.FromResult(response);
+            CategoriaProductos result = new CategoriaProductos();
+            result.CategoriaProductos_.AddRange(categoriaProductos);
+            return Task.FromResult(result);
         }
 
         public override Task<CategoriaProducto> GetById(CategoriaProductoId request, ServerCallContext context)
         {
-            CategoriaProducto producto = categoriaProductos.FirstOrDefault(p => p.Id == request.Id);
-            if (producto == null)
-            {
-                throw new RpcException(new Status(StatusCode.NotFound, $"Producto con ID {request.Id} no encontrado."));
-            }
-            return Task.FromResult(producto);
+            var categoria = categoriaProductos.FirstOrDefault(c => c.Id == request.Id);
+            return Task.FromResult(categoria ?? new CategoriaProducto());
         }
 
         public override Task<CategoriaProductos> GetByCategoria(CategoriaProductoCategoria request, ServerCallContext context)
         {
-            var filtrados = categoriaProductos.Where(p => p.Categoria.Equals(request.Categoria, StringComparison.OrdinalIgnoreCase)).ToList();
-            CategoriaProductos response = new CategoriaProductos();
-            response.CategoriaProductos_.AddRange(filtrados);
-            return Task.FromResult(response);
+            var filtered = categoriaProductos.Where(c => c.Categoria.ToLower() == request.Categoria.ToLower()).ToList();
+            CategoriaProductos result = new CategoriaProductos();
+            result.CategoriaProductos_.AddRange(filtered);
+            return Task.FromResult(result);
         }
 
         public override Task<CategoriaProducto> Create(CategoriaProducto request, ServerCallContext context)
@@ -70,14 +68,13 @@ namespace RoomticaGrpcServiceBackEnd.Services
             using (SqlConnection cn = new SqlConnection(cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_insertar_categoria_producto", cn);
+                SqlCommand cmd = new SqlCommand("usp_crear_categoria_producto", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@categoria", request.Categoria);
-                cmd.Parameters.AddWithValue("@estado", request.Estado);
-                int idGenerado = Convert.ToInt32(cmd.ExecuteScalar());
-                request.Id = idGenerado;
+                var id = Convert.ToInt32(cmd.ExecuteScalar());
+                request.Id = id;
+                categoriaProductos.Add(request);
             }
-            categoriaProductos.Add(request);
             return Task.FromResult(request);
         }
 
@@ -90,16 +87,14 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
                 cmd.Parameters.AddWithValue("@categoria", request.Categoria);
-                cmd.Parameters.AddWithValue("@estado", request.Estado);
                 cmd.ExecuteNonQuery();
-            }
 
-            var index = categoriaProductos.FindIndex(p => p.Id == request.Id);
-            if (index != -1)
-            {
-                categoriaProductos[index] = request;
+                var index = categoriaProductos.FindIndex(c => c.Id == request.Id);
+                if (index >= 0)
+                {
+                    categoriaProductos[index] = request;
+                }
             }
-
             return Task.FromResult(request);
         }
 
@@ -112,10 +107,9 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
                 cmd.ExecuteNonQuery();
+
+                categoriaProductos.RemoveAll(c => c.Id == request.Id);
             }
-
-            categoriaProductos.RemoveAll(p => p.Id == request.Id);
-
             return Task.FromResult(new Empty());
         }
     }

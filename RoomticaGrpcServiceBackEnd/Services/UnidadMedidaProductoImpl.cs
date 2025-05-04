@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaGrpcServiceBackEnd.Services
@@ -8,13 +9,14 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class UnidadMedidaProductoImpl : UnidadMedidaProductoService.UnidadMedidaProductoServiceBase
     {
         private readonly ILogger<UnidadMedidaProductoImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena ;
         private List<UnidadMedidaProducto> unidadMedidaProductos;
 
-        public UnidadMedidaProductoImpl(ILogger<UnidadMedidaProductoImpl> logger)
+        public UnidadMedidaProductoImpl(ILogger<UnidadMedidaProductoImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
             unidadMedidaProductos = ListarUnidadMedidaProductos();
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
 
         List<UnidadMedidaProducto> ListarUnidadMedidaProductos()
@@ -32,7 +34,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     {
                         Id = dr.GetInt32(0),
                         Unidad = dr.GetString(1),
-                        Estado = dr.GetBoolean(2)
+                        //Estado = dr.GetBoolean(2)
                     });
                 }
                 dr.Close();
@@ -69,7 +71,6 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 SqlCommand cmd = new SqlCommand("usp_crear_unidad_medida_producto", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@unidad", request.Unidad);
-                cmd.Parameters.AddWithValue("@estado", request.Estado);
                 var id = Convert.ToInt32(cmd.ExecuteScalar());
                 request.Id = id;
                 unidadMedidaProductos.Add(request);
@@ -86,7 +87,6 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
                 cmd.Parameters.AddWithValue("@unidad", request.Unidad);
-                cmd.Parameters.AddWithValue("@estado", request.Estado);
                 cmd.ExecuteNonQuery();
 
                 var index = unidadMedidaProductos.FindIndex(p => p.Id == request.Id);

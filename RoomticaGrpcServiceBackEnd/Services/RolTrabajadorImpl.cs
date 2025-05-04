@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaGrpcServiceBackEnd.Services
@@ -8,11 +9,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class RolTrabajadorImpl : RolTrabajadorService.RolTrabajadorServiceBase
     {
         private readonly ILogger<RolTrabajadorImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena ;
 
-        public RolTrabajadorImpl(ILogger<RolTrabajadorImpl> logger)
+        public RolTrabajadorImpl(ILogger<RolTrabajadorImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
 
         public override Task<RolTrabajadores> GetAll(Empty request, ServerCallContext context)
@@ -22,7 +24,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
             using (SqlConnection cn = new SqlConnection(cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_listar_roles_trabajador", cn);
+                SqlCommand cmd = new SqlCommand("usp_listar_rol_trabajador", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader dr = cmd.ExecuteReader();
 
@@ -101,7 +103,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@rol", request.Rol);
                 cmd.Parameters.AddWithValue("@estado", request.Estado);
-                request.Id = Convert.ToInt32(cmd.ExecuteScalar()); // suponiendo que SP devuelve ID generado
+                request.Id = Convert.ToInt32(cmd.ExecuteScalar()); 
             }
 
             return Task.FromResult(request);

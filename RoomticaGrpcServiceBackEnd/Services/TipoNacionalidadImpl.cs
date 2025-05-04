@@ -8,11 +8,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class TipoNacionalidadImpl : TipoNacionalidadService.TipoNacionalidadServiceBase
     {
         private readonly ILogger<TipoNacionalidadImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena ;
 
-        public TipoNacionalidadImpl(ILogger<TipoNacionalidadImpl> logger)
+        public TipoNacionalidadImpl(ILogger<TipoNacionalidadImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
 
         public override Task<TipoNacionalidades> GetAll(Empty request, ServerCallContext context)

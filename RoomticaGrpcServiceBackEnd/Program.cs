@@ -8,11 +8,11 @@ builder.Services.AddGrpc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.MapGrpcService<GreeterService>();
 app.MapGrpcService<CaracteristicaHabitacionImpl>();
+app.MapGrpcService<CaracteristicaHabitacionTipoHabitacionImpl>();
 app.MapGrpcService<TipoHabitacionServiceImpl>();
 app.MapGrpcService<UnidadMedidaProductoImpl>();
-app.MapGrpcService<ProductoImpl>();
+app.MapGrpcService<ProductoServiceImpl>();
 app.MapGrpcService<CategoriaProductoImpl>();
 app.MapGrpcService<RolTrabajadorImpl>();
 app.MapGrpcService<TipoDocumentoImpl>();
