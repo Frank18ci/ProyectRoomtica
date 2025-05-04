@@ -18,7 +18,7 @@ service UnidadMedidaProductoService {
 message UnidadMedidaProducto {
     int32 id = 1;
     string unidad = 2;
-    bool estado = 3;
+    //bool estado = 3;
 }
 
 message UnidadMedidaProductos {

@@ -34,7 +34,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     {
                         Id = dr.GetInt32(0),
                         Unidad = dr.GetString(1),
-                        Estado = dr.GetBoolean(2)
+                        //Estado = dr.GetBoolean(2)
                     });
                 }
                 dr.Close();
