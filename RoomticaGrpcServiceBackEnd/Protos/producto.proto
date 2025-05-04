@@ -35,7 +35,7 @@ message ProductoDTO{
 }
 
 message Productos {
-    repeated ProductoDTO productos = 1;
+    repeated ProductoDTO productos_ = 1;
 }
 
 message ProductoId {

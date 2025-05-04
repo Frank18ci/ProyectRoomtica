@@ -8,13 +8,14 @@ namespace RoomticaGrpcServiceBackEnd.Services
     public class CategoriaProductoImpl : CategoriaProductoService.CategoriaProductoServiceBase
     {
         private readonly ILogger<CategoriaProductoImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena ;
         private List<CategoriaProducto> categoriaProductos;
 
-        public CategoriaProductoImpl(ILogger<CategoriaProductoImpl> logger)
+        public CategoriaProductoImpl(ILogger<CategoriaProductoImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
             categoriaProductos = ListarCategoriaProductos();
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
 
         private List<CategoriaProducto> ListarCategoriaProductos()

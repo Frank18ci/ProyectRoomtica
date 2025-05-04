@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaGrpcServiceBackEnd.Services
@@ -9,13 +10,16 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
     {
         private readonly ILogger<CaracteristicaHabitacionImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena;
         private List<CaracteristicaHabitacion> caracteristicaHabitacions;
-        public CaracteristicaHabitacionImpl(ILogger<CaracteristicaHabitacionImpl> logger)
+        public CaracteristicaHabitacionImpl(ILogger<CaracteristicaHabitacionImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
             caracteristicaHabitacions = listarCaracteristicaHabitacions();
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
+
+
         List<CaracteristicaHabitacion> listarCaracteristicaHabitacions()
         {
             List<CaracteristicaHabitacion> temporal = new List<CaracteristicaHabitacion>();

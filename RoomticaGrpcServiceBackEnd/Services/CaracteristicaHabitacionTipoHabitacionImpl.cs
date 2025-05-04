@@ -1,18 +1,20 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace RoomticaGrpcServiceBackEnd.Services
 {
     public class CaracteristicaHabitacionTipoHabitacionImpl : CaracteristicaHabitacionTipoHabitacionService.CaracteristicaHabitacionTipoHabitacionServiceBase
     {
         private readonly ILogger<CaracteristicaHabitacionTipoHabitacionImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena;
         private List<CaracteristicaHabitacionTipoHabitacion> caracteristicaHabitacionTipoHabitaciones;
-        public CaracteristicaHabitacionTipoHabitacionImpl(ILogger<CaracteristicaHabitacionTipoHabitacionImpl> logger)
+        public CaracteristicaHabitacionTipoHabitacionImpl(ILogger<CaracteristicaHabitacionTipoHabitacionImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
             caracteristicaHabitacionTipoHabitaciones = listarCaracteristicaHabitacionTipoHabitaciones();
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
         List<CaracteristicaHabitacionTipoHabitacion> listarCaracteristicaHabitacionTipoHabitaciones()
         {
