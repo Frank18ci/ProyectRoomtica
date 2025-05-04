@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service ReservaEstacionamientoService {
     rpc GetAll(google.protobuf.Empty) returns (ReservaEstacionamientos);
+    rpc GetByIdDTO(ReservaEstacionamientoId) returns (ReservaEstacionamientoDTO);
     rpc GetById(ReservaEstacionamientoId) returns (ReservaEstacionamiento);
     rpc Create(ReservaEstacionamiento) returns (ReservaEstacionamiento);
     rpc Update(ReservaEstacionamiento) returns (ReservaEstacionamiento);
@@ -21,9 +22,16 @@ message ReservaEstacionamiento {
     double precio_estacionamiento = 4;
     bool estado = 5;
 }
+message ReservaEstacionamientoDTO {
+    string id_reserva = 1;
+    string id_estacionamiento = 2;
+    int32 cantidad = 3;
+    double precio_estacionamiento = 4;
+    bool estado = 5;
+}
 
 message ReservaEstacionamientos {
-    repeated ReservaEstacionamiento reservaEstacionamientos = 1;
+    repeated ReservaEstacionamientoDTO reservaEstacionamientos_ = 1;
 }
 
 message ReservaEstacionamientoId {
