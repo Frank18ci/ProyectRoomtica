@@ -188,6 +188,7 @@ create table producto(
 	estado bit,
 )
 go
+
 create table consumo(
 	id int identity(1, 1) primary key,
 	id_reserva int references reserva,
@@ -284,6 +285,29 @@ INSERT INTO categoria_producto (categoria, estado) VALUES
 ('Snacks', 1),
 ('Higiene', 1),
 ('Souvenirs', 1);
+go
+
+INSERT INTO producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado) VALUES
+('Agua Mineral 500ml', 2, 1, 1.50, 100, 1),
+('Gaseosa Cola 1L', 2, 1, 2.00, 80, 1),
+('Papas Fritas 150g', 3, 2, 1.80, 120, 1),
+('Chocolate Barra 100g', 3, 2, 2.50, 90, 1),
+('Jabón de Tocador', 1, 3, 1.20, 150, 1),
+('Cepillo de Dientes', 1, 3, 0.95, 130, 1),
+('Shampoo 250ml', 2, 3, 3.75, 60, 1),
+('Toalla Recuerdo', 1, 4, 5.00, 40, 1),
+('Llavero de Madera', 1, 4, 2.00, 70, 1),
+('Caja de Galletas', 4, 2, 4.50, 50, 1),
+('Jugo de Naranja 1L', 2, 1, 2.20, 75, 1),
+('Agua Tónica 500ml', 2, 1, 1.60, 65, 1),
+('Caramelo Menta 50g', 3, 2, 0.75, 200, 1),
+('Desodorante Spray', 1, 3, 4.20, 55, 1),
+('Crema Corporal 200ml', 2, 3, 6.50, 45, 1),
+('Camiseta Recuerdo', 1, 4, 8.00, 30, 1),
+('Botella Deportiva', 1, 4, 6.00, 35, 1),
+('Caja de Chocolates', 4, 2, 7.80, 25, 1),
+('Bebida Energética 500ml', 2, 1, 2.90, 85, 1),
+('Snack de Frutas 100g', 3, 2, 1.90, 95, 1);
 go
 
 ------------------------------------
@@ -493,7 +517,6 @@ create or alter proc usp_listar_tipo_estacionamiento
 as
     select * from tipo_estacionamiento
 go
-
 ------------------------------------
 ------------------------------------
 
@@ -714,7 +737,7 @@ INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, 
 (8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
 (9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
 (10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
-
+go
 
 create or alter proc usp_listar_productos 
 as

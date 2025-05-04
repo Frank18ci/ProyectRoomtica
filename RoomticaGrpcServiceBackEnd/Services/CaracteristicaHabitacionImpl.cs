@@ -15,8 +15,9 @@ namespace RoomticaGrpcServiceBackEnd.Services
         public CaracteristicaHabitacionImpl(ILogger<CaracteristicaHabitacionImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
-            caracteristicaHabitacions = listarCaracteristicaHabitacions();
             cadena = configuration.GetConnectionString("DefaultConnection");
+            caracteristicaHabitacions = listarCaracteristicaHabitacions();
+            
         }
 
 

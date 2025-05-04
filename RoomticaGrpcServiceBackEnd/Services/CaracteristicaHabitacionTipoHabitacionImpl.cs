@@ -13,8 +13,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
         public CaracteristicaHabitacionTipoHabitacionImpl(ILogger<CaracteristicaHabitacionTipoHabitacionImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
-            caracteristicaHabitacionTipoHabitaciones = listarCaracteristicaHabitacionTipoHabitaciones();
             cadena = configuration.GetConnectionString("DefaultConnection");
+            caracteristicaHabitacionTipoHabitaciones = listarCaracteristicaHabitacionTipoHabitaciones();
         }
         List<CaracteristicaHabitacionTipoHabitacion> listarCaracteristicaHabitacionTipoHabitaciones()
         {
