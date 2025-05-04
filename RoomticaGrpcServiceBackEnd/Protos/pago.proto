@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service PagoService {
     rpc GetAll(google.protobuf.Empty) returns (Pagos);
+    rpc GetByIdDTO(PagoId) returns (PagoDTO);
     rpc GetById(PagoId) returns (Pago);
     rpc Create(Pago) returns (Pago);
     rpc Update(Pago) returns (Pago);
@@ -24,9 +25,19 @@ message Pago {
     string fecha_pago = 7;
     bool estado = 8;
 }
+message PagoDTO {
+    int32 id = 1;
+    string id_reserva = 2;
+    string id_tipo_comprobante = 3;
+    double igv = 4;
+    double total_pago = 5;
+    string fecha_emision = 6;
+    string fecha_pago = 7;
+    bool estado = 8;
+}
 
 message Pagos {
-    repeated Pago pagos = 1;
+    repeated PagoDTO pagos_ = 1;
 }
 
 message PagoId {
