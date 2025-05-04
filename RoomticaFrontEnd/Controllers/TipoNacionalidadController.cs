@@ -3,6 +3,7 @@ using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using RoomticaFrontEnd.Models;
 using RoomticaGrpcServiceBackEnd;
+using static RoomticaGrpcServiceBackEnd.CategoriaProductoService;
 
 namespace RoomticaFrontEnd.Controllers
 {
@@ -25,6 +26,24 @@ namespace RoomticaFrontEnd.Controllers
                 });
             }
             return View(tipoNacionalidadModels);
+        }
+
+        public async Task<ActionResult> Detail(int id = 0)
+        {
+            var canal = GrpcChannel.ForAddress("http://localhost:5225");
+            tipoNacionalidadService = new TipoNacionalidadService.TipoNacionalidadServiceClient(canal);
+            var request = new TipoNacionalidadId()
+            {
+                Id = id,
+            };
+            var mensaje = await tipoNacionalidadService.GetByIdAsync(request);
+
+            TipoNacionalidadModel tipoNacionalidadModel = new TipoNacionalidadModel()
+            {
+                Id = mensaje.Id,
+                tipo = mensaje.Tipo
+            };
+            return View(tipoNacionalidadModel);
         }
 
         public IActionResult Index()

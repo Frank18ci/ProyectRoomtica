@@ -33,7 +33,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         Nombre = dr.GetString(1),
                         UnidadMedidaProducto = dr.GetString(2),
                         CategoriaProducto = dr.GetString(3),
-                        PrecioUnico = dr.GetDouble(4),
+                        PrecioUnico = Double.Parse(dr.GetDecimal(4).ToString()),
                         Cantidad = dr.GetInt32(5),
                         Estado = dr.GetBoolean(6)
                     });
@@ -62,7 +62,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         Nombre = dr.GetString(1),
                         UnidadMedidaProducto = dr.GetString(2),
                         CategoriaProducto = dr.GetString(3),
-                        PrecioUnico = dr.GetDouble(4),
+                        PrecioUnico = Double.Parse(dr.GetDecimal(4).ToString()),
                         Cantidad = dr.GetInt32(5),
                         Estado = dr.GetBoolean(6)
                     };
