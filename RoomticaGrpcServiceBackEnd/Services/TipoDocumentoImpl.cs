@@ -85,7 +85,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 {
                     tipoDocumento.Id = dr.GetInt32(0);
                     tipoDocumento.Tipo = dr.GetString(1);
-                    tipoDocumento.Estado = dr.GetBoolean(2);
+                    //tipoDocumento.Estado = dr.GetBoolean(2);
                 }
                 dr.Close();
             }

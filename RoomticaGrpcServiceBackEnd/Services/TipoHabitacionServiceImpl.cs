@@ -12,8 +12,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
         public TipoHabitacionServiceImpl(ILogger<TipoHabitacionServiceImpl> logger, IConfiguration configuration)
         {
             this.logger = logger;
-            ListtipoHabitaciones = listarTipoHabitacions();
             cadena = configuration.GetConnectionString("DefaultConnection");
+            ListtipoHabitaciones = listarTipoHabitacions();
         }
         List<TipoHabitacion> listarTipoHabitacions()
         {

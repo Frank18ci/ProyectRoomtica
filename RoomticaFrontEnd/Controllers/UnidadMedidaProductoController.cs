@@ -9,7 +9,7 @@ namespace RoomticaFrontEnd.Controllers
     public class UnidadMedidaProductoController : Controller
     {
         private UnidadMedidaProductoService.UnidadMedidaProductoServiceClient? UnidadMedidaProductoService;
-        public async Task<IActionResult> ListarUnidadMedidaProducto()
+        public async Task<IActionResult> Listar()
         {
             var chanal = GrpcChannel.ForAddress("http://localhost:5225");
             UnidadMedidaProductoService = new UnidadMedidaProductoService.UnidadMedidaProductoServiceClient(chanal);

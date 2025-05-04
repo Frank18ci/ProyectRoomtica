@@ -15,8 +15,9 @@ namespace RoomticaGrpcServiceBackEnd.Services
         public UnidadMedidaProductoImpl(ILogger<UnidadMedidaProductoImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
-            unidadMedidaProductos = ListarUnidadMedidaProductos();
             cadena = configuration.GetConnectionString("DefaultConnection");
+            unidadMedidaProductos = ListarUnidadMedidaProductos();
+            
         }
 
         List<UnidadMedidaProducto> ListarUnidadMedidaProductos()
