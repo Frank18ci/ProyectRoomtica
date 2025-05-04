@@ -3,109 +3,105 @@ using Grpc.Core;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using RoomticaGrpcServiceBackEnd;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RoomticaGrpcServiceBackEnd.Services
 {
-    public class TipoHabitacionServiceImpl : TipoHabitacionService.TipoHabitacionServiceBase
+    public class CategoriaProductoServiceImpl : CategoriaProductoService.CategoriaProductoServiceBase
     {
         private readonly string _cadena;
-        private readonly ILogger<TipoHabitacionServiceImpl> _logger;
+        private readonly ILogger<CategoriaProductoServiceImpl> _logger;
 
-        public TipoHabitacionServiceImpl(IConfiguration configuration, ILogger<TipoHabitacionServiceImpl> logger)
+        public CategoriaProductoServiceImpl(IConfiguration configuration, ILogger<CategoriaProductoServiceImpl> logger)
         {
             _cadena = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
         }
 
-        public override Task<TipoHabitaciones> GetAll(Empty request, ServerCallContext context)
+        public override Task<CategoriaProductos> GetAll(Empty request, ServerCallContext context)
         {
-            List<TipoHabitacion> lista = new List<TipoHabitacion>();
+            List<CategoriaProducto> lista = new List<CategoriaProducto>();
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_listar_tipo_habitacion", cn);
+                SqlCommand cmd = new SqlCommand("usp_listar_categorias_producto", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    lista.Add(new TipoHabitacion
+                    lista.Add(new CategoriaProducto
                     {
                         Id = dr.GetInt32(0),
-                        Tipo = dr.GetString(1),
-                        Descripccion = dr.GetString(2),
-                        Estado = dr.GetBoolean(3)
+                        Categoria = dr.GetString(1),
+                        Estado = dr.GetBoolean(2)
                     });
                 }
                 dr.Close();
             }
-
-            var tipoHabitaciones = new TipoHabitaciones();
-            tipoHabitaciones.TipoHabitaciones_.AddRange(lista);
-            return Task.FromResult(tipoHabitaciones);
+            var categorias = new CategoriaProductos();
+            categorias.CategoriaProductos_.AddRange(lista);
+            return Task.FromResult(categorias);
         }
 
-        public override Task<TipoHabitaciones> GetByTipo(TipoHabitacionTipo request, ServerCallContext context)
+        public override Task<CategoriaProductos> GetByCategoria(CategoriaProductoCategoria request, ServerCallContext context)
         {
-            List<TipoHabitacion> lista = new List<TipoHabitacion>();
+            List<CategoriaProducto> lista = new List<CategoriaProducto>();
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_listar_tipo_habitacion_por_tipo", cn);
+                SqlCommand cmd = new SqlCommand("usp_obtener_categoria_producto_por_categoria", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@tipo", request.Tipo);
+                cmd.Parameters.AddWithValue("@categoria", request.Categoria);
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    lista.Add(new TipoHabitacion
+                    lista.Add(new CategoriaProducto
                     {
                         Id = dr.GetInt32(0),
-                        Tipo = dr.GetString(1),
-                        Descripccion = dr.GetString(2),
-                        Estado = dr.GetBoolean(3)
+                        Categoria = dr.GetString(1),
+                        Estado = dr.GetBoolean(2)
                     });
                 }
                 dr.Close();
             }
-
-            var tipoHabitaciones = new TipoHabitaciones();
-            tipoHabitaciones.TipoHabitaciones_.AddRange(lista);
-            return Task.FromResult(tipoHabitaciones);
+            var categorias = new CategoriaProductos();
+            categorias.CategoriaProductos_.AddRange(lista);
+            return Task.FromResult(categorias);
         }
 
-        public override Task<TipoHabitacion> GetById(TipoHabitacionId request, ServerCallContext context)
+        public override Task<CategoriaProducto> GetById(CategoriaProductoId request, ServerCallContext context)
         {
-            TipoHabitacion? tipoHabitacion = null;
+            CategoriaProducto? categoria = null;
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_obtener_tipo_habitacion_por_id", cn);
+                SqlCommand cmd = new SqlCommand("usp_obtener_categoria_producto_por_id", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    tipoHabitacion = new TipoHabitacion
+                    categoria = new CategoriaProducto
                     {
                         Id = dr.GetInt32(0),
-                        Tipo = dr.GetString(1),
-                        Descripccion = dr.GetString(2),
-                        Estado = dr.GetBoolean(3)
+                        Categoria = dr.GetString(1),
+                        Estado = dr.GetBoolean(2)
                     };
                 }
                 dr.Close();
             }
-            return Task.FromResult(tipoHabitacion);
+            return Task.FromResult(categoria);
         }
 
-        public override Task<TipoHabitacion> Create(TipoHabitacion request, ServerCallContext context)
+        public override Task<CategoriaProducto> Create(CategoriaProducto request, ServerCallContext context)
         {
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_crear_tipo_habitacion", cn);
+                SqlCommand cmd = new SqlCommand("usp_crear_categoria_producto", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@tipo", request.Tipo);
-                cmd.Parameters.AddWithValue("@descripccion", request.Descripccion);
+                cmd.Parameters.AddWithValue("@categoria", request.Categoria);
                 cmd.Parameters.AddWithValue("@estado", request.Estado);
 
                 var id = Convert.ToInt32(cmd.ExecuteScalar());
@@ -114,16 +110,15 @@ namespace RoomticaGrpcServiceBackEnd.Services
             return Task.FromResult(request);
         }
 
-        public override Task<TipoHabitacion> Update(TipoHabitacion request, ServerCallContext context)
+        public override Task<CategoriaProducto> Update(CategoriaProducto request, ServerCallContext context)
         {
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_actualizar_tipo_habitacion", cn);
+                SqlCommand cmd = new SqlCommand("usp_actualizar_categoria_producto", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
-                cmd.Parameters.AddWithValue("@tipo", request.Tipo);
-                cmd.Parameters.AddWithValue("@descripccion", request.Descripccion);
+                cmd.Parameters.AddWithValue("@categoria", request.Categoria);
                 cmd.Parameters.AddWithValue("@estado", request.Estado);
 
                 cmd.ExecuteNonQuery();
@@ -131,12 +126,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
             return Task.FromResult(request);
         }
 
-        public override Task<Empty> Delete(TipoHabitacionId request, ServerCallContext context)
+        public override Task<Empty> Delete(CategoriaProductoId request, ServerCallContext context)
         {
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_eliminar_tipo_habitacion", cn);
+                SqlCommand cmd = new SqlCommand("usp_eliminar_categoria_producto", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
                 cmd.ExecuteNonQuery();
