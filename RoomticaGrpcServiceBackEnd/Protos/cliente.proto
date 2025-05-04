@@ -47,7 +47,7 @@ message ClienteDTO {
 }
 
 message Clientes {
-    repeated ProductoDTO clientes_ = 1;
+    repeated ClienteDTO clientes_ = 1;
 }
 
 message ClienteId {
