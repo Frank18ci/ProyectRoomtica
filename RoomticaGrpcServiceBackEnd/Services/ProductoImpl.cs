@@ -1,19 +1,20 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaGrpcServiceBackEnd.Services
 {
     public class ProductoImpl : ProductoService.ProductoServiceBase
     {
-
         private readonly ILogger<ProductoImpl> _logger;
-        private readonly string cadena = "server=.;database=db_roomtica; trusted_connection=true; MultipleActiveResultSets=true; TrustServerCertificate=false; Encrypt=false";
+        private readonly string cadena;
 
-        public ProductoImpl(ILogger<ProductoImpl> logger)
+        public ProductoImpl(ILogger<ProductoImpl> logger, IConfiguration configuration)
         {
             _logger = logger;
+            cadena = configuration.GetConnectionString("DefaultConnection");
         }
 
         public override Task<Productos> GetAll(Empty request, ServerCallContext context)
@@ -44,6 +45,34 @@ namespace RoomticaGrpcServiceBackEnd.Services
             }
 
             return Task.FromResult(productos);
+        }
+
+        public override Task<ProductoDTO> GetByIdDTO(ProductoId request, ServerCallContext context)
+        {
+            ProductoDTO productoDTO = new ProductoDTO();
+
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand("usp_obtener_producto_dto_por_id", cn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", request.Id);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    productoDTO.Id = dr.GetInt32(0);
+                    productoDTO.Nombre = dr.GetString(1);
+                    productoDTO.UnidadMedidaProducto = dr.GetString(2);
+                    productoDTO.CategoriaProducto = dr.GetString(3);
+                    productoDTO.PrecioUnico = dr.GetDouble(4);
+                    productoDTO.Cantidad = dr.GetInt32(5);
+                    productoDTO.Estado = dr.GetBoolean(6);
+                }
+                dr.Close();
+            }
+
+            return Task.FromResult(productoDTO);
         }
 
         public override Task<Producto> GetById(ProductoId request, ServerCallContext context)
@@ -87,7 +116,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.Parameters.AddWithValue("@precio_unico", request.PrecioUnico);
                 cmd.Parameters.AddWithValue("@cantidad", request.Cantidad);
                 cmd.Parameters.AddWithValue("@estado", request.Estado);
-                request.Id = Convert.ToInt32(cmd.ExecuteScalar()); 
+                request.Id = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
             return Task.FromResult(request);
@@ -126,6 +155,5 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
             return Task.FromResult(new Empty());
         }
-
     }
 }

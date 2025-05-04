@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service TrabajadorService {
     rpc GetAll(google.protobuf.Empty) returns (Trabajadores);
+    rpc GetByIdDTO(TrabajadorId) returns (TrabajadorDTO);
     rpc GetById(TrabajadorId) returns (Trabajador);
     rpc Create(Trabajador) returns (Trabajador);
     rpc Update(Trabajador) returns (Trabajador);
@@ -30,9 +31,25 @@ message Trabajador {
     int32 id_rol = 13;
     bool estado = 14;
 }
+message TrabajadorDTO {
+    int32 id = 1;
+    string primer_nombre = 2;
+    string segundo_nombre = 3;
+    string primer_apellido = 4;
+    string segundo_apellido = 5;
+    string username = 6;
+    string password = 7;
+    double sueldo = 8;
+    string id_tipo_documento = 9;
+    string numero_documento = 10;
+    string telefono = 11;
+    string email = 12;
+    string id_rol = 13;
+    bool estado = 14;
+}
 
 message Trabajadores {
-    repeated Trabajador trabajadores = 1;
+    repeated TrabajadorDTO trabajadores = 1;
 }
 
 message TrabajadorId {

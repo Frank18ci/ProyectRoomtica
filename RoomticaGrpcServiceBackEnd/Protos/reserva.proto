@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service ReservaService {
     rpc GetAll(google.protobuf.Empty) returns (Reservas);
+    rpc GetByIdDTO(ReservaId) returns (ReservaDTO);
     rpc GetById(ReservaId) returns (Reserva);
     rpc Create(Reserva) returns (Reserva);
     rpc Update(Reserva) returns (Reserva);
@@ -25,9 +26,20 @@ message Reserva {
     double costo_alojamiento = 8;
     bool estado = 9;
 }
+message ReservaDTO {
+    int32 id = 1;
+    string id_habitacion = 2;
+    string id_cliente = 3;
+    string id_trabajador = 4;
+    string id_tipo_reserva = 5;
+    string fecha_ingreso = 6;
+    string fecha_salida = 7;
+    double costo_alojamiento = 8;
+    bool estado = 9;
+}
 
 message Reservas {
-    repeated Reserva reservas = 1;
+    repeated ReservaDTO reservas_ = 1;
 }
 
 message ReservaId {
