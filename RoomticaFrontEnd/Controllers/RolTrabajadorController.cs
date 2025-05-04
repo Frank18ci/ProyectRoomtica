@@ -3,6 +3,8 @@ using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using RoomticaFrontEnd.Models;
 using RoomticaGrpcServiceBackEnd;
+using static RoomticaGrpcServiceBackEnd.CategoriaProductoService;
+using static RoomticaGrpcServiceBackEnd.RolTrabajadorService;
 
 namespace RoomticaFrontEnd.Controllers
 {
@@ -25,6 +27,24 @@ namespace RoomticaFrontEnd.Controllers
                 });
             }
             return View(rolTrabajadorModels);
+        }
+
+        public async Task<ActionResult> Detail(int id = 0)
+        {
+            var canal = GrpcChannel.ForAddress("http://localhost:5225");
+            rolTrabajadorService = new RolTrabajadorService.RolTrabajadorServiceClient(canal);
+            var request = new RolTrabajadorId()
+            {
+                Id = id,
+            };
+            var mensaje = await rolTrabajadorService.GetByIdAsync(request);
+
+            RolTrabajadorModel rolTrabajadorModel = new RolTrabajadorModel()
+            {
+                Id = mensaje.Id,
+                rol = mensaje.Rol
+            };
+            return View(rolTrabajadorModel);
         }
 
         public IActionResult Index()

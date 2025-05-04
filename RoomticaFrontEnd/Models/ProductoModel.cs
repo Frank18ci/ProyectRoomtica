@@ -1,6 +1,6 @@
 ﻿namespace RoomticaFrontEnd.Models
 {
-    public class ProductoDTOModel
+    public class ProductoModel
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

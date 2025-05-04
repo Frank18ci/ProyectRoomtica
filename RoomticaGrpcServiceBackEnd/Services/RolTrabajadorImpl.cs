@@ -22,7 +22,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
             using (SqlConnection cn = new SqlConnection(cadena))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand("usp_listar_roles_trabajador", cn);
+                SqlCommand cmd = new SqlCommand("usp_listar_rol_trabajador", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader dr = cmd.ExecuteReader();
 
