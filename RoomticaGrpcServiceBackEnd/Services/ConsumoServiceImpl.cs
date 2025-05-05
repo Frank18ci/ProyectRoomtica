@@ -19,7 +19,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
         public override Task<Consumos> GetAll(Empty request, ServerCallContext context)
         {
-            List<Consumo> lista = new List<Consumo>();
+            List<ConsumoDTO> lista = new List<ConsumoDTO>();
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
@@ -28,11 +28,11 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    lista.Add(new Consumo
+                    lista.Add(new ConsumoDTO
                     {
                         Id = dr.GetInt32(0),
-                        IdReserva = dr.GetInt32(1),
-                        IdProducto = dr.GetInt32(2),
+                        IdReserva = dr.GetString(1),
+                        IdProducto = dr.GetString(2),
                         Cantidad = dr.GetInt32(3),
                         PrecioVenta = dr.GetDouble(4),
                         Estado = dr.GetBoolean(5)
@@ -41,10 +41,35 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 dr.Close();
             }
             var consumos = new Consumos();
-            consumos.Consumos_.AddRange(lista);
+            consumos.Consumo.AddRange(lista);
             return Task.FromResult(consumos);
         }
-
+        public override Task<ConsumoDTO> GetByIdDTO(ConsumoId request, ServerCallContext context)
+        {
+            ConsumoDTO? consumoDTO = null;
+            using (SqlConnection cn = new SqlConnection(_cadena))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand("usp_obtener_consumoDTO_por_id", cn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", request.Id);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    consumoDTO = new ConsumoDTO
+                    {
+                        Id = dr.GetInt32(0),
+                        IdReserva = dr.GetString(1),
+                        IdProducto = dr.GetString(2),
+                        Cantidad = dr.GetInt32(3),
+                        PrecioVenta = dr.GetDouble(4),
+                        Estado = dr.GetBoolean(5)
+                    };
+                }
+                dr.Close();
+            }
+            return Task.FromResult(consumoDTO);
+        }
         public override Task<Consumo> GetById(ConsumoId request, ServerCallContext context)
         {
             Consumo? consumo = null;
