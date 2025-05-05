@@ -53,6 +53,36 @@
 	<Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\consumo.proto" GrpcServices="Client">
 	  <Link>Protos\consumo.proto</Link>
 	</Protobuf>
+	<Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\estacionamiento.proto" GrpcServices="Client">
+	  <Link>Protos\estacionamiento.proto</Link>
+	</Protobuf>
+	<Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\estado_habitacion.proto" GrpcServices="Client">
+	  <Link>Protos\estado_habitacion.proto</Link>
+	</Protobuf>
+	<Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\habitacion.proto" GrpcServices="Client">
+      <Link>Protos\habitacion.proto</Link>
+	</Protobuf>
+	  <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\pago.proto" GrpcServices="Client">
+		  <Link>Protos\pago.proto</Link>
+	  </Protobuf>
+	  <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\reserva.proto" GrpcServices="Client">
+		  <Link>Protos\reserva.proto</Link>
+	  </Protobuf>
+	  <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\reserva_estacionamiento.proto" GrpcServices="Client">
+		  <Link>Protos\reserva_estacionamiento.proto</Link>
+	  </Protobuf>
+	  <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_Comprobante.proto" GrpcServices="Client">
+		  <Link>Protos\tipo_Comprobante.proto</Link>
+	  </Protobuf>
+	  <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_estacionamiento.proto" GrpcServices="Client">
+		  <Link>Protos\tipo_estacionamiento.proto</Link>
+	  </Protobuf>
+	  <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\tipo_reserva.proto" GrpcServices="Client">
+		  <Link>Protos\tipo_reserva.proto</Link>
+	  </Protobuf>
+	  <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\trabajador.proto" GrpcServices="Client">
+		  <Link>Protos\trabajador.proto</Link>
+	  </Protobuf>
   </ItemGroup>
 
 </Project>

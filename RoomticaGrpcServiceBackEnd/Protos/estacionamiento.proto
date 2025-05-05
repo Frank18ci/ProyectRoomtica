@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service EstacionamientoService {
     rpc GetAll(google.protobuf.Empty) returns (Estacionamientos);
+    rpc GetByIdDTO(EstacionamientoId) returns (EstacionamientoDTO);
     rpc GetById(EstacionamientoId) returns (Estacionamiento);
     rpc Create(Estacionamiento) returns (Estacionamiento);
     rpc Update(Estacionamiento) returns (Estacionamiento);
@@ -23,9 +24,18 @@ message Estacionamiento {
     int32 id_tipo_estacionamiento = 6;
     bool estado = 7;
 }
+message EstacionamientoDTO {
+    int32 id = 1;
+    string lugar = 2;
+    string largo = 3;
+    string alto = 4;
+    string ancho = 5;
+    string id_tipo_estacionamiento = 6;
+    bool estado = 7;
+}
 
 message Estacionamientos {
-    repeated Estacionamiento estacionamientos = 1;
+    repeated EstacionamientoDTO estacionamientos_ = 1;
 }
 
 message EstacionamientoId {

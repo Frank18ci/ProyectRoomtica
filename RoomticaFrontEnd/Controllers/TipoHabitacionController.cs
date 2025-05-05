@@ -22,8 +22,7 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     Id = item.Id,
                     Tipo = item.Tipo,
-                    descripccion = item.Descripccion,
-                    estado = item.Estado
+                    descripccion = item.Descripccion
                 });
             }
             return View(tipoHabitacionModels);

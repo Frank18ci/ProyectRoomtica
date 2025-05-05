@@ -16,10 +16,10 @@ namespace RoomticaFrontEnd.Controllers
             clienteService = new ClienteService.ClienteServiceClient(chanal);
             var request = new Empty();
             var mensaje = await clienteService.GetAllAsync(request);
-            List<ClienteModel> clienteModels = new List<ClienteModel>();
+            List<ClienteDTOModel> clienteDTOModels = new List<ClienteDTOModel>();
             foreach (var item in mensaje.Clientes_)
             {
-                clienteModels.Add(new ClienteModel()
+                clienteDTOModels.Add(new ClienteDTOModel()
                 {
                     Id = item.Id,
                     primer_nombre = item.PrimerNombre,
@@ -35,7 +35,7 @@ namespace RoomticaFrontEnd.Controllers
                     id_tipo_sexo = item.IdTipoSexo
                 });
             }
-            return View(clienteModels);
+            return View(clienteDTOModels);
         }
 
         public IActionResult Index()

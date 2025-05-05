@@ -1,0 +1,30 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.EstadoHabitacionModel>
+@{
+    ViewData["Title"] = "Estado Habitacion";
+}
+<h1>Listar Estado Habitacion</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Estado Habitacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.estado_habitacion</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.id">Editar</a> |
+                        <a asp-action="Eliminar" asp-route-id="@item.id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+</div>

@@ -73,7 +73,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
         }
         public override Task<Producto> GetById(ProductoId request, ServerCallContext context)
         {
-            Producto producto = new Producto();
+            Producto? producto = null;
             using (SqlConnection cn = new SqlConnection(_cadena))
             {
                 cn.Open();
@@ -96,7 +96,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 }
                 dr.Close();
             }
-            return Task.FromResult(producto ?? new Producto());
+            return Task.FromResult(producto);
         }
         public override Task<Producto> Create(Producto request, ServerCallContext context)
         {

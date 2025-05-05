@@ -7,7 +7,8 @@ import "google/protobuf/empty.proto";
 
 service HabitacionServices{
 	rpc GetAll(google.protobuf.Empty) returns(Habitaciones);
-	rpc GetById(HabitacionId) returns(Habitacion);
+	rpc GetByIdDTO(HabitacionId) returns(HabitacionDTO);
+    rpc GetById(HabitacionId) returns(Habitacion);
 	rpc Create(Habitacion) returns(Habitacion);
 	rpc Update(Habitacion) returns(Habitacion);
 	rpc Delete(HabitacionId) returns(google.protobuf.Empty);
@@ -22,8 +23,18 @@ message Habitacion{
     bool estado = 7;
 
 }
+message HabitacionDTO{
+	int32 id = 1;
+    string numero = 2;
+    string piso = 3;
+    double precio_diario = 4;
+    string id_tipo = 5;
+    string id_estado = 6;
+    bool estado = 7;
+
+}
 message Habitaciones{
-	repeated Habitacion habitaciones = 1;
+	repeated HabitacionDTO habitaciones = 1;
 }
 
 message HabitacionId{
