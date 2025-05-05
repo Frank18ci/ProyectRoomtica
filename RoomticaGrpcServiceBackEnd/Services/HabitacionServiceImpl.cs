@@ -33,7 +33,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         Id = dr.GetInt32(0),
                         Numero = dr.GetString(1),
                         Piso = dr.GetString(2),
-                        PrecioDiario = dr.GetDouble(3),
+                        PrecioDiario = Double.Parse(dr.GetDecimal(3).ToString()),
                         IdTipo = dr.GetString(4), 
                         IdEstado = dr.GetString(5), 
                         Estado = dr.GetBoolean(6)

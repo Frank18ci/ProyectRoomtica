@@ -2059,10 +2059,105 @@ BEGIN
     WHERE Id = @id;
 END
 go
+
+create or alter proc usp_listar_categoria_producto
+as
+    select * from categoria_producto
+go
+CREATE or alter proc usp_insertar_categoria_producto
+    @categoria NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO categoria_producto(categoria, estado)
+    VALUES (@categoria, @estado);
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+go
+CREATE or alter proc usp_actualizar_categoria_producto
+    @id INT,
+    @categoria NVARCHAR(100),
+    @estado BIT
+AS
+BEGIN
+    UPDATE categoria_producto
+    SET
+        categoria = @categoria,
+        estado = @estado
+    WHERE Id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_categoria_producto
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE categoria_producto
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
 ------------------------------------
 ------------------------------------
 
---Insertando datos de uso
+create or alter proc usp_listar_productos
+as
+    select * from producto
+go
+CREATE or alter proc usp_crear_producto
+    @nombre NVARCHAR(100),
+    @id_unidad_medida_producto INT,
+    @id_categoria_producto INT,
+    @precio_unico DECIMAL(18, 2),
+    @cantidad INT,
+    @estado BIT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO producto (Nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado)
+    VALUES (@nombre, @id_unidad_medida_producto, @id_categoria_producto, @precio_unico, @cantidad, @estado);
+
+    
+    SELECT SCOPE_IDENTITY() AS Id;
+END
+GO
+
+CREATE or alter proc usp_actualizar_producto
+	@id INT,
+    @nombre NVARCHAR(100),
+    @id_unidad_medida_producto INT,
+    @id_categoria_producto INT,
+    @precio_unico DECIMAL(18, 2),
+    @cantidad INT,
+    @estado BIT
+AS
+BEGIN
+    UPDATE producto
+    SET
+        Nombre = @nombre,
+        id_unidad_medida_producto = @id_unidad_medida_producto,
+		id_categoria_producto = @id_categoria_producto,
+		precio_unico = @precio_unico,
+		cantidad = @cantidad,
+		estado =@estado
+    WHERE id = @id;
+END
+go
+CREATE or alter proc usp_eliminar_producto
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE producto
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
 
 INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
 ('101', '1', 250.00, 1, 1, 1),

@@ -80,18 +80,14 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-<<<<<<< HEAD:RoomticaGrpcServiceBackEnd/Services/TipoDocumentoImpl.cs
                     tipoDocumento.Id = dr.GetInt32(0);
                     tipoDocumento.Tipo = dr.GetString(1);
-                    //tipoDocumento.Estado = dr.GetBoolean(2);
-=======
                     tipoDocumento = new TipoDocumento
                     {
                         Id = dr.GetInt32(0),
                         Tipo = dr.GetString(1),
                         Estado = dr.GetBoolean(2)
                     };
->>>>>>> 4a9af83647106a1e3f86c8fa8a5f3700db96cf28:RoomticaGrpcServiceBackEnd/Services/TipoDocumentoServiceImpl.cs
                 }
                 dr.Close();
             }

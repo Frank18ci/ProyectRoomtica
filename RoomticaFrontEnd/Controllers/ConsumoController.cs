@@ -15,16 +15,15 @@ namespace RoomticaFrontEnd.Controllers
             consumoService = new ConsumoService.ConsumoServiceClient(chanal);
             var request = new Empty();
             var mensaje = await consumoService.GetAllAsync(request);
-            List<ConsumoModel> consumoModels = new List<ConsumoModel>();
-            foreach (var item in mensaje.Consumos_)
+            List<ConsumoDTO> consumoModels = new List<ConsumoDTO>();
+            foreach (var item in mensaje.Consumo)
             {
-                consumoModels.Add(new ConsumoModel()
+                consumoModels.Add(new ConsumoDTO()
                 {
-                    id = item.Id,
-                    id_reserva = item.IdReserva,
-                    id_producto = item.IdProducto,
-                    cantidad = item.Cantidad,
-                    precio_venta = item.PrecioVenta,
+                    Id= item.Id,
+                    IdReserva= item.IdReserva,
+                    Cantidad = item.Cantidad,
+                    PrecioVenta= item.PrecioVenta,
                 });
             }
             return View(consumoModels);
