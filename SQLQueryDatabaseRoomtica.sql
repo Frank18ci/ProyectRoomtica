@@ -188,7 +188,6 @@ create table producto(
 	estado bit,
 )
 go
-
 create table consumo(
 	id int identity(1, 1) primary key,
 	id_reserva int references reserva,
@@ -287,90 +286,1109 @@ INSERT INTO categoria_producto (categoria, estado) VALUES
 ('Souvenirs', 1);
 go
 
-INSERT INTO producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado) VALUES
-('Agua Mineral 500ml', 2, 1, 1.50, 100, 1),
-('Gaseosa Cola 1L', 2, 1, 2.00, 80, 1),
-('Papas Fritas 150g', 3, 2, 1.80, 120, 1),
-('Chocolate Barra 100g', 3, 2, 2.50, 90, 1),
-('Jabón de Tocador', 1, 3, 1.20, 150, 1),
-('Cepillo de Dientes', 1, 3, 0.95, 130, 1),
-('Shampoo 250ml', 2, 3, 3.75, 60, 1),
-('Toalla Recuerdo', 1, 4, 5.00, 40, 1),
-('Llavero de Madera', 1, 4, 2.00, 70, 1),
-('Caja de Galletas', 4, 2, 4.50, 50, 1),
-('Jugo de Naranja 1L', 2, 1, 2.20, 75, 1),
-('Agua Tónica 500ml', 2, 1, 1.60, 65, 1),
-('Caramelo Menta 50g', 3, 2, 0.75, 200, 1),
-('Desodorante Spray', 1, 3, 4.20, 55, 1),
-('Crema Corporal 200ml', 2, 3, 6.50, 45, 1),
-('Camiseta Recuerdo', 1, 4, 8.00, 30, 1),
-('Botella Deportiva', 1, 4, 6.00, 35, 1),
-('Caja de Chocolates', 4, 2, 7.80, 25, 1),
-('Bebida Energética 500ml', 2, 1, 2.90, 85, 1),
-('Snack de Frutas 100g', 3, 2, 1.90, 95, 1);
-go
-
 ------------------------------------
 ------------------------------------
-
-create or alter proc usp_listar_tipo_habitacion
-as
-	select * from tipo_habitacion
-go
-
-------------------------------------
-------------------------------------
-
 create or alter proc usp_listar_caracteristica_habitacion
 as
-	select * from caracteristica_habitacion
+	select id, caracteristica, estado
+	from caracteristica_habitacion 
+go
+CREATE or alter proc usp_listar_caracteristica_habitacion_por_caracteristica
+    @caracteristica NVARCHAR(100)
+AS
+select id, caracteristica, estado
+	from caracteristica_habitacion 
+	where @caracteristica = caracteristica 
+go
+CREATE or alter proc usp_obtener_caracteristica_habitacion_por_id
+    @id int
+AS
+select id, caracteristica, estado
+	from caracteristica_habitacion 
+	where @id = id 
+go
+CREATE or alter proc usp_crear_caracteristica_habitacion
+    @caracteristica NVARCHAR(100),
+    @estado INT
+AS
+BEGIN
+    INSERT INTO caracteristica_habitacion (caracteristica, estado)
+    VALUES (@caracteristica, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
 go
 
-------------------------------------
-------------------------------------
-
-create or alter proc usp_listar_caracteristica_habitacion_tipo_habitacion
-as
-    select * from caracteristica_habitacion_tipo_habitacion
+CREATE or alter proc usp_actualizar_caracteristica_habitacion
+	@id int,
+    @caracteristica NVARCHAR(100),
+    @estado INT
+AS
+BEGIN
+    UPDATE caracteristica_habitacion 
+	set caracteristica = @caracteristica, estado = @estado
+    where @id = id
+END
 go
-
-------------------------------------
-------------------------------------
-
-create or alter proc usp_listar_estado_habitacion
-as
-    select * from estado_habitacion
-go
-
-------------------------------------
-------------------------------------
-
-create or alter proc usp_listar_rol_trabajador
-as
-    select * from rol_trabajador
-go
-CREATE or alter proc usp_insertar_rol_trabajador
-    @rol NVARCHAR(100),
-    @estado BIT
+CREATE or alter proc usp_eliminar_caracteristica_habitacion
+    @id INT
 AS
 BEGIN
     SET NOCOUNT ON;
-    INSERT INTO rol_trabajador(rol, estado)
+    UPDATE caracteristica_habitacion
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_caracteristica_habitacion_tipo_habitacion
+AS
+BEGIN
+    SELECT id_caracteristica_habitacion, id_tipo_habitacion, estado
+    FROM caracteristica_habitacion_tipo_habitacion;
+END
+GO
+
+CREATE or alter proc usp_obtener_por_id_caracteristica_habitacion
+    @id_caracteristica_habitacion INT
+AS
+BEGIN
+    SELECT id_caracteristica_habitacion, id_tipo_habitacion, estado
+    FROM caracteristica_habitacion_tipo_habitacion
+    WHERE id_caracteristica_habitacion = @id_caracteristica_habitacion;
+END
+GO
+
+CREATE or alter proc usp_obtener_caracteristica_habitacion_tipo_habitacion_por_id
+    @id_caracteristica_habitacion INT,
+    @id_tipo_habitacion INT
+AS
+BEGIN
+    SELECT id_caracteristica_habitacion, id_tipo_habitacion, estado
+    FROM caracteristica_habitacion_tipo_habitacion
+    WHERE id_caracteristica_habitacion = @id_caracteristica_habitacion
+      AND id_tipo_habitacion = @id_tipo_habitacion;
+END
+GO
+
+CREATE or alter proc usp_crear_caracteristica_habitacion_tipo_habitacion
+    @id_caracteristica_habitacion INT,
+    @id_tipo_habitacion INT,
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO caracteristica_habitacion_tipo_habitacion (id_caracteristica_habitacion, id_tipo_habitacion, estado)
+    VALUES (@id_caracteristica_habitacion, @id_tipo_habitacion, @estado);
+END
+GO
+
+CREATE or alter proc usp_actualizar_caracteristica_habitacion_tipo_habitacion
+    @id_caracteristica_habitacion INT,
+    @id_tipo_habitacion INT,
+    @estado BIT
+AS
+BEGIN
+    UPDATE caracteristica_habitacion_tipo_habitacion
+    SET estado = @estado
+    WHERE id_caracteristica_habitacion = @id_caracteristica_habitacion
+      AND id_tipo_habitacion = @id_tipo_habitacion;
+END
+GO
+
+CREATE or alter proc usp_eliminar_caracteristica_habitacion_tipo_habitacion
+    @id_caracteristica_habitacion INT,
+	@id_tipo_habitacion int
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE caracteristica_habitacion_tipo_habitacion
+    SET estado = 0 
+    WHERE id_caracteristica_habitacion = @id_caracteristica_habitacion and id_tipo_habitacion = @id_tipo_habitacion;
+END
+go
+------------------------------------
+------------------------------------
+CREATE or alter proc usp_listar_categorias_producto
+AS
+BEGIN
+    SELECT id, categoria, estado
+    FROM categoria_producto;
+END
+GO
+
+CREATE or alter proc usp_obtener_categoria_producto_por_categoria
+    @categoria varchar(40)
+AS
+BEGIN
+    SELECT id, categoria, estado
+    FROM categoria_producto
+    WHERE @categoria = categoria;
+END
+GO
+
+CREATE or alter proc usp_obtener_categoria_producto_por_id
+    @id INT
+AS
+BEGIN
+    SELECT id, categoria, estado
+    FROM categoria_producto
+    WHERE id = @id;
+END
+GO
+
+CREATE or alter proc usp_crear_categoria_producto
+	@categoria varchar(40),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO categoria_producto (categoria, estado)
+    VALUES (@categoria, @estado);
+END
+GO
+
+CREATE or alter proc usp_actualizar_categoria_producto
+    @id INT,
+    @categoria INT,
+    @estado BIT
+AS
+BEGIN
+    UPDATE categoria_producto
+    SET categoria = @categoria,
+		estado = @estado
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_eliminar_categoria_producto
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE categoria_producto
+    SET estado = 0 
+    WHERE id = @id;
+END
+go
+
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_clientes
+AS
+BEGIN
+    SELECT  
+		p.id,
+		p.primer_nombre,
+		p.segundo_nombre,
+		p.primer_apellido,
+		p.segundo_apellido,
+		d.tipo,
+		p.numero_documento,
+		p.telefono,
+		p.email,
+		p.fecha_nacimiento,
+		n.tipo,
+		s.tipo,
+		p.estado
+    FROM cliente p
+    INNER JOIN tipo_documento d ON p.id_tipo_documento = d.id
+    INNER JOIN tipo_nacionalidad n ON p.id_tipo_nacionalidad = n.id
+	INNER JOIN tipo_sexo s ON p.id_tipo_sexo = s.id
+END
+go
+CREATE or alter proc usp_obtener_clienteDTO_por_id
+    @id INT
+AS
+BEGIN
+    SELECT  
+		p.id,
+		p.primer_nombre,
+		p.segundo_nombre,
+		p.primer_apellido,
+		p.segundo_apellido,
+		d.tipo,
+		p.numero_documento,
+		p.telefono,
+		p.email,
+		p.fecha_nacimiento,
+		n.tipo,
+		s.tipo,
+		p.estado
+    FROM cliente p
+    INNER JOIN tipo_documento d ON p.id_tipo_documento = d.id
+    INNER JOIN tipo_nacionalidad n ON p.id_tipo_nacionalidad = n.id
+	INNER JOIN tipo_sexo s ON p.id_tipo_sexo = s.id
+    WHERE p.id = @id
+END
+go
+CREATE or alter proc usp_obtener_cliente_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       *
+    FROM cliente
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_cliente
+    @primer_nombre VARCHAR(50),
+    @segundo_nombre VARCHAR(50),
+    @primer_apellido VARCHAR(50),
+    @segundo_apellido VARCHAR(50),
+    @id_tipo_documento INT,
+	@numero_documento VARCHAR(10),
+	@telefono VARCHAR(10),
+	@email VARCHAR(25),
+	@fecha_nacimiento DATE,
+	@id_tipo_nacionalidad INT,
+	@id_tipo_sexo INT,
+	@estado BIT
+AS
+BEGIN
+    INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado)
+    VALUES (@primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @id_tipo_documento, @numero_documento, @telefono, @email, @fecha_nacimiento, @id_tipo_nacionalidad, @id_tipo_sexo, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_cliente
+	@id int,
+    @primer_nombre VARCHAR(50),
+    @segundo_nombre VARCHAR(50),
+    @primer_apellido VARCHAR(50),
+    @segundo_apellido VARCHAR(50),
+    @id_tipo_documento INT,
+	@numero_documento VARCHAR(10),
+	@telefono VARCHAR(10),
+	@email VARCHAR(25),
+	@fecha_nacimiento DATE,
+	@id_tipo_nacionalidad INT,
+	@id_tipo_sexo INT,
+	@estado BIT
+AS
+BEGIN
+    UPDATE cliente
+    SET primer_nombre = @primer_nombre,
+        segundo_nombre = @segundo_nombre,
+        primer_apellido = @primer_apellido,
+        segundo_apellido = @segundo_apellido,
+        id_tipo_documento = @id_tipo_documento,
+		numero_documento = @numero_documento,
+		telefono = @telefono,
+		email = @email,
+		fecha_nacimiento = @fecha_nacimiento,
+		id_tipo_nacionalidad = @id_tipo_nacionalidad,
+		id_tipo_sexo = @id_tipo_sexo,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_cliente
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE cliente
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_consumos
+AS
+BEGIN
+    SELECT 
+      c.id,
+	  cli.primer_apellido + cli.segundo_nombre as Reserva,
+	  p.nombre,
+	  c.cantidad,
+	  c.precio_venta,
+	  c.estado
+    FROM consumo c
+	INNER JOIN reserva r on c.id_reserva = r.id
+	INNER JOIN producto p on c.id_producto = p.id
+	INNER JOIN cliente cli on r.id_cliente = cli.id
+END
+go
+CREATE or alter proc usp_obtener_consumoDTO_por_id
+    @id INT
+AS
+BEGIN
+     SELECT 
+      c.id,
+	  cli.primer_apellido +' '+ cli.segundo_nombre as Reserva,
+	  p.nombre,
+	  c.cantidad,
+	  c.precio_venta,
+	  c.estado
+    FROM consumo c
+	INNER JOIN reserva r on c.id_reserva = r.id
+	INNER JOIN producto p on c.id_producto = p.id
+	INNER JOIN cliente cli on r.id_cliente = cli.id
+    WHERE c.id = @id
+END
+go
+CREATE or alter proc usp_obtener_consumo_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       *
+    FROM consumo
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_consumo
+    @id_reserva INT,
+    @id_producto INT,
+    @cantidad INT,
+    @precio_venta decimal(10,2),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO consumo (id_reserva, id_producto, cantidad, precio_venta, estado)
+    VALUES (@id_reserva, @id_producto, @cantidad, @precio_venta, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_consumo
+    @id INT,
+    @id_reserva INT,
+    @id_producto INT,
+    @cantidad INT,
+    @precio_venta decimal(10,2),
+    @estado BIT
+AS
+BEGIN
+    UPDATE consumo
+    SET id_reserva = @id_reserva,
+        id_producto = @id_producto,
+        cantidad = @cantidad,
+        precio_venta = @precio_venta,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_consumo
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE consumo
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_estacionamientos
+AS
+BEGIN
+    SELECT 
+       e.id,
+	   e.lugar,
+	   e.largo,
+	   e.alto,
+	   e.ancho,
+	   u.tipo,
+	   e.estado
+    FROM estacionamiento e
+    INNER JOIN tipo_estacionamiento u ON e.id_tipo_estacionamiento = u.id
+END
+go
+CREATE or alter proc usp_obtener_estacionamientoDTO_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       e.id,
+	   e.lugar,
+	   e.largo,
+	   e.alto,
+	   e.ancho,
+	   u.tipo,
+	   e.estado
+    FROM estacionamiento e
+    INNER JOIN tipo_estacionamiento u ON e.id_tipo_estacionamiento = u.id
+    WHERE e.id = @id
+END
+go
+CREATE or alter proc usp_obtener_estacionamiento_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       *
+    FROM estacionamiento
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_estacionamiento
+    @lugar VARCHAR(10),
+    @largo VARCHAR(10),
+    @alto VARCHAR(10),
+    @ancho VARCHAR(10),
+    @id_tipo_estacionamiento INT,
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado)
+    VALUES (@lugar, @largo, @alto, @ancho, @id_tipo_estacionamiento, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_estacionamiento
+    @id INT,
+    @lugar VARCHAR(10),
+    @largo VARCHAR(10),
+    @alto VARCHAR(10),
+    @ancho VARCHAR(10),
+    @id_tipo_estacionamiento INT,
+    @estado BIT
+AS
+BEGIN
+    UPDATE estacionamiento
+    SET lugar = @lugar,
+        largo = @largo,
+        alto = @alto,
+        ancho = @ancho,
+        id_tipo_estacionamiento = @id_tipo_estacionamiento,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_estacionamiento
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE estacionamiento
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_estado_habitacion
+AS
+BEGIN
+    SELECT 
+       *
+    FROM estado_habitacion 
+END
+go
+CREATE or alter proc usp_listar_estado_habitacion_por_estado
+    @estado INT
+AS
+BEGIN
+     SELECT 
+       *
+    FROM estado_habitacion
+    WHERE estado = @estado
+END
+go
+CREATE or alter proc usp_obtener_estado_habitacion_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+        *
+    FROM estado_habitacion
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_estado_habitacion
+    @estado_habitacion VARCHAR(40),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO estado_habitacion (estado_habitacion, estado)
+    VALUES (@estado_habitacion, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_estado_habitacion
+    @id INT,
+	@estado_habitacion VARCHAR(40),
+    @estado BIT
+AS
+BEGIN
+    UPDATE estado_habitacion
+    SET estado_habitacion = @estado_habitacion,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_estado_habitacion
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE estado_habitacion
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_habitaciones
+AS
+BEGIN
+    SELECT 
+       h.id,
+	   h.numero,
+	   h.piso,
+	   h.precio_diario,
+	   th.descripccion,
+	   eh.estado_habitacion,
+	   h.estado
+    FROM habitacion h
+    INNER JOIN tipo_habitacion th ON h.id_tipo = th.id
+    INNER JOIN estado_habitacion eh ON h.id_estado = eh.id
+END
+go
+CREATE or alter proc usp_obtener_habitacionDTO_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       h.id,
+	   h.numero,
+	   h.piso,
+	   h.precio_diario,
+	   th.descripccion,
+	   eh.estado_habitacion,
+	   h.estado
+    FROM habitacion h
+    INNER JOIN tipo_habitacion th ON h.id_tipo = th.id
+    INNER JOIN estado_habitacion eh ON h.id_estado = eh.id
+    WHERE h.id = @id
+END
+go
+CREATE or alter proc usp_obtener_habitacion_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM habitacion
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_habitacion
+    @numero VARCHAR(5),
+    @piso VARCHAR(3),
+    @precio_diario decimal(10,2),
+    @id_tipo int,
+    @id_estado INT,
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado)
+    VALUES (@numero, @piso, @precio_diario, @id_tipo, @id_estado, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_habitacion
+    @id INT,
+    @numero VARCHAR(5),
+    @piso VARCHAR(3),
+    @precio_diario decimal(10,2),
+    @id_tipo int,
+    @id_estado INT,
+    @estado BIT
+AS
+BEGIN
+    UPDATE habitacion
+    SET numero = @numero,
+        piso = @piso,
+        precio_diario = @precio_diario,
+        id_tipo = @id_tipo,
+        id_estado = @id_estado,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_habitacion
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE habitacion
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_pagos
+AS
+BEGIN
+    SELECT 
+       p.id,
+	   r.costo_alojamiento,
+	   c.tipo,
+	   p.igv,
+	   p.total_pago,
+	   p.fecha_emision,
+	   p.fecha_pago,
+	   p.estado
+    FROM pago p
+    INNER JOIN reserva r ON p.id_reserva = r.id
+    INNER JOIN tipo_comprobante c ON p.id_tipo_comprobante = c.id
+END
+go
+CREATE or alter proc usp_obtener_pagoDTO_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       p.id,
+	   r.costo_alojamiento,
+	   c.tipo,
+	   p.igv,
+	   p.total_pago,
+	   p.fecha_emision,
+	   p.fecha_pago,
+	   p.estado
+    FROM pago p
+    INNER JOIN reserva r ON p.id_reserva = r.id
+    INNER JOIN tipo_comprobante c ON p.id_tipo_comprobante = c.id
+    WHERE p.id = @id
+END
+go
+CREATE or alter proc usp_obtener_pago_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       *
+    FROM pago
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_pago
+    @id_reserva INT,
+    @id_tipo_comprobante INT,
+    @igv decimal(10,2),
+    @total_pago decimal(10,2),
+    @fecha_emision date,
+	@fecha_pago date,
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO pago (id_reserva, id_tipo_comprobante, igv, total_pago, fecha_emision, fecha_pago, estado)
+    VALUES (@id_reserva, @id_tipo_comprobante, @igv, @total_pago, @fecha_emision,@fecha_pago, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_pago
+    @id INT,
+    @id_reserva INT,
+    @id_tipo_comprobante INT,
+    @igv decimal(10,2),
+    @total_pago decimal(10,2),
+    @fecha_emision date,
+	@fecha_pago date,
+    @estado BIT
+AS
+BEGIN
+    UPDATE pago
+    SET id_reserva = @id_reserva,
+        id_tipo_comprobante = @id_tipo_comprobante,
+        igv = @igv,
+        total_pago = @total_pago,
+        fecha_emision = @fecha_emision,
+		fecha_pago = @fecha_pago, 
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_pago
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE pago
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+CREATE or alter proc usp_listar_productos
+AS
+BEGIN
+    SELECT 
+        p.id,
+        p.nombre,
+        u.unidad,
+        c.categoria,
+        p.precio_unico,
+        p.cantidad,
+        p.estado
+    FROM Producto p
+    INNER JOIN unidad_medida_producto u ON p.id_unidad_medida_producto = u.id
+    INNER JOIN categoria_producto c ON p.id_categoria_producto = c.id
+END
+go
+CREATE or alter proc usp_obtener_productoDTO_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+        p.id,
+        p.nombre,
+        u.unidad,
+        c.categoria,
+        p.precio_unico,
+        p.cantidad,
+        p.estado
+    FROM Producto p
+    INNER JOIN unidad_medida_producto u ON p.id_unidad_medida_producto = u.id
+    INNER JOIN categoria_producto c ON p.id_categoria_producto = c.id
+    WHERE p.id = @id
+END
+go
+CREATE or alter proc usp_obtener_producto_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+        id,
+        nombre,
+        id_unidad_medida_producto,
+        id_categoria_producto,
+        precio_unico,
+        cantidad,
+        estado
+    FROM Producto
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_producto
+    @nombre NVARCHAR(100),
+    @id_unidad_medida_producto INT,
+    @id_categoria_producto INT,
+    @precio_unico FLOAT,
+    @cantidad INT,
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO Producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado)
+    VALUES (@nombre, @id_unidad_medida_producto, @id_categoria_producto, @precio_unico, @cantidad, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_producto
+    @id INT,
+    @nombre NVARCHAR(100),
+    @id_unidad_medida_producto INT,
+    @id_categoria_producto INT,
+    @precio_unico FLOAT,
+    @cantidad INT,
+    @estado BIT
+AS
+BEGIN
+    UPDATE Producto
+    SET nombre = @nombre,
+        id_unidad_medida_producto = @id_unidad_medida_producto,
+        id_categoria_producto = @id_categoria_producto,
+        precio_unico = @precio_unico,
+        cantidad = @cantidad,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_producto
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE producto
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_reserva_estacionamiento
+AS
+BEGIN
+    SELECT 
+       r.estado,
+	   e.lugar,
+	   re.cantidad,
+	   re.precio_estacionamiento,
+	   re.estado
+    FROM reserva_estacionamiento re
+    INNER JOIN estacionamiento e ON re.id_estacionamiento = e.id
+    INNER JOIN reserva r ON re.id_reserva = r.id
+END
+go
+CREATE or alter proc usp_obtener_reserva_estacionamientoDTO_por_id
+    @id_reserva INT,
+	@id_estacionamiento INT
+AS
+BEGIN
+    SELECT 
+       r.estado,
+	   e.lugar,
+	   re.cantidad,
+	   re.precio_estacionamiento,
+	   re.estado
+    FROM reserva_estacionamiento re
+    INNER JOIN estacionamiento e ON re.id_estacionamiento = e.id
+    INNER JOIN reserva r ON re.id_reserva = r.id
+    WHERE re.id_reserva = @id_reserva and re.id_estacionamiento = @id_estacionamiento
+END
+go
+CREATE or alter proc usp_obtener_reserva_estacionamiento_por_id
+    @id_reserva INT,
+	@id_estacionamiento INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM reserva_estacionamiento 
+    WHERE id_reserva = @id_reserva and id_estacionamiento = @id_estacionamiento
+END
+GO
+
+CREATE or alter proc usp_crear_reserva_estacionamiento
+	@id_reserva int,
+    @id_estacionamiento int,
+    @cantidad INT,
+    @precio_estacionamiento decimal(10,2),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO reserva_estacionamiento (id_reserva, id_estacionamiento, cantidad, precio_estacionamiento, estado)
+    VALUES (@id_reserva, @id_estacionamiento, @cantidad, @precio_estacionamiento, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_reserva_estacionamiento
+	@id_reserva int,
+    @id_estacionamiento int,
+    @cantidad INT,
+    @precio_estacionamiento decimal(10,2),
+    @estado BIT
+AS
+BEGIN
+    UPDATE reserva_estacionamiento
+    SET cantidad = @cantidad,
+        precio_estacionamiento = @precio_estacionamiento,
+        estado = @estado
+    WHERE id_reserva = @id_reserva and id_estacionamiento = @id_estacionamiento
+END
+go
+CREATE or alter proc usp_eliminar_reserva_estacionamiento
+	@id_reserva int,
+    @id_estacionamiento int
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE reserva_estacionamiento
+    SET estado = 0 
+     WHERE id_reserva = @id_reserva and id_estacionamiento = @id_estacionamiento
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_reservas
+AS
+BEGIN
+    SELECT 
+       r.id,
+	   h.numero,
+	   c.primer_apellido,
+	   t.primer_nombre,
+	   tr.tipo,
+	   r.fecha_ingreso,
+	   r.fecha_salida,
+	   r.costo_alojamiento,
+	   r.estado
+    FROM reserva r
+    INNER JOIN habitacion h ON r.id_habitacion = h.id
+    INNER JOIN cliente c ON r.id_cliente = c.id
+	INNER JOIN trabajador t ON r.id_trabajador = t.id
+	INNER JOIN tipo_reserva tr ON r.id_tipo_reserva = tr.id
+END
+go
+CREATE or alter proc usp_obtener_reservaDTO_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+       r.id,
+	   h.numero,
+	   c.primer_apellido,
+	   t.primer_nombre,
+	   tr.tipo,
+	   r.fecha_ingreso,
+	   r.fecha_salida,
+	   r.costo_alojamiento,
+	   r.estado
+    FROM reserva r
+    INNER JOIN habitacion h ON r.id_habitacion = h.id
+    INNER JOIN cliente c ON r.id_cliente = c.id
+	INNER JOIN trabajador t ON r.id_trabajador = t.id
+	INNER JOIN tipo_reserva tr ON r.id_tipo_reserva = tr.id
+    WHERE r.id = @id
+END
+go
+CREATE or alter proc usp_obtener_reserva_por_id
+    @id INT
+AS
+BEGIN
+   SELECT 
+      *
+    FROM reserva
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_reserva
+    @id_habitacion INT,
+    @id_cliente INT,
+    @id_trabajador INT,
+    @id_tipo_reserva INT,
+    @fecha_ingreso date,
+	@fecha_salida date,
+	@costo_alojamiento decimal(10,2),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado)
+    VALUES (@id_habitacion, @id_cliente, @id_trabajador, @id_tipo_reserva, @fecha_ingreso, @fecha_salida, @costo_alojamiento, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_reserva
+    @id INT,
+    @id_habitacion INT,
+    @id_cliente INT,
+    @id_trabajador INT,
+    @id_tipo_reserva INT,
+    @fecha_ingreso date,
+	@fecha_salida date,
+	@costo_alojamiento decimal(10,2),
+    @estado BIT
+AS
+BEGIN
+    UPDATE reserva
+    SET id_habitacion = @id_habitacion,
+        id_cliente = @id_cliente,
+        id_trabajador = @id_trabajador,
+        id_tipo_reserva = @id_tipo_reserva,
+        fecha_ingreso = @fecha_ingreso,
+		fecha_salida = @fecha_salida,
+		costo_alojamiento = @costo_alojamiento,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_reserva
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE reserva
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_rol_trabajadores
+AS
+BEGIN
+    SELECT 
+       *
+    FROM rol_trabajador
+END
+go
+CREATE or alter proc usp_listar_rol_trabajadores_por_rol
+    @rol INT
+AS
+BEGIN
+     SELECT 
+       *
+    FROM rol_trabajador
+    WHERE rol = @rol
+END
+go
+CREATE or alter proc usp_obtener_rol_trabajador_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+        *
+    FROM rol_trabajador
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_rol_trabajador
+    @rol VARCHAR(40),
+    @estado bit
+AS
+BEGIN
+    INSERT INTO rol_trabajador (rol, estado)
     VALUES (@rol, @estado);
-    SELECT SCOPE_IDENTITY() AS Id;
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
 go
 CREATE or alter proc usp_actualizar_rol_trabajador
     @id INT,
-    @rol NVARCHAR(100),
-    @estado BIT
+    @rol VARCHAR(40),
+    @estado bit
 AS
 BEGIN
     UPDATE rol_trabajador
-    SET
-        rol = @rol,
+    SET rol = @rol,
         estado = @estado
-    WHERE id = @id;
+    WHERE id = @id
 END
 go
 CREATE or alter proc usp_eliminar_rol_trabajador
@@ -383,35 +1401,125 @@ BEGIN
     WHERE Id = @id;
 END
 go
+
+
+
 ------------------------------------
 ------------------------------------
 
-create or alter proc usp_listar_tipo_documento
-as
-    select * from tipo_documento
+CREATE or alter proc usp_listar_tipo_comprobante
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_comprobante 
+END
 go
-CREATE or alter proc usp_insertar_tipo_documento
-    @tipo NVARCHAR(100),
+CREATE or alter proc usp_obtener_tipo_comprobante_por_tipo
+    @tipo varchar(40)
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_comprobante 
+END
+go
+CREATE or alter proc usp_obtener_tipo_comprobante_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_comprobante 
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_tipo_comprobante
+    @tipo VARCHAR(40),
     @estado BIT
 AS
 BEGIN
-    SET NOCOUNT ON;
-    INSERT INTO tipo_documento(tipo, estado)
+    INSERT INTO tipo_comprobante (tipo, estado)
     VALUES (@tipo, @estado);
-    SELECT SCOPE_IDENTITY() AS Id;
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_tipo_comprobante
+    @id INT,
+    @tipo VARCHAR(40),
+    @estado BIT
+AS
+BEGIN
+    UPDATE tipo_comprobante
+    SET @tipo = @tipo,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_tipo_comprobante
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE tipo_comprobante
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+CREATE or alter proc usp_listar_tipo_documentos
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_documento 
+END
+go
+CREATE or alter proc usp_listar_tipo_documentos_por_tipo
+    @tipo varchar(40)
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_documento 
+END
+go
+CREATE or alter proc usp_obtener_tipo_documento_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_documento 
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_tipo_documento
+    @tipo VARCHAR(40),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO tipo_documento (tipo, estado)
+    VALUES (@tipo, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
 go
 CREATE or alter proc usp_actualizar_tipo_documento
     @id INT,
-    @tipo NVARCHAR(100),
+    @tipo VARCHAR(40),
     @estado BIT
 AS
 BEGIN
     UPDATE tipo_documento
-    SET
-        tipo = @tipo,
+    SET @tipo = @tipo,
         estado = @estado
-    WHERE id = @id;
+    WHERE id = @id
 END
 go
 CREATE or alter proc usp_eliminar_tipo_documento
@@ -428,32 +1536,194 @@ go
 ------------------------------------
 ------------------------------------
 
-create or alter proc usp_listar_tipo_nacionalidad
-as
-    select * from tipo_nacionalidad
+CREATE or alter proc usp_listar_tipo_estacionamiento
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_estacionamiento 
+END
 go
-CREATE or alter proc usp_insertar_tipo_nacionalidad
-    @tipo NVARCHAR(100),
+CREATE or alter proc usp_listar_tipo_estacionamiento_por_tipo
+    @tipo varchar(40)
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_estacionamiento
+	where tipo = @tipo
+END
+go
+CREATE or alter proc usp_obtener_tipo_estacionamiento_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_estacionamiento 
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_tipo_estacionamiento
+    @tipo VARCHAR(40),
+	@costo decimal(10,2),
     @estado BIT
 AS
 BEGIN
+    INSERT INTO tipo_estacionamiento (tipo, costo, estado)
+    VALUES (@tipo, @costo, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_tipo_estacionamiento
+    @id INT,
+    @tipo VARCHAR(40),
+	@costo decimal(10,2),
+    @estado BIT
+AS
+BEGIN
+    UPDATE tipo_estacionamiento
+    SET tipo = @tipo,
+		costo = @costo,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_tipo_estacionamiento
+    @id INT
+AS
+BEGIN
     SET NOCOUNT ON;
-    INSERT INTO tipo_nacionalidad(tipo, estado)
+    UPDATE tipo_estacionamiento
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_tipo_habitacion
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_habitacion 
+END
+go
+CREATE or alter proc usp_listar_tipo_habitacion_por_tipo
+    @tipo varchar(40)
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_habitacion
+	where tipo = @tipo
+END
+go
+CREATE or alter proc usp_obtener_tipo_habitacion_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_habitacion 
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_tipo_habitacion
+    @tipo VARCHAR(40),
+	@descripccion VARCHAR(200),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO tipo_habitacion (tipo, descripccion, estado)
+    VALUES (@tipo, @descripccion, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_tipo_habitacion
+    @id INT,
+    @tipo VARCHAR(40),
+	@descripccion VARCHAR(200),
+    @estado BIT
+AS
+BEGIN
+    UPDATE tipo_habitacion
+    SET tipo = @tipo,
+		descripccion = @descripccion,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_tipo_habitacion
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE tipo_habitacion
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_tipo_nacionalidades
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_nacionalidad 
+END
+go
+CREATE or alter proc usp_obtener_tipo_nacionalidades_por_tipo
+    @tipo varchar(40)
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_nacionalidad
+	where tipo = @tipo
+END
+go
+CREATE or alter proc usp_obtener_tipo_nacionalidad_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_nacionalidad 
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_tipo_nacionalidad
+    @tipo VARCHAR(40),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO tipo_nacionalidad (tipo, estado)
     VALUES (@tipo, @estado);
-    SELECT SCOPE_IDENTITY() AS Id;
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
 go
 CREATE or alter proc usp_actualizar_tipo_nacionalidad
     @id INT,
-    @tipo NVARCHAR(100),
+    @tipo VARCHAR(40),
     @estado BIT
 AS
 BEGIN
     UPDATE tipo_nacionalidad
-    SET
-        tipo = @tipo,
+    SET tipo = @tipo,
         estado = @estado
-    WHERE id = @id;
+    WHERE id = @id
 END
 go
 CREATE or alter proc usp_eliminar_tipo_nacionalidad
@@ -470,33 +1740,123 @@ go
 ------------------------------------
 ------------------------------------
 
-create or alter proc usp_listar_tipo_sexo
-as
-    select * from tipo_sexo
+CREATE or alter proc usp_listar_tipo_reserva
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_reserva 
+END
 go
+CREATE or alter proc usp_obtener_tipo_reserva_por_tipo
+    @tipo varchar(40)
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_reserva
+	where tipo = @tipo
+END
 go
-CREATE or alter proc usp_insertar_tipo_sexo
-    @tipo NVARCHAR(100),
+CREATE or alter proc usp_obtener_tipo_reserva_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_reserva 
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_tipo_reserva
+    @tipo VARCHAR(40),
     @estado BIT
 AS
 BEGIN
-    SET NOCOUNT ON;
-    INSERT INTO tipo_sexo(tipo, estado)
+    INSERT INTO tipo_reserva (tipo, estado)
     VALUES (@tipo, @estado);
-    SELECT SCOPE_IDENTITY() AS Id;
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_tipo_reserva
+    @id INT,
+    @tipo VARCHAR(40),
+    @estado BIT
+AS
+BEGIN
+    UPDATE tipo_reserva
+    SET tipo = @tipo,
+        estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_tipo_reserva
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE tipo_reserva
+    SET estado = 0 
+    WHERE Id = @id;
+END
+go
+
+
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_tipo_sexo
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_sexo
+END
+go
+CREATE or alter proc usp_obtener_tipo_sexo_por_tipo
+    @tipo varchar(40)
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_sexo
+	where tipo = @tipo
+END
+go
+CREATE or alter proc usp_obtener_tipo_sexo_por_id
+    @id INT
+AS
+BEGIN
+    SELECT 
+      *
+    FROM tipo_sexo 
+    WHERE id = @id
+END
+GO
+
+CREATE or alter proc usp_crear_tipo_sexo
+    @tipo VARCHAR(40),
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO tipo_sexo (tipo, estado)
+    VALUES (@tipo, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
 go
 CREATE or alter proc usp_actualizar_tipo_sexo
     @id INT,
-    @tipo NVARCHAR(100),
+    @tipo VARCHAR(40),
     @estado BIT
 AS
 BEGIN
     UPDATE tipo_sexo
-    SET
-        tipo = @tipo,
+    SET tipo = @tipo,
         estado = @estado
-    WHERE id = @id;
+    WHERE id = @id
 END
 go
 CREATE or alter proc usp_eliminar_tipo_sexo
@@ -513,44 +1873,169 @@ go
 ------------------------------------
 ------------------------------------
 
-create or alter proc usp_listar_tipo_estacionamiento
-as
-    select * from tipo_estacionamiento
+CREATE or alter proc usp_listar_trabajadores
+AS
+BEGIN
+    SELECT 
+      t.id,
+	  t.primer_nombre,
+	  t.segundo_nombre,
+	  t.primer_apellido,
+	  t.segundo_apellido,
+	  t.username,
+	  t.password,
+	  t.sueldo,
+	  td.tipo,
+	  t.numero_documento,
+	  t.telefono,
+	  t.email,
+	  rt.rol,
+	  t.estado
+    FROM trabajador t
+    INNER JOIN tipo_documento td ON t.id_tipo_documento = td.id
+    INNER JOIN rol_trabajador rt ON t.id_rol = rt.id
+END
 go
-------------------------------------
-------------------------------------
+CREATE or alter proc usp_obtener_trabajadorDTO_por_id
+    @id INT
+AS
+BEGIN
+   SELECT 
+      t.id,
+	  t.primer_nombre,
+	  t.segundo_nombre,
+	  t.primer_apellido,
+	  t.segundo_apellido,
+	  t.username,
+	  t.password,
+	  t.sueldo,
+	  td.tipo,
+	  t.numero_documento,
+	  t.telefono,
+	  t.email,
+	  rt.rol,
+	  t.estado
+    FROM trabajador t
+    INNER JOIN tipo_documento td ON t.id_tipo_documento = td.id
+    INNER JOIN rol_trabajador rt ON t.id_rol = rt.id
+    WHERE t.id = @id
+END
+go
+CREATE or alter proc usp_obtener_trabajador_por_id
+    @id INT
+AS
+BEGIN
+   SELECT 
+      *
+    FROM trabajador
+    WHERE id = @id
+END
+GO
 
-create or alter proc usp_listar_tipo_reserva
-as
-    select * from tipo_reserva
+CREATE or alter proc usp_crear_trabajador
+    @primer_nombre varchar(50),
+    @segundo_nombre varchar(50),
+    @primer_apellido varchar(50),
+    @segundo_apellido varchar(50),
+    @username varchar(50),
+	@password varchar(355),
+	@sueldo decimal(10,2),
+	@id_tipo_documento int,
+	@numero_documento varchar(10),
+	@telefono varchar(10),
+	@email varchar(25),
+	@id_rol int,
+    @estado BIT
+AS
+BEGIN
+    INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado)
+    VALUES (@primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @username, @password, @sueldo, @id_tipo_documento, @numero_documento, @telefono, @email, @id_rol, @estado);
+
+    SELECT SCOPE_IDENTITY() AS nuevo_id;
+END
+go
+CREATE or alter proc usp_actualizar_trabajador
+    @id INT,
+    @primer_nombre varchar(50),
+    @segundo_nombre varchar(50),
+    @primer_apellido varchar(50),
+    @segundo_apellido varchar(50),
+    @username varchar(50),
+	@password varchar(355),
+	@sueldo decimal(10,2),
+	@id_tipo_documento int,
+	@numero_documento varchar(10),
+	@telefono varchar(10),
+	@email varchar(25),
+	@id_rol int,
+    @estado BIT
+AS
+BEGIN
+    UPDATE trabajador
+    SET primer_nombre = @primer_nombre,
+		segundo_nombre = @segundo_nombre, 
+		primer_apellido = @primer_apellido, 
+		segundo_apellido = @segundo_apellido, 
+		username = @username, 
+		password = @password, 
+		sueldo = @sueldo, 
+		id_tipo_documento = @id_tipo_documento, 
+		numero_documento = @numero_documento, 
+		telefono = @telefono, 
+		email = @email, 
+		id_rol = @id_rol, 
+		estado = @estado
+    WHERE id = @id
+END
+go
+CREATE or alter proc usp_eliminar_trabajador
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE trabajador
+    SET estado = 0 
+    WHERE Id = @id;
+END
 go
 
-------------------------------------
-------------------------------------
-
-create or alter proc usp_listar_tipo_comprobante
-as
-    select * from tipo_comprobante
-go
 
 ------------------------------------
 ------------------------------------
 
 create or alter proc usp_listar_unidad_medida_producto
 as
-    select * from unidad_medida_producto
+    select *
+	from unidad_medida_producto
 go
-CREATE or alter proc usp_insertar_unidad_medida_producto
+CREATE or alter proc usp_obtener_unidad_medida_por_unidad
+    @unidad NVARCHAR(100)
+AS
+BEGIN
+    select *
+	from unidad_medida_producto
+	where unidad =@unidad
+END
+go
+CREATE or alter proc usp_obtener_unidad_medida_por_id
+    @id INT
+AS
+BEGIN
+    select *
+	from unidad_medida_producto
+    WHERE Id = @id;
+END
+go
+CREATE or alter proc usp_crear_unidad_medida_producto
     @unidad NVARCHAR(100),
     @estado BIT
 AS
 BEGIN
-    SET NOCOUNT ON;
-    INSERT INTO unidad_medida_producto(unidad, estado)
-    VALUES (@unidad, @estado);
-    SELECT SCOPE_IDENTITY() AS Id;
+    INSERT INTO unidad_medida_producto( unidad, estado)
+	VALUES(@unidad, @estado)
 END
 go
+
 CREATE or alter proc usp_actualizar_unidad_medida_producto
     @id INT,
     @unidad NVARCHAR(100),
@@ -574,8 +2059,7 @@ BEGIN
     WHERE Id = @id;
 END
 go
-------------------------------------
-------------------------------------
+
 create or alter proc usp_listar_categoria_producto
 as
     select * from categoria_producto
@@ -675,9 +2159,6 @@ END
 go
 
 
-
---Insertando datos de uso
-
 INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
 ('101', '1', 250.00, 1, 1, 1),
 ('102', '1', 200.00, 2, 1, 1),
@@ -737,12 +2218,7 @@ INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, 
 (8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
 (9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
 (10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
-go
 
-create or alter proc usp_listar_productos 
-as
-	select p.id, p.nombre, ump.unidad, cp.categoria, precio_unico, cantidad, p.estado from producto p 
-	join unidad_medida_producto ump on p.id_unidad_medida_producto = ump.id 
-	join categoria_producto cp on p.id_categoria_producto = cp.id
 
-go
+
+

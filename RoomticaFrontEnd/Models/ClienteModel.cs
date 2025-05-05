@@ -1,4 +1,6 @@
-﻿namespace RoomticaFrontEnd.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RoomticaFrontEnd.Models
 {
     public class ClienteModel
     {
@@ -27,6 +29,8 @@
         public string? numero_documento { get; set; }
         public string? telefono { get; set; }
         public string? email { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public string? fecha_nacimiento { get; set; }
         public string? id_tipo_nacionalidad { get; set; }
         public string? id_tipo_sexo { get; set; }
