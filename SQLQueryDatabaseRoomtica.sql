@@ -627,7 +627,8 @@ CREATE or alter proc usp_crear_producto
     @nombre NVARCHAR(100),
     @id_unidad_medida_producto INT,
     @id_categoria_producto INT,
-    @precio_unico DECIMAL(18, 2),
+    @precio_unico DECIM
+	AL(18, 2),
     @cantidad INT,
     @estado BIT
 AS

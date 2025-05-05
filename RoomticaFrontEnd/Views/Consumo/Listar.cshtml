@@ -1,0 +1,37 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.ConsumoModel>
+@{
+    ViewData["Title"] = "Listar Consumos";
+}
+<h1>Listar Consumos</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Id Reserva</th>
+                <th>Id Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Venta</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.id_reserva</td>
+                    <td>@item.id_producto</td>
+                    <td>@item.cantidad</td>
+                    <td>@item.precio_venta</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.id">Editar</a> |
+                        <a asp-action="Eliminar" asp-route-id="@item.id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+</div>

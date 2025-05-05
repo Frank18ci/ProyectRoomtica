@@ -1,0 +1,53 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.TrabajadorDTOModel>
+@{
+    ViewData["Title"] = "Listar Trabajadores";
+}
+<h1>Listar Trabajadores</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Primer Nombre</th>
+                <th>Segundo Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>Sueldo</th>
+                <th>Id Tipo Documento</th>
+                <th>Numero Documento</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Id Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.primer_nombre</td>
+                    <td>@item.segundo_nombre</td>
+                    <td>@item.primer_apellido</td>
+                    <td>@item.segundo_apellido</td>
+                    <td>@item.username</td>
+                    <td>@item.password</td>
+                    <td>@item.sueldo</td>
+                    <td>@item.id_tipo_documento</td>
+                    <td>@item.numero_documento</td>
+                    <td>@item.telefono</td>
+                    <td>@item.email</td>
+                    <td>@item.id_rol</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.id">Editar</a> |
+                        <a asp-action="Eliminar" asp-route-id="@item.id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+</div>

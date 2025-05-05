@@ -1,0 +1,38 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.EstacionamientoDTOModel>
+@{
+    ViewData["Title"] = "Listar Estacionamiento";
+}
+<h1>Listar Estacionamiento</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lugar</th>
+                <th>Largo</th>
+                <th>Alto</th>
+                <th>Ancho</th>
+                <th>Id Tipo Estacionamiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.lugar</td>
+                    <td>@item.largo</td>
+                    <td>@item.alto</td>
+                    <td>@item.ancho</td>
+                    <td>@item.id_tipo_estacionamiento</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.id">Editar</a> |
+                        <a asp-action="Eliminar" asp-route-id="@item.id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+</div>
