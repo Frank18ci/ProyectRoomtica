@@ -105,6 +105,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cn.Open();
                 SqlCommand cmd = new SqlCommand("usp_crear_reserva_estacionamiento", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_reserva", request.IdEstacionamiento);
                 cmd.Parameters.AddWithValue("@id_estacionamiento", request.IdEstacionamiento);
                 cmd.Parameters.AddWithValue("@cantidad", request.Cantidad);
                 cmd.Parameters.AddWithValue("@precio_estacionamiento", request.PrecioEstacionamiento);

@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service ConsumoService {
     rpc GetAll(google.protobuf.Empty) returns (Consumos);
+    rpc GetByIdDTO(ConsumoId) returns (ConsumoDTO);
     rpc GetById(ConsumoId) returns (Consumo);
     rpc Create(Consumo) returns (Consumo);
     rpc Update(Consumo) returns (Consumo);
@@ -22,9 +23,16 @@ message Consumo {
     double precio_venta = 5;
     bool estado = 6;
 }
-
+message ConsumoDTO {
+    int32 id = 1;
+    string id_reserva = 2;
+    string id_producto = 3;
+    int32 cantidad = 4;
+    double precio_venta = 5;
+    bool estado = 6;
+}
 message Consumos {
-    repeated Consumo consumos = 1;
+    repeated ConsumoDTO consumo_ = 1;
 }
 
 message ConsumoId {
