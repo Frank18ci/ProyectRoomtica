@@ -9,8 +9,10 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Estado</th>
-                <th>Acciones</th>
+                <th>Unidad</th>
+                <th>Categoria</th>
+                <th>Cantidad</th>
+                <th>Precio Unidad</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +21,10 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Nombre</td>
-                    <td>@item.estado</td>
+                    <td>@item.unidad</td>
+                    <td>@item.categoria</td>
+                    <td>@item.Cantidad</td>
+                    <td>@item.precioU</td>
                     <td>
                         <a asp-action="Detail" asp-route-id="@item.Id">Editar</a>
                         <a asp-action="Editar" asp-route-id="@item.Id">Editar</a> |

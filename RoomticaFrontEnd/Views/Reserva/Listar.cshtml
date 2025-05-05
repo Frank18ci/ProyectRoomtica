@@ -1,0 +1,42 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.ReservaDTOModel>
+@{
+    ViewData["Title"] = "Listar Reservas";
+}
+<h1>Listar Reservas</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Id Habitacion</th>
+                <th>Id Cliente</th>
+                <th>Id Trabajador</th>
+                <th>Id Tipo Reserva</th>
+                <th>Fecha Ingreso</th>
+                <th>Fecha Salida</th>
+                <th>Costo Alojamiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.id_habitacion</td>
+                    <td>@item.id_cliente</td>
+                    <td>@item.id_trabajador</td>
+                    <td>@item.id_tipo_reserva</td>
+                    <td>@item.fecha_ingreso</td>
+                    <td>@item.fecha_salida</td>
+                    <td>@item.costo_alojamiento</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.id">Editar</a> |
+                        <a asp-action="Eliminar" asp-route-id="@item.id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+</div>

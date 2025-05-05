@@ -19,7 +19,8 @@
                     <td>@item.Id</td>
                     <td>@item.tipo</td>
                     <td>
-                        <a asp-action="Editar" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-action="Detail" asp-route-id="@item.Id">Detalle</a> |
+                         <a asp-action="Editar" asp-route-id="@item.Id">Editar</a> |
                         <a asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a>
                     </td>
                 </tr>

@@ -1218,7 +1218,7 @@ BEGIN
 END
 go
 CREATE or alter proc usp_eliminar_reserva_estacionamiento
-   @id_reserva int,
+	@id_reserva int,
     @id_estacionamiento int
 AS
 BEGIN

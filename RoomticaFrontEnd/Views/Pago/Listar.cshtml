@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.PagoDTOModel>
+@{
+    ViewData["Title"] = "Listar Pagos";
+}
+<h1>Listar Pagos</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Id Reserva</th>
+                <th>Id Tipo Comprobante</th>
+                <th>IGV</th>
+                <th>Total Pago</th>
+                <th>Fecha Emision</th>
+                <th>Fecha Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.id_reserva</td>
+                    <td>@item.id_tipo_comprobante</td>
+                    <td>@item.igv</td>
+                    <td>@item.total_pago</td>
+                    <td>@item.fecha_emision</td>
+                    <td>@item.fecha_pago</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.id">Editar</a> |
+                        <a asp-action="Eliminar" asp-route-id="@item.id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+</div>

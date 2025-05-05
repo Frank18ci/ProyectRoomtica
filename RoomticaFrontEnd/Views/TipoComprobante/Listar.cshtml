@@ -1,0 +1,31 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.TipoComprobanteModel>
+@{
+    ViewData["Title"] = "Listar Tipo Comprobante";
+}
+<h1>Listar Tipo Comprobante</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.tipo</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.id">Editar</a> |
+                        <a asp-action="Eliminar" asp-route-id="@item.id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+</div>
