@@ -189,5 +189,47 @@ namespace RoomticaGrpcServiceBackEnd.Services
             }
             return Task.FromResult(new Empty());
         }
+        public override Task<Trabajador> Login(DatosLoginTrabajador request, ServerCallContext context)
+        {
+            Trabajador? trabajador = null;
+            using (SqlConnection cn = new SqlConnection(_cadena))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand("usp_login_trabajador", cn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@username", request.Username);
+                cmd.Parameters.AddWithValue("@password", request.Password);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    trabajador = new Trabajador
+                    {
+                        Id = dr.GetInt32(0),
+                        PrimerNombre = dr.GetString(1),
+                        SegundoNombre = dr.GetString(2),
+                        PrimerApellido = dr.GetString(3),
+                        SegundoApellido = dr.GetString(4),
+                        Username = dr.GetString(5),
+                        Password = dr.GetString(6),
+                        Sueldo = Double.Parse(dr.GetDecimal(7).ToString()),
+                        IdTipoDocumento = dr.GetInt32(8),
+                        NumeroDocumento = dr.GetString(9),
+                        Telefono = dr.GetString(10),
+                        Email = dr.GetString(11),
+                        IdRol = dr.GetInt32(12),
+                        Estado = dr.GetBoolean(13)
+                    };
+                }
+                dr.Close();
+            }
+            if (trabajador == null)
+            {
+                return Task.FromResult(new Trabajador()
+                {
+                    Id = 0,
+                });
+            }
+            return Task.FromResult(trabajador);
+        }
     }
 }
