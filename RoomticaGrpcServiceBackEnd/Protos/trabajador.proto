@@ -13,6 +13,7 @@ service TrabajadorService {
     rpc Create(Trabajador) returns (Trabajador);
     rpc Update(Trabajador) returns (Trabajador);
     rpc Delete(TrabajadorId) returns (google.protobuf.Empty);
+    rpc Login(DatosLoginTrabajador) returns (Trabajador);
 }
 
 message Trabajador {
@@ -46,6 +47,10 @@ message TrabajadorDTO {
     string email = 12;
     string id_rol = 13;
     bool estado = 14;
+}
+message DatosLoginTrabajador{
+    string username = 1;
+    string password = 2;
 }
 
 message Trabajadores {

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Grpc.Net.Client;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomticaFrontEnd.Models;
+using RoomticaGrpcServiceBackEnd;
 using System.Text.Json;
 
 namespace RoomticaFrontEnd.Controllers
@@ -11,19 +13,48 @@ namespace RoomticaFrontEnd.Controllers
         {
             return View();
         }
-        TrabajadorDTOModel LoginEmpleado(string Username = "", string Clave = "")
+        private TrabajadorService.TrabajadorServiceClient? trabajadorService;
+        async Task<TrabajadorModel> LoginEmpleado(string Username = "", string Clave = "")
         {
-            return new TrabajadorDTOModel();
+            var canal = GrpcChannel.ForAddress("http://localhost:5225");
+            trabajadorService = new TrabajadorService.TrabajadorServiceClient(canal);
+            var request = new DatosLoginTrabajador()
+            {
+                Username = Username,
+                Password = Clave
+            };
+            var mensaje = await trabajadorService.LoginAsync(request);
+            if (mensaje.Id != 0)
+            {
+                TrabajadorModel trabajadorModel = new TrabajadorModel()
+                {
+                    id = mensaje.Id,
+                    primer_nombre = mensaje.PrimerNombre,
+                    segundo_nombre = mensaje.SegundoNombre,
+                    primer_apellido = mensaje.PrimerApellido,
+                    segundo_apellido = mensaje.SegundoApellido,
+                    username = mensaje.Username,
+                    password = mensaje.Password,
+                    sueldo = mensaje.Sueldo,
+                    id_tipo_documento = mensaje.IdTipoDocumento,
+                    numero_documento = mensaje.NumeroDocumento,
+                    telefono = mensaje.Telefono,
+                    email = mensaje.Email,
+                    id_rol = mensaje.IdRol
+                };
+                return trabajadorModel;
+            }
+            return null;
         }
 
         [HttpPost]
-        public ActionResult Acceso(string Username = "", string Clave = "") {
-            TrabajadorDTOModel trabajador = LoginEmpleado(Username, Clave);
+        public async Task<ActionResult> Login(string Username = "", string Clave = "") {
+            TrabajadorModel trabajador = await LoginEmpleado(Username, Clave);
             if (trabajador != null)
             {
                 string trabajadorJson = JsonSerializer.Serialize(trabajador);
                 byte[] trabajadorBytes = System.Text.Encoding.UTF8.GetBytes(trabajadorJson);
-                HttpContext.Session.Set("empleado", trabajadorBytes);
+                HttpContext.Session.Set("trabajador", trabajadorBytes);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -35,8 +66,8 @@ namespace RoomticaFrontEnd.Controllers
 
         public ActionResult CerrarSesion()
         {
-            HttpContext.Session.Remove("empleado");
-            return RedirectToAction("Auth", "Acceso");
+            HttpContext.Session.Remove("trabajador");
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

@@ -3,6 +3,7 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using RoomticaFrontEnd.Models;
+using RoomticaFrontEnd.Permisos;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaFrontEnd.Controllers
@@ -17,6 +18,7 @@ namespace RoomticaFrontEnd.Controllers
             _logger = logger;
         }
 
+        [ValidarSesion]
         public async Task<IActionResult> Index()
         {
             var canal = GrpcChannel.ForAddress("http://localhost:5225");
