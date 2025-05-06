@@ -2162,6 +2162,18 @@ INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, 
 (9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
 (10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
 
+go
 
+create or alter proc usp_login_trabajador
+@username varchar(20),
+@password varchar(355)
+as
+	select * from 
+	trabajador t 
+	where t.username = @username and t.password = @password
+go
+
+
+exec usp_login_trabajador 'cperez' , '1234'
 
 
