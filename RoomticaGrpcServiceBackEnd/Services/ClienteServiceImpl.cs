@@ -39,7 +39,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         NumeroDocumento = dr.GetString(6),
                         Telefono = dr.GetString(7),
                         Email = dr.GetString(8),
-                        FechaNacimiento = dr.GetDateTime(9).ToString(),
+                        FechaNacimiento = Timestamp.FromDateTime(dr.GetDateTime(9).ToUniversalTime()),
                         IdTipoNacionalidad = dr.GetString(10),
                         IdTipoSexo = dr.GetString(11),
                         Estado = dr.GetBoolean(12)
@@ -75,7 +75,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         NumeroDocumento = dr.GetString(6),
                         Telefono = dr.GetString(7),
                         Email = dr.GetString(8),
-                        FechaNacimiento = dr.GetDateTime(9).ToString(),
+                        FechaNacimiento = Timestamp.FromDateTime(dr.GetDateTime(9).ToUniversalTime()),
                         IdTipoNacionalidad = dr.GetString(10),
                         IdTipoSexo = dr.GetString(11),
                         Estado = dr.GetBoolean(12)
@@ -109,7 +109,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         NumeroDocumento = dr.GetString(6),
                         Telefono = dr.GetString(7),
                         Email = dr.GetString(8),
-                        FechaNacimiento = dr.GetDateTime(9).ToString(),
+                        FechaNacimiento = Timestamp.FromDateTime(dr.GetDateTime(9).ToUniversalTime()),
                         IdTipoNacionalidad = dr.GetInt32(10),
                         IdTipoSexo = dr.GetInt32(11),
                         Estado = dr.GetBoolean(12)
@@ -135,7 +135,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.Parameters.AddWithValue("@numero_documento", request.NumeroDocumento);
                 cmd.Parameters.AddWithValue("@telefono", request.Telefono);
                 cmd.Parameters.AddWithValue("@email", request.Email);
-                cmd.Parameters.AddWithValue("@fecha_nacimiento", request.FechaNacimiento);
+                cmd.Parameters.AddWithValue("@fecha_nacimiento", request.FechaNacimiento.ToDateTime());
                 cmd.Parameters.AddWithValue("@id_tipo_nacionalidad", request.IdTipoNacionalidad);
                 cmd.Parameters.AddWithValue("@id_tipo_sexo", request.IdTipoSexo);
                 cmd.Parameters.AddWithValue("@estado", request.Estado);
@@ -162,7 +162,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.Parameters.AddWithValue("@numero_documento", request.NumeroDocumento);
                 cmd.Parameters.AddWithValue("@telefono", request.Telefono);
                 cmd.Parameters.AddWithValue("@email", request.Email);
-                cmd.Parameters.AddWithValue("@fecha_nacimiento", request.FechaNacimiento);
+                cmd.Parameters.AddWithValue("@fecha_nacimiento", request.FechaNacimiento.ToDateTime());
                 cmd.Parameters.AddWithValue("@id_tipo_nacionalidad", request.IdTipoNacionalidad);
                 cmd.Parameters.AddWithValue("@id_tipo_sexo", request.IdTipoSexo);
                 cmd.Parameters.AddWithValue("@estado", request.Estado);

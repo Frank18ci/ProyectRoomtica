@@ -499,6 +499,7 @@ BEGIN
     INNER JOIN tipo_documento d ON p.id_tipo_documento = d.id
     INNER JOIN tipo_nacionalidad n ON p.id_tipo_nacionalidad = n.id
 	INNER JOIN tipo_sexo s ON p.id_tipo_sexo = s.id
+	where p.estado = 1
 END
 go
 CREATE or alter proc usp_obtener_clienteDTO_por_id
@@ -523,7 +524,7 @@ BEGIN
     INNER JOIN tipo_documento d ON p.id_tipo_documento = d.id
     INNER JOIN tipo_nacionalidad n ON p.id_tipo_nacionalidad = n.id
 	INNER JOIN tipo_sexo s ON p.id_tipo_sexo = s.id
-    WHERE p.id = @id
+    WHERE p.id = @id and p.estado = 1
 END
 go
 CREATE or alter proc usp_obtener_cliente_por_id
@@ -533,7 +534,7 @@ BEGIN
     SELECT 
        *
     FROM cliente
-    WHERE id = @id
+    WHERE id = @id and estado = 1
 END
 GO
 
@@ -553,7 +554,7 @@ CREATE or alter proc usp_crear_cliente
 AS
 BEGIN
     INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado)
-    VALUES (@primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @id_tipo_documento, @numero_documento, @telefono, @email, @fecha_nacimiento, @id_tipo_nacionalidad, @id_tipo_sexo, @estado);
+    VALUES (@primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @id_tipo_documento, @numero_documento, @telefono, @email, @fecha_nacimiento, @id_tipo_nacionalidad, @id_tipo_sexo, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -586,7 +587,7 @@ BEGIN
 		fecha_nacimiento = @fecha_nacimiento,
 		id_tipo_nacionalidad = @id_tipo_nacionalidad,
 		id_tipo_sexo = @id_tipo_sexo,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go

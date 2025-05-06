@@ -3,7 +3,7 @@
 option csharp_namespace = "RoomticaGrpcServiceBackEnd";
 
 package cliente;
-
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 service ClienteService {
@@ -25,7 +25,7 @@ message Cliente {
     string numero_documento = 7;
     string telefono = 8;
     string email = 9;
-    string fecha_nacimiento = 10;
+    google.protobuf.Timestamp fecha_nacimiento = 10;
     int32 id_tipo_nacionalidad = 11;
     int32 id_tipo_sexo = 12;
     bool estado = 13;
@@ -40,7 +40,7 @@ message ClienteDTO {
     string numero_documento = 7;
     string telefono = 8;
     string email = 9;
-    string fecha_nacimiento = 10;
+    google.protobuf.Timestamp fecha_nacimiento = 10;
     string id_tipo_nacionalidad = 11;
     string id_tipo_sexo = 12;
     bool estado = 13;

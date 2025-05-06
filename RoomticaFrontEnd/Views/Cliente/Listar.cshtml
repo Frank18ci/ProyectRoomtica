@@ -48,7 +48,7 @@
                         <td>@item.tipo_documento</td>
                         <td>@item.numero_documento</td>
                         <td>@item.tipo_nacionalidad</td>
-                        <td>@item.fecha_nacimiento</td>
+                        <td>@(item.fecha_nacimiento.HasValue ? item.fecha_nacimiento.Value.ToString("yyyy-MM-dd") : "")</td>
                         <td>@item.telefono</td>
                         <td>@item.email</td>
                         <td >
@@ -56,10 +56,10 @@
                                 <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <a asp-action="Info" class="btn btn-success" asp-route-id="@item.Id">
+                                <a asp-action="Details" class="btn btn-success" asp-route-id="@item.Id">
                                     <i class="bi bi-info-square-fill"></i>
                                 </a>
-                                <a asp-action="Eliminar" class="btn btn-danger" asp-route-id="@item.Id">
+                                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
                             </div>
