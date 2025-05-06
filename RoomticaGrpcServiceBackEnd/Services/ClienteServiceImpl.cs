@@ -75,7 +75,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         NumeroDocumento = dr.GetString(6),
                         Telefono = dr.GetString(7),
                         Email = dr.GetString(8),
-                        FechaNacimiento = dr.GetString(9),
+                        FechaNacimiento = dr.GetDateTime(9).ToString(),
                         IdTipoNacionalidad = dr.GetString(10),
                         IdTipoSexo = dr.GetString(11),
                         Estado = dr.GetBoolean(12)
@@ -109,7 +109,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         NumeroDocumento = dr.GetString(6),
                         Telefono = dr.GetString(7),
                         Email = dr.GetString(8),
-                        FechaNacimiento = dr.GetString(9),
+                        FechaNacimiento = dr.GetDateTime(9).ToString(),
                         IdTipoNacionalidad = dr.GetInt32(10),
                         IdTipoSexo = dr.GetInt32(11),
                         Estado = dr.GetBoolean(12)

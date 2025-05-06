@@ -30,9 +30,7 @@ namespace RoomticaFrontEnd.Controllers
         {
             var canal = GrpcChannel.ForAddress("http://localhost:5225");
             CategoriaProductoServiceClient = new CategoriaProductoService.CategoriaProductoServiceClient(canal);
-            var request = new CategoriaProductoId() {
-                Id = id,
-            };
+            var request = new CategoriaProductoId() { Id = id, };
             var mensaje = await CategoriaProductoServiceClient.GetByIdAsync(request);
 
             CategoriaProductoModel categoriaProductoModel = new CategoriaProductoModel()

@@ -13,8 +13,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
 
         public TipoHabitacionServiceImpl(IConfiguration configuration, ILogger<TipoHabitacionServiceImpl> logger)
         {
-            this._logger = logger;
             _cadena = configuration.GetConnectionString("DefaultConnection");
+            _logger = logger;
         }
 
         public override Task<TipoHabitaciones> GetAll(Empty request, ServerCallContext context)
