@@ -2,49 +2,79 @@
 @{
     ViewData["Title"] = "Listar Clientes";
 }
-<h1>Listar Clientes</h1>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Primer Nombre</th>
-                <th>Segundo Nombre</th>
-                <th>Primer Apellido</th>
-                <th>Segundo Apellido</th>
-                <th>Id Tipo Documento</th>
-                <th>Numero Documento</th>
-                <th>Telefono</th>
-                <th>Email</th>
-                <th>Fecha Nacimiento</th>
-                <th>Id Tipo Nacionalidad</th>
-                <th>Id Tipo Sexo</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<div class="container-xl">
+    <h2>Listado de Clientes</h2>
+    <p class="my-2">
+        <a asp-action="Create" class="btn btn-primary">
+            Nuevo Cliente
+        </a>
+    </p>
+    <form asp-action="Listar">
+        <div class="col-md-4 d-flex align-items-center my-2">
+            <label for="nombre" class="label-form me-2">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value="@ViewBag.nombre" class="form-control me-2" />
+            <input type="submit" class="btn btn-secondary mt-1 mb-1" value="Buscar" />
+        </div>
+    </form>
+    <div class="my-2">
+        <span class="text-danger fw-bold ">@ViewBag.mensaje</span>
+    </div>
+    <div class="my-2">
+        <span>Cantidad de Empleados: @Model.Count()</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table w-100 table-striped table-bordered">
+            <thead class="table-dark">
                 <tr>
-                    <td>@item.Id</td>
-                    <td>@item.primer_nombre</td>
-                    <td>@item.segundo_nombre</td>
-                    <td>@item.primer_apellido</td>
-                    <td>@item.segundo_apellido</td>
-                    <td>@item.id_tipo_documento</td>
-                    <td>@item.numero_documento</td>
-                    <td>@item.telefono</td>
-                    <td>@item.email</td>
-                    <td>@item.fecha_nacimiento</td>
-                    <td>@item.id_tipo_nacionalidad</td>
-                    <td>@item.id_tipo_sexo</td>
-                    <td>
-                        <a asp-action="Detail" asp-route-id="@item.Id">Detalle</a>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                        <a asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a>
-                    </td>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.primer_nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.primer_apellido)</th>
+                    <th>@Html.DisplayNameFor(model => model.tipo_documento)</th>
+                    <th>@Html.DisplayNameFor(model => model.numero_documento)</th>
+                    <th>@Html.DisplayNameFor(model => model.tipo_nacionalidad)</th>
+                    <th>@Html.DisplayNameFor(model => model.fecha_nacimiento)</th>
+                    <th>@Html.DisplayNameFor(model => model.telefono)</th>
+                    <th>@Html.DisplayNameFor(model => model.email)</th>
+                    <th>Opciones</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <a asp-action="Crear">Crear Nueva Caracteristica Habitacion</a>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.primer_nombre</td>
+                        <td>@item.primer_apellido</td>
+                        <td>@item.tipo_documento</td>
+                        <td>@item.numero_documento</td>
+                        <td>@item.tipo_nacionalidad</td>
+                        <td>@item.fecha_nacimiento</td>
+                        <td>@item.telefono</td>
+                        <td>@item.email</td>
+                        <td >
+                            <div class="d-flex gap-2 align-items-center justify-content-center">
+                                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <a asp-action="Info" class="btn btn-success" asp-route-id="@item.Id">
+                                    <i class="bi bi-info-square-fill"></i>
+                                </a>
+                                <a asp-action="Eliminar" class="btn btn-danger" asp-route-id="@item.Id">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center gap-2">
+        @for(int i = 0; i < ViewBag.pags; i++){
+            <a asp-action="Listar" asp-route-p=@i asp-route-nombre="@ViewBag.nombre"
+            class=@(i == ViewBag.p ? "btn btn-success" : "btn btn-primary")>
+                @(i + 1)
+            </a>
+        }
+    </div>
 </div>

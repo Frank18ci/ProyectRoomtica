@@ -6,10 +6,10 @@ using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaFrontEnd.Controllers
 {
-    public class ProductoController : Controller
+    public class ProductosController : Controller
     {
         private ProductoService.ProductoServiceClient? ProductoServiceClient;
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Listar()
         {
             var canal = GrpcChannel.ForAddress("http://localhost:5225");
             ProductoServiceClient = new ProductoService.ProductoServiceClient(canal);
