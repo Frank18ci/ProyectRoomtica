@@ -308,8 +308,8 @@ select id, caracteristica, estado
 	where @id = id 
 go
 CREATE or alter proc usp_crear_caracteristica_habitacion
-    @caracteristica NVARCHAR(100),
-    @estado INT
+    @caracteristica VARCHAR(100),
+    @estado bit
 AS
 BEGIN
     INSERT INTO caracteristica_habitacion (caracteristica, estado)
@@ -321,8 +321,8 @@ go
 
 CREATE or alter proc usp_actualizar_caracteristica_habitacion
 	@id int,
-    @caracteristica NVARCHAR(100),
-    @estado INT
+    @caracteristica VARCHAR(100),
+    @estado bit
 AS
 BEGIN
     UPDATE caracteristica_habitacion 
@@ -452,7 +452,7 @@ GO
 
 CREATE or alter proc usp_actualizar_categoria_producto
     @id INT,
-    @categoria INT,
+    @categoria varchar(40),
     @estado BIT
 AS
 BEGIN
@@ -796,7 +796,7 @@ BEGIN
 END
 go
 CREATE or alter proc usp_listar_estado_habitacion_por_estado
-    @estado INT
+    @estado bit
 AS
 BEGIN
      SELECT 
@@ -1100,7 +1100,7 @@ CREATE or alter proc usp_crear_producto
     @nombre NVARCHAR(100),
     @id_unidad_medida_producto INT,
     @id_categoria_producto INT,
-    @precio_unico FLOAT,
+    @precio_unico decimal(10,2),
     @cantidad INT,
     @estado BIT
 AS
@@ -1116,7 +1116,7 @@ CREATE or alter proc usp_actualizar_producto
     @nombre NVARCHAR(100),
     @id_unidad_medida_producto INT,
     @id_categoria_producto INT,
-    @precio_unico FLOAT,
+    @precio_unico decimal(10,2),
     @cantidad INT,
     @estado BIT
 AS
@@ -1937,7 +1937,7 @@ CREATE or alter proc usp_crear_trabajador
     @segundo_nombre varchar(50),
     @primer_apellido varchar(50),
     @segundo_apellido varchar(50),
-    @username varchar(50),
+    @username varchar(20),
 	@password varchar(355),
 	@sueldo decimal(10,2),
 	@id_tipo_documento int,
@@ -1960,7 +1960,7 @@ CREATE or alter proc usp_actualizar_trabajador
     @segundo_nombre varchar(50),
     @primer_apellido varchar(50),
     @segundo_apellido varchar(50),
-    @username varchar(50),
+    @username varchar(20),
 	@password varchar(355),
 	@sueldo decimal(10,2),
 	@id_tipo_documento int,
@@ -2009,7 +2009,7 @@ as
 	from unidad_medida_producto
 go
 CREATE or alter proc usp_obtener_unidad_medida_por_unidad
-    @unidad NVARCHAR(100)
+    @unidad VARCHAR(40)
 AS
 BEGIN
     select *
@@ -2027,7 +2027,7 @@ BEGIN
 END
 go
 CREATE or alter proc usp_crear_unidad_medida_producto
-    @unidad NVARCHAR(100),
+    @unidad VARCHAR(40),
     @estado BIT
 AS
 BEGIN
@@ -2038,7 +2038,7 @@ go
 
 CREATE or alter proc usp_actualizar_unidad_medida_producto
     @id INT,
-    @unidad NVARCHAR(100),
+    @unidad VARCHAR(40),
     @estado BIT
 AS
 BEGIN
@@ -2065,7 +2065,7 @@ as
     select * from categoria_producto
 go
 CREATE or alter proc usp_insertar_categoria_producto
-    @categoria NVARCHAR(100),
+    @categoria VARCHAR(40),
     @estado BIT
 AS
 BEGIN
@@ -2078,7 +2078,7 @@ END
 go
 CREATE or alter proc usp_actualizar_categoria_producto
     @id INT,
-    @categoria NVARCHAR(100),
+    @categoria VARCHAR(40),
     @estado BIT
 AS
 BEGIN
@@ -2100,63 +2100,6 @@ BEGIN
 END
 go
 
-------------------------------------
-------------------------------------
-
-create or alter proc usp_listar_productos
-as
-    select * from producto
-go
-CREATE or alter proc usp_crear_producto
-    @nombre NVARCHAR(100),
-    @id_unidad_medida_producto INT,
-    @id_categoria_producto INT,
-    @precio_unico DECIMAL(18, 2),
-    @cantidad INT,
-    @estado BIT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    INSERT INTO producto (Nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado)
-    VALUES (@nombre, @id_unidad_medida_producto, @id_categoria_producto, @precio_unico, @cantidad, @estado);
-
-    
-    SELECT SCOPE_IDENTITY() AS Id;
-END
-GO
-
-CREATE or alter proc usp_actualizar_producto
-	@id INT,
-    @nombre NVARCHAR(100),
-    @id_unidad_medida_producto INT,
-    @id_categoria_producto INT,
-    @precio_unico DECIMAL(18, 2),
-    @cantidad INT,
-    @estado BIT
-AS
-BEGIN
-    UPDATE producto
-    SET
-        Nombre = @nombre,
-        id_unidad_medida_producto = @id_unidad_medida_producto,
-		id_categoria_producto = @id_categoria_producto,
-		precio_unico = @precio_unico,
-		cantidad = @cantidad,
-		estado =@estado
-    WHERE id = @id;
-END
-go
-CREATE or alter proc usp_eliminar_producto
-    @id INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE producto
-    SET estado = 0 
-    WHERE Id = @id;
-END
-go
 
 
 INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
