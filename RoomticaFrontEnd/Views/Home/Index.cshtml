@@ -1,8 +1,292 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using RoomticaFrontEnd.Models  
+@using System.Linq  
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{  
+   ViewData["Title"] = "Home Page";  
+
+   // Convertir ViewBag.habitaciones a un tipo explícito antes de agrupar  
+   var habitaciones = (IEnumerable<HabitacionDTOModel>)ViewBag.habitaciones;  
+   var habitacionesPorPiso = habitaciones.GroupBy(h => h.piso);  
+}  
+<div class="container-fluid mt-5">
+    <div class="py-2 mt-5">
+        <div class="my-2 mt-5">
+            <h1 class="text-center">Habitaciones</h1>
+        </div>
+
+        <div class="my-2">
+            @foreach (var grupo in habitacionesPorPiso)
+            {
+                <div class="my-5">
+                    <h3>Piso @grupo.Key</h3>
+                    <div class="d-flex gap-5 align-items-center flex-wrap">
+                        @foreach (var habitacion in grupo)
+                        {
+                            <div class="card p-1 shadow" style="width: 18rem;">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Habitación @habitacion.numero</h5>
+                                    <p class="card-text">Tipo: @habitacion.id_tipo</p>
+                                    <p class="card-text">Precio Diario: $@habitacion.precio_diario</p>
+                                    <button data-bs-toggle="modal" data-bs-target="#modalRegistro" class="btn @(habitacion.id_estado == "Disponible" ? "btn-primary" : "btn-danger") rounded">
+                                        @habitacion.id_estado
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+                <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Header del Modal -->
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalRegistroLabel">Registro de Huesped</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <!-- Cuerpo del Modal -->
+                            <div class="modal-body">
+                                <!-- Sección 1: Botones Interactivos -->
+                                <section id="interactive-buttons" class="mb-4">
+                                    <div class="d-flex justify-content-around">
+                                        <button class="btn btn-outline-primary" onclick="handleButtonClick('Button 1')">
+                                            <i class="bi bi-fan"></i>
+                                        </button>
+                                        <button class="btn btn-outline-secondary" onclick="handleButtonClick('Button 2')">
+                                            <i class="bi bi-p-circle"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger" onclick="handleButtonClick('Button 3')">
+                                            <i class="bi bi-globe"></i>
+                                        </button>
+                                        <button class="btn btn-outline-warning" onclick="handleButtonClick('Button 4')">
+                                            <i class="bi bi-youtube"></i>
+                                        </button>
+                                        <button class="btn btn-outline-success" onclick="handleButtonClick('Button 5')">
+                                            <i class="bi bi-wifi"></i>
+                                        </button>
+                                    </div>
+                                </section>
+
+                                <!-- Sección 2: Datos del Huesped -->
+                                <section id="guest-data">
+                                    <h5 class="mb-3">1. Datos del Huesped</h5>
+                                    <form id="guest-form">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label for="nationality" class="form-label">Nacionalidad (*)</label>
+                                                <input type="text" id="nationality" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="document-type" class="form-label">Documento (*)</label>
+                                                <select id="document-type" class="form-select" required>
+                                                    <option value="ID">DNI</option>
+                                                    <option value="Passport">Passport</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="document-number" class="form-label">N° Documento (*)</label>
+                                                <input type="text" id="document-number" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="dob" class="form-label">Fecha de Nacimiento (*)</label>
+                                                <input type="date" id="dob" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="phone" class="form-label">Teléfono (*)</label>
+                                                <input type="tel" id="phone" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="address" class="form-label">Dirección (*)</label>
+                                                <input type="text" id="address" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="sex" class="form-label">Sexo (*)</label>
+                                                <select id="sex" class="form-select" required>
+                                                    <option value="Male">Hombre</option>
+                                                    <option value="Female">Mujer</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="vehicle-plate" class="form-label">Placa de Vehículo (*)</label>
+                                                <input type="text" id="vehicle-plate" class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 text-end">
+                                            <button type="submit" class="btn btn-primary">Registrar Huesped</button>
+                                        </div>
+                                    </form>
+                                </section>
+
+                                <!-- Sección 3: Otro Huesped -->
+                                <section id="additional-guests" class="mt-5">
+                                    <h5 class="mb-3">2. Otro Huesped</h5>
+                                    <form id="additional-guest-form">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label for="additional-nationality" class="form-label">Nacionalidad (*)</label>
+                                                <input type="text" id="additional-nationality" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="additional-document-type" class="form-label">Documento (*)</label>
+                                                <select id="additional-document-type" class="form-select" required>
+                                                    <option value="ID">DNI</option>
+                                                    <option value="Passport">Passport</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="additional-document-number" class="form-label">N° Documento (*)</label>
+                                                <input type="text" id="additional-document-number" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="additional-first-surname" class="form-label">Primer Apellido (*)</label>
+                                                <input type="text" id="additional-first-surname" class="form-control" required />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="additional-names" class="form-label">Nombres (*)</label>
+                                                <input type="text" id="additional-names" class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 text-end">
+                                            <button type="submit" class="btn btn-secondary">Registrar Huesped Adicional</button>
+                                        </div>
+                                    </form>
+                                </section>
+                            </div>
+
+                            <!-- Footer del Modal -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+    <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Header del Modal -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Registro de Huesped</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Cuerpo del Modal -->
+                <div class="modal-body">
+                    <!-- Sección 1: Botones Interactivos -->
+                    <section id="interactive-buttons" class="mb-4">
+                        <div class="d-flex justify-content-center gap-2">
+                            <button class="btn btn-outline-primary" onclick="handleButtonClick('Button 1')">
+                                <i class="bi bi-fan"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="handleButtonClick('Button 2')">
+                                <i class="bi bi-p-circle"></i>
+                            </button>
+                            <button class="btn btn-outline-info" onclick="handleButtonClick('Button 3')">
+                                <i class="bi bi-globe"></i>
+                            </button>
+                            <button class="btn btn-outline-warning" onclick="handleButtonClick('Button 4')">
+                                <i class="bi bi-youtube"></i>
+                            </button>
+                            <button class="btn btn-outline-success" onclick="handleButtonClick('Button 5')">
+                                <i class="bi bi-wifi"></i>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Sección 2: Datos del Huesped -->
+                    <section id="guest-data">
+                        <h5 class="mb-3">1. Datos del Huesped</h5>
+                        <form id="guest-form">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="nationality" class="form-label">Nacionalidad (*)</label>
+                                    <input type="text" id="nationality" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="document-type" class="form-label">Documento (*)</label>
+                                    <select id="document-type" class="form-select" required>
+                                        <option value="ID">DNI</option>
+                                        <option value="Passport">Passport</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="document-number" class="form-label">N° Documento (*)</label>
+                                    <input type="text" id="document-number" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dob" class="form-label">Fecha de Nacimiento (*)</label>
+                                    <input type="date" id="dob" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Teléfono (*)</label>
+                                    <input type="tel" id="phone" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address" class="form-label">Dirección (*)</label>
+                                    <input type="text" id="address" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="sex" class="form-label">Sexo (*)</label>
+                                    <select id="sex" class="form-select" required>
+                                        <option value="Male">Hombre</option>
+                                        <option value="Female">Mujer</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="vehicle-plate" class="form-label">Placa de Vehículo (*)</label>
+                                    <input type="text" id="vehicle-plate" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-primary">Registrar Huesped</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- Sección 3: Otro Huesped -->
+                    <section id="additional-guests" class="mt-5">
+                        <h5 class="mb-3">2. Otro Huesped</h5>
+                        <form id="additional-guest-form">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="additional-nationality" class="form-label">Nacionalidad (*)</label>
+                                    <input type="text" id="additional-nationality" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="additional-document-type" class="form-label">Documento (*)</label>
+                                    <select id="additional-document-type" class="form-select" required>
+                                        <option value="ID">DNI</option>
+                                        <option value="Passport">Passport</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="additional-document-number" class="form-label">N° Documento (*)</label>
+                                    <input type="text" id="additional-document-number" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="additional-first-surname" class="form-label">Primer Apellido (*)</label>
+                                    <input type="text" id="additional-first-surname" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="additional-names" class="form-label">Nombres (*)</label>
+                                    <input type="text" id="additional-names" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-secondary">Registrar Huesped Adicional</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+                <!-- Footer del Modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
