@@ -94,4 +94,8 @@
 	  </Protobuf>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Producto\" />
+  </ItemGroup>
+
 </Project>

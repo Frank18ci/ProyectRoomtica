@@ -28,8 +28,8 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
-                            <i class="bi bi-reception-4"></i> Recepción
+                        <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index" class="dropdown-item">
+                            Recepción
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -57,14 +57,15 @@
                                 </a>
                             </li>
                             <li>
+                                <a asp-area="" asp-controller="Productos" asp-action="Listar" class="dropdown-item">
+                                    Productos
+                                </a>
+                            </li>
+                            <li>
                                 <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
                                     Habitacion
                                 </a>
                             </li>
-                            
-                            <li><a class="dropdown-item" href="/">Habitacion</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -90,8 +91,8 @@
             </div>
         </div>
     </nav>
-
-    <div class="">
+    <div style="height: 70px;"></div>
+    <div class="pb-3">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
