@@ -35,7 +35,7 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     IdCaracteristicaHabitacion = item.IdCaracteristicaHabitacion,
                     IdTipoHabitacion = item.IdTipoHabitacion,
-                    Estado = item.Estado
+                    //Estado = item.Estado
                 })
                 .ToList();
 
