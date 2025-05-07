@@ -8,7 +8,105 @@ namespace RoomticaFrontEnd.Controllers
 {
     public class CaracteristicaHabitacionController : Controller
     {
-        private CaracteristicaHabitacionService.CaracteristicaHabitacionServiceClient ? caracteristicaHabitacionService;
+        private CaracteristicaHabitacionService.CaracteristicaHabitacionServiceClient? caracteristicaHabitacionService;
+        private GrpcChannel? canal;
+
+        public CaracteristicaHabitacionController()
+        {
+            canal = GrpcChannel.ForAddress("http://localhost:5225");
+            caracteristicaHabitacionService = new CaracteristicaHabitacionService.CaracteristicaHabitacionServiceClient(canal);
+        }
+        private async Task<IEnumerable<CaracteristicaHabitacionModel>> listarCaracteristicasHabitacion()
+        {
+            List<CaracteristicaHabitacionModel> lista = new List<CaracteristicaHabitacionModel>();
+            var request = new Empty();
+            var mensaje = await caracteristicaHabitacionService.GetAllAsync(request);
+
+            foreach (var item in mensaje.CaracteristicaHabitaciones_)
+            {
+                lista.Add(new CaracteristicaHabitacionModel
+                {
+                    Id = item.Id,
+                    Caracteristica = item.Caracteristica
+                });
+            }
+            return lista;
+        }
+
+        private async Task<CaracteristicaHabitacionModel?> buscarCaracteristicaHabitacionPorId(int id)
+        {
+            try
+            {
+                var request = new CaracteristicaHabitacionId { Id = id };
+                var respuesta = await caracteristicaHabitacionService.GetByIdAsync(request);
+
+                return new CaracteristicaHabitacionModel
+                {
+                    Id = respuesta.Id,
+                    Caracteristica = respuesta.Caracteristica
+                };
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private async Task<string> guardarCaracteristicaHabitacion(CaracteristicaHabitacionModel model)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                var request = new CaracteristicaHabitacion()
+                {
+                    Id = model.Id,
+                    Caracteristica = model.Caracteristica
+
+                };
+                var mensajeRespuesta = await caracteristicaHabitacionService.CreateAsync(request);
+                mensaje = $"{mensajeRespuesta} Caracteristica Habitacion Agregado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
+        }
+
+        private async Task<string> actualizarCaracteristicaHabitacion(CaracteristicaHabitacionModel model)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                var request = new CaracteristicaHabitacion()
+                {
+                    Id = model.Id,
+                    Caracteristica = model.Caracteristica
+                };
+                var mensajeRespuesta = await caracteristicaHabitacionService.UpdateAsync(request);
+                mensaje = $"{mensajeRespuesta} Caracteristica Habitacion Agregado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
+        }
+
+        private async Task<string> eliminarCaracteristicaHabitacion(int id)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                var request = new CaracteristicaHabitacionId()
+                {
+                    Id = id
+                };
+                var mensajeRespuesta = await caracteristicaHabitacionService.DeleteAsync(request);
+                mensaje = $"{mensajeRespuesta} Caracteristica Habitacion Eliminado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
+        }
+
+
+
+
+
         public async Task<ActionResult> Listar()
         {
             var canal  = GrpcChannel.ForAddress("http://localhost:5225");
