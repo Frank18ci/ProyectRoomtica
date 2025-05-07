@@ -34,12 +34,13 @@ namespace RoomticaFrontEnd.Controllers
                 .Select(item => new CaracteristicaHabitacionTipoHabitacionModel
                 {
                     IdCaracteristicaHabitacion = item.IdCaracteristicaHabitacion,
-                    IdTipoHabitacion = item.IdTipoHabitacion,
-                    Estado = item.Estado
+                    IdTipoHabitacion = item.IdTipoHabitacion
                 })
                 .ToList();
 
             return View(modelos);
         }
+
+
     }
 }
