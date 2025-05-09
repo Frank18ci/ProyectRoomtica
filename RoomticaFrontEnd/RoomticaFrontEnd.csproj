@@ -95,6 +95,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\CaracteristicaHabitacionTipoHabitacion\" />
     <Folder Include="Views\Producto\" />
   </ItemGroup>
 

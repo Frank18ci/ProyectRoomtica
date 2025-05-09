@@ -351,9 +351,14 @@ go
 CREATE or alter proc usp_listar_caracteristica_habitacion_tipo_habitacion
 AS
 BEGIN
-    SELECT id_caracteristica_habitacion, id_tipo_habitacion, estado
-    FROM caracteristica_habitacion_tipo_habitacion
-	where estado = 1;
+    SELECT 
+		ch.caracteristica,
+		th.tipo,
+		chth.estado
+    FROM caracteristica_habitacion_tipo_habitacion chth 
+	inner join tipo_habitacion th on chth.id_tipo_habitacion = th.id
+	inner join caracteristica_habitacion ch on chth.id_caracteristica_habitacion = ch.id
+	where chth.estado = 1;
 END
 GO
 
@@ -2218,3 +2223,4 @@ go
 
 exec usp_login_trabajador 'cperez' , '1234'
 
+exec usp_listar_caracteristica_habitacion_tipo_habitacion
