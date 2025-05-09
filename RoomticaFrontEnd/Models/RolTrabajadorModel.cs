@@ -6,9 +6,9 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [Display(Name = "Rol")]
-        public string? rol { get; set; }
+        public string? Rol { get; set; }
     }
 }

@@ -1,54 +1,160 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RoomticaFrontEnd.Models;
 using RoomticaGrpcServiceBackEnd;
-using static RoomticaGrpcServiceBackEnd.CategoriaProductoService;
+
 
 namespace RoomticaFrontEnd.Controllers
 {
     public class TipoNacionalidadController : Controller
     {
         private TipoNacionalidadService.TipoNacionalidadServiceClient? tipoNacionalidadService;
-        public async Task<ActionResult> Listar()
+        private GrpcChannel? chanal;
+        public TipoNacionalidadController()
         {
-            var canal = GrpcChannel.ForAddress("http://localhost:5225");
-            tipoNacionalidadService = new TipoNacionalidadService.TipoNacionalidadServiceClient(canal);
+            chanal = GrpcChannel.ForAddress("https://localhost:5001");
+            tipoNacionalidadService = new TipoNacionalidadService.TipoNacionalidadServiceClient(chanal);
+        }
+
+        async Task<IEnumerable<TipoNacionalidadModel>> listarTipoNacionalidad()
+        {
+            List<TipoNacionalidadModel> tipoNacionalidadModel = new List<TipoNacionalidadModel>();
             var request = new Empty();
             var mensaje = await tipoNacionalidadService.GetAllAsync(request);
-            List<TipoNacionalidadModel> tipoNacionalidadModels = new List<TipoNacionalidadModel>();
+
             foreach (var item in mensaje.TipoNacionalidades_)
             {
-                tipoNacionalidadModels.Add(new TipoNacionalidadModel()
+                tipoNacionalidadModel.Add(new TipoNacionalidadModel()
                 {
                     Id = item.Id,
                     tipo = item.Tipo
                 });
             }
-            return View(tipoNacionalidadModels);
+            return tipoNacionalidadModel;
         }
-
-        public async Task<ActionResult> Detail(int id = 0)
+        async Task<string> guardarTipoNacionalidad(TipoNacionalidadModel tipoNacionalidad)
         {
-            var canal = GrpcChannel.ForAddress("http://localhost:5225");
-            tipoNacionalidadService = new TipoNacionalidadService.TipoNacionalidadServiceClient(canal);
-            var request = new TipoNacionalidadId()
+            string mensaje = string.Empty;
+            try
             {
-                Id = id,
-            };
-            var mensaje = await tipoNacionalidadService.GetByIdAsync(request);
-
-            TipoNacionalidadModel tipoNacionalidadModel = new TipoNacionalidadModel()
-            {
-                Id = mensaje.Id,
-                tipo = mensaje.Tipo
-            };
-            return View(tipoNacionalidadModel);
+                var request = new TipoNacionalidad()
+                {
+                    Id = tipoNacionalidad.Id,
+                    Tipo = tipoNacionalidad.tipo
+                };
+                var mensajeRespuesta = await tipoNacionalidadService.CreateAsync(request);
+                mensaje = $"{mensajeRespuesta} Tipo Nacionalidad Agregado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
         }
-
-        public IActionResult Index()
+        async Task<TipoNacionalidadModel> buscarTipoNacionalidadPorId(int id)
         {
-            return View();
+            TipoNacionalidadModel tipoNacionalidad = null;
+            try
+            {
+                var request = new TipoNacionalidadId()
+                {
+                    Id = id
+                };
+                var mensajeRespuesta = await tipoNacionalidadService.GetByIdAsync(request);
+                tipoNacionalidad = new TipoNacionalidadModel()
+                {
+                    Id = mensajeRespuesta.Id,
+                    tipo = mensajeRespuesta.Tipo
+                };
+
+            }
+            catch (Exception ex) { return null; }
+            return tipoNacionalidad;
+        }
+        async Task<string> actualizarTipoNacionalidad(TipoNacionalidadModel tipoNacionalidad)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                var request = new TipoNacionalidad()
+                {
+                    Id = tipoNacionalidad.Id,
+                    
+                };
+                var mensajeRespuesta = await tipoNacionalidadService.UpdateAsync(request);
+                mensaje = $"{mensajeRespuesta} Tipo Nacionalidad Agregado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
+        }
+        async Task<string> eliminarTipoNacionalidad(int id)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                var request = new TipoNacionalidadId()
+                {
+                    Id = id
+                };
+                var mensajeRespuesta = await tipoNacionalidadService.DeleteAsync(request);
+                mensaje = $"{mensajeRespuesta} Tipo Nacionalidad Eliminado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
+        }
+        public async Task<ActionResult> Listar(int p = 0, string nombre = "", string mensaje = "")
+        {
+            IEnumerable<TipoNacionalidadModel> temporal = await listarTipoNacionalidad();
+
+            if (!string.IsNullOrWhiteSpace(nombre))
+            {
+                temporal = temporal.Where(c =>
+                    (c.tipo)
+                    .ToLower()
+                    .Contains(nombre.ToLower()));
+            }
+
+            int fila = 5;
+            int c = temporal.Count();
+            int pags = c % fila == 0 ? c / fila : c / fila + 1;
+            ViewBag.p = p;
+            ViewBag.pags = pags;
+            ViewBag.nombre = nombre;
+            ViewBag.mensaje = mensaje;
+            return View(temporal.Skip(p * fila).Take(fila));
+        }
+        public async Task<ActionResult> Create()
+        {           
+            return View(new TipoNacionalidadModel());
+        }
+        [HttpPost]
+        public async Task<ActionResult> Create(TipoNacionalidadModel tipoNacionalidad)
+        {
+            ViewBag.mensaje = await guardarTipoNacionalidad(tipoNacionalidad);
+           
+            return View(tipoNacionalidad);
+        }
+        public async Task<ActionResult> Edit(int id = 0)
+        {
+            TipoNacionalidadModel tipoNacionalidad = await buscarTipoNacionalidadPorId(id);
+            
+            return View(tipoNacionalidad);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit(TipoNacionalidadModel tipoNacionalidad)
+        {
+            ViewBag.mensaje = await actualizarTipoNacionalidad(tipoNacionalidad);
+            
+            return View(tipoNacionalidad);
+        }
+        public async Task<ActionResult> Details(int id = 0)
+        {
+            TipoNacionalidadModel tipoNacionalidad = await buscarTipoNacionalidadPorId(id);
+            return View(tipoNacionalidad);
+        }
+        public async Task<ActionResult> Delete(int id = 0)
+        {
+            string mensajeRespuesta = await eliminarTipoNacionalidad(id);
+            return RedirectToAction("Listar", new { mensaje = mensajeRespuesta });
         }
     }
 }

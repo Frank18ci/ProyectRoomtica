@@ -1,5 +1,93 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model RoomticaFrontEnd.Models.TrabajadorModel
+
 @{
+    ViewData["Title"] = "Edit";
 }
+
+<div class="container-xl pb-4 pt-2">
+    <h2>Editar Cliente</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="primer_nombre" class="control-label"></label>
+                    <input asp-for="primer_nombre" class="form-control" />
+                    <span asp-validation-for="primer_nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="segundo_nombre" class="control-label"></label>
+                    <input asp-for="segundo_nombre" class="form-control" />
+                    <span asp-validation-for="segundo_nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="primer_apellido" class="control-label"></label>
+                    <input asp-for="primer_apellido" class="form-control" />
+                    <span asp-validation-for="primer_apellido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="segundo_apellido" class="control-label"></label>
+                    <input asp-for="segundo_apellido" class="form-control" />
+                    <span asp-validation-for="segundo_apellido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="username" class="control-label"></label>
+                    <input asp-for="username" class="form-control" />
+                    <span asp-validation-for="username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="password" class="control-label"></label>
+                    <input asp-for="password" class="form-control" />
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="sueldo" class="control-label"></label>
+                    <input asp-for="sueldo" class="form-control" />
+                    <span asp-validation-for="sueldo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="id_tipo_documento" class="control-label"></label>
+                    <select asp-for="id_tipo_documento" asp-items="@ViewBag.tipoDocumento" class="form-select"></select>
+                    <span asp-validation-for="id_tipo_documento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="numero_documento" class="control-label"></label>
+                    <input asp-for="numero_documento" class="form-control" />
+                    <span asp-validation-for="numero_documento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="telefono" class="control-label"></label>
+                    <input asp-for="telefono" class="form-control" />
+                    <span asp-validation-for="telefono" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="email" class="control-label"></label>
+                    <input asp-for="email" class="form-control" />
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>                
+                <div class="form-group">
+                    <label asp-for="id_rol" class="control-label"></label>
+                    <select asp-for="id_rol" asp-items="@ViewBag.TipoRol" class="form-select"></select>
+                    <span asp-validation-for="id_rol" class="text-danger"></span>
+                </div>               
+                <div class="form-group mt-2">
+                    <input type="submit" value="Editar" class="btn btn-primary" />
+                    <a asp-action="Listar" class="btn btn-warning">Volver al Listado</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <span class="text-danger fw-bold">@ViewBag.mensaje</span>
+    </div>
+    <div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</div>
