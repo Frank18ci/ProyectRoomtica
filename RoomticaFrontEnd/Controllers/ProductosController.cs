@@ -22,9 +22,9 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     Id = item.Id,
                     Nombre = item.Nombre,
-                    unidad = item.UnidadMedidaProducto,
-                    categoria = item.CategoriaProducto,
-                    precioU = item.PrecioUnico,
+                    //unidad = item.UnidadMedidaProducto,
+                    //categoria = item.CategoriaProducto,
+                    //precioU = item.PrecioUnico,
                     Cantidad = item.Cantidad
                 });
             }

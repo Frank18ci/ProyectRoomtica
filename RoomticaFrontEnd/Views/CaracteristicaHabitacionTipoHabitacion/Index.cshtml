@@ -1,0 +1,27 @@
+﻿@model IEnumerable<RoomticaFrontEnd.Models.CaracteristicaHabitacionTipoHabitacionModel>
+@{
+    ViewData["Title"] = "Listar Caracteristicas Habitacion y Tipo Habitacion";
+}
+<h1>Listar Caracteristicas Habitacion y Tipo Habitacion</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id Caracteristica Habitacion</th>
+                <th>Id Tipo Habitacio</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.IdCaracteristicaHabitacion</td>
+                    <td>@item.IdTipoHabitacion</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Create">Crear Nueva Caracteristica Habitacion</a>
+</div>

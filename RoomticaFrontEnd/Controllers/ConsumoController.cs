@@ -9,29 +9,40 @@ namespace RoomticaFrontEnd.Controllers
     public class ConsumoController : Controller
     {
         private ConsumoService.ConsumoServiceClient? consumoService;
-        public async Task<ActionResult> Listar()
+        private ReservaService.ReservaServiceClient? reservaService;
+        private GrpcChannel? chanal;
+
+        //CONTROLLER
+        public ConsumoController()
         {
-            var chanal = GrpcChannel.ForAddress("http://localhost:5225");
+            chanal = GrpcChannel.ForAddress("http://localhost:5225");
             consumoService = new ConsumoService.ConsumoServiceClient(chanal);
-            var request = new Empty();
-            var mensaje = await consumoService.GetAllAsync(request);
-            List<ConsumoDTO> consumoModels = new List<ConsumoDTO>();
-            foreach (var item in mensaje.Consumo)
-            {
-                consumoModels.Add(new ConsumoDTO()
-                {
-                    Id= item.Id,
-                    IdReserva= item.IdReserva,
-                    Cantidad = item.Cantidad,
-                    PrecioVenta= item.PrecioVenta,
-                });
-            }
-            return View(consumoModels);
         }
 
-        public IActionResult Index()
+        //LISTAR
+        async Task<IEnumerable<ReservaDTOModel>> listarReserva()
         {
-            return View();
+            List<ReservaDTOModel> temporal = new List<ReservaDTOModel>();
+        }
+
+
+        async Task<IEnumerable<ConsumoDTOModel>> listarConsumo()
+        {
+            List<ConsumoDTOModel> consumoDTOModel = new List<ConsumoDTOModel>();
+            var request = new Empty();
+            var mensaje = await consumoService.GetAllAsync(request);
+            foreach (var item in mensaje.Consumo)
+            {
+                consumoDTOModel.Add(new ConsumoDTOModel()
+                {
+                    id = item.Id,
+                    reserva = item.IdReserva,
+                    producto = item.IdProducto,
+                    Fecha = item.Fecha.ToDateTime(),
+                    Monto = item.Monto
+                });
+            }
+            return consumoDTOModel;
         }
     }
 }

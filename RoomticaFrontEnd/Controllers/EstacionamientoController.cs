@@ -25,7 +25,7 @@ namespace RoomticaFrontEnd.Controllers
                     largo = item.Largo,
                     alto = item.Alto,
                     ancho = item.Ancho,
-                    id_tipo_estacionamiento = item.IdTipoEstacionamiento
+                    //id_tipo_estacionamiento = item.IdTipoEstacionamiento
                 });
             }
             return View(estacionamientoDTOModels);
