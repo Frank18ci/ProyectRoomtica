@@ -9,35 +9,36 @@ go
 
 use db_roomtica
 go
-
 create table caracteristica_habitacion(
 	id int identity(1, 1) primary key,
 	caracteristica varchar(100),
-	estado bit,
-)
+	estado bit
+);
 go
 
 create table tipo_habitacion(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
 	descripccion varchar(200),
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table caracteristica_habitacion_tipo_habitacion(
 	id_caracteristica_habitacion int references caracteristica_habitacion,
 	id_tipo_habitacion int references tipo_habitacion,
-	primary key (id_caracteristica_habitacion, id_tipo_habitacion),
 	estado bit,
-)
+	primary key (id_caracteristica_habitacion, id_tipo_habitacion)
+);
 go
 
 create table estado_habitacion(
 	id int identity(1, 1) primary key,
 	estado_habitacion varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table habitacion(
 	id int identity(1, 1) primary key,
 	numero varchar(5),
@@ -45,33 +46,38 @@ create table habitacion(
 	precio_diario decimal(10,2),
 	id_tipo int references tipo_habitacion,
 	id_estado int references estado_habitacion,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table rol_trabajador(
 	id int identity(1, 1) primary key,
 	rol varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table tipo_documento(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table tipo_nacionalidad(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table tipo_sexo(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table trabajador(
 	id int identity(1, 1) primary key,
 	primer_nombre varchar(50),
@@ -86,9 +92,10 @@ create table trabajador(
 	telefono varchar(10) unique,
 	email varchar(25) unique,
 	id_rol int references rol_trabajador,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table cliente(
 	id int identity(1, 1) primary key,
 	primer_nombre varchar(50),
@@ -103,15 +110,17 @@ create table cliente(
 	id_tipo_nacionalidad int references tipo_nacionalidad,
 	id_tipo_sexo int references tipo_sexo,
 	estado bit
-)
+);
 go
+
 create table tipo_estacionamiento(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
 	costo decimal(10,2),
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table estacionamiento(
 	id int identity(1, 1) primary key,
 	lugar varchar(10) unique,
@@ -120,14 +129,16 @@ create table estacionamiento(
 	ancho varchar(10),
 	id_tipo_estacionamiento int references tipo_estacionamiento,
 	estado bit
-)
+);
 go
+
 create table tipo_reserva(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table reserva(
 	id int identity(1, 1) primary key,
 	id_habitacion int references habitacion,
@@ -137,15 +148,17 @@ create table reserva(
 	fecha_ingreso date,
 	fecha_salida date,
 	costo_alojamiento decimal(10,2),
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table tipo_comprobante(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table pago(
 	id int identity(1, 1) primary key,
 	id_reserva int unique references reserva,
@@ -154,30 +167,34 @@ create table pago(
 	total_pago decimal(10,2),
 	fecha_emision date,
 	fecha_pago date,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table reserva_estacionamiento(
 	id_reserva int references reserva,
 	id_estacionamiento int references estacionamiento,
 	cantidad int,
-	precio_estacionamiento decimal(10,2)
-	primary key(id_reserva, id_estacionamiento),
+	precio_estacionamiento decimal(10,2),
 	estado bit,
-)
+	primary key(id_reserva, id_estacionamiento)
+);
 go
+
 create table unidad_medida_producto(
 	id int identity(1, 1) primary key,
 	unidad varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table categoria_producto(
 	id int identity(1, 1) primary key,
 	categoria varchar(40) unique,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table producto(
 	id int identity(1, 1) primary key,
 	nombre varchar(100) unique,
@@ -185,20 +202,21 @@ create table producto(
 	id_categoria_producto int references categoria_producto,
 	precio_unico decimal(10,2),
 	cantidad int,
-	estado bit,
-)
+	estado bit
+);
 go
+
 create table consumo(
 	id int identity(1, 1) primary key,
 	id_reserva int references reserva,
 	id_producto int references producto,
 	cantidad int,
 	precio_venta decimal(10,2),
-	estado bit,
-)
+	estado bit
+);
 go
 
---Insertando tipo
+-- Insertar datos
 INSERT INTO caracteristica_habitacion (caracteristica, estado) VALUES
 ('Vista al mar', 1),
 ('Aire acondicionado', 1),
@@ -218,7 +236,6 @@ INSERT INTO tipo_habitacion (tipo, descripccion, estado) VALUES
 ('Familiar', 'Habitación para familias, con varias camas.', 1),
 ('Económica', 'Habitación básica con servicios mínimos.', 1),
 ('Premium', 'Habitación de lujo con servicios exclusivos.', 1);
-
 
 INSERT INTO caracteristica_habitacion_tipo_habitacion (id_caracteristica_habitacion, id_tipo_habitacion, estado) VALUES
 (1, 1, 1),
@@ -285,6 +302,53 @@ INSERT INTO categoria_producto (categoria, estado) VALUES
 ('Higiene', 1),
 ('Souvenirs', 1);
 go
+-- Habitaciones
+INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
+('101', '1', 150.00, 1, 1, 1),
+('102', '1', 200.00, 2, 1, 1),
+('201', '2', 350.00, 3, 1, 1);
+
+-- Trabajadores
+INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) VALUES
+('Luis', 'Carlos', 'Gomez', 'Fernandez', 'lgomez', '123456', 2500.00, 1, '12345678', '987654321', 'luis@example.com', 1, 1),
+('Maria', 'Elena', 'Rojas', 'Perez', 'mrojas', 'abcdef', 3000.00, 2, 'A1234567', '912345678', 'maria@example.com', 2, 1);
+
+-- Clientes
+INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) VALUES
+('Carlos', 'Andres', 'Lopez', 'Mendoza', 1, '87654321', '999888777', 'carlos@example.com', '1990-05-10', 1, 1, 1),
+('Ana', 'Lucia', 'Ramirez', 'Vega', 2, 'P1234567', '988776655', 'ana@example.com', '1985-12-22', 2, 2, 1);
+
+-- Estacionamientos
+INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado) VALUES
+('E01', '5', '2.5', '2', 1, 1),
+('E02', '5', '2.5', '2', 2, 1);
+
+-- Reservas
+INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) VALUES
+(1, 1, 1, 1, '2025-05-15', '2025-05-18', 450.00, 1),
+(2, 2, 2, 2, '2025-05-16', '2025-05-19', 600.00, 1);
+
+-- Pagos
+INSERT INTO pago (id_reserva, id_tipo_comprobante, igv, total_pago, fecha_emision, fecha_pago, estado) VALUES
+(1, 1, 81.00, 531.00, '2025-05-15', '2025-05-15', 1),
+(2, 2, 108.00, 708.00, '2025-05-16', '2025-05-16', 1);
+
+-- Reserva Estacionamiento
+INSERT INTO reserva_estacionamiento (id_reserva, id_estacionamiento, cantidad, precio_estacionamiento, estado) VALUES
+(1, 1, 1, 20.00, 1),
+(2, 2, 1, 10.00, 1);
+
+-- Productos
+INSERT INTO producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado) VALUES
+('Agua Mineral', 2, 1, 5.00, 100, 1),
+('Galletas', 1, 2, 3.50, 50, 1),
+('Jabón', 1, 3, 2.00, 30, 1);
+
+-- Consumo
+INSERT INTO consumo (id_reserva, id_producto, cantidad, precio_venta, estado) VALUES
+(1, 1, 2, 10.00, 1),
+(1, 2, 1, 3.50, 1),
+(2, 3, 1, 2.00, 1);
 
 ------------------------------------
 ------------------------------------
