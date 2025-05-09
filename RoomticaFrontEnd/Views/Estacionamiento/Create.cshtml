@@ -1,0 +1,59 @@
+﻿@model RoomticaFrontEnd.Models.EstacionamientoModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-xl pb-4 pt-2">
+    <h2>Registrar Estacionamiento</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="lugar" class="control-label"></label>
+                    <input asp-for="lugar" class="form-control" />
+                    <span asp-validation-for="lugar" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="largo" class="control-label"></label>
+                    <input asp-for="largo" class="form-control" />
+                    <span asp-validation-for="largo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="alto" class="control-label"></label>
+                    <input asp-for="alto" class="form-control" />
+                    <span asp-validation-for="alto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ancho" class="control-label"></label>
+                    <input asp-for="ancho" class="form-control" />
+                    <span asp-validation-for="ancho" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="id_tipo_estacionamiento" class="control-label"></label>
+                    <select asp-for="id_tipo_estacionamiento" asp-items="@ViewBag.tipoEstacionamiento" class="form-select"></select>
+                    <span asp-validation-for="id_tipo_estacionamiento" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <a asp-action="Create" class="btn btn-success">Nuevo</a>
+                    <input type="submit" value="Registrar" class="btn btn-primary" />
+                    <a asp-action="Listar" class="btn btn-warning">Volver al Listado</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <span class="text-danger fw-bold">@ViewBag.mensaje</span>
+    </div>
+    <div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</div>
