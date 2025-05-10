@@ -38,32 +38,70 @@
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="bi bi-box-seam"></i> Configuración
+                            <i class="bi bi-gear"></i> Configuración
                         </a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
-                                    Habitacion
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Cliente" asp-action="Listar" class="dropdown-item">
-                                    Cliente
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Consumo" asp-action="Listar" class="dropdown-item">
-                                    Consumo
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Productos" asp-action="Listar" class="dropdown-item">
-                                    Productos
+                                    Caracteristica Habitacion
                                 </a>
                             </li>
                             <li>
                                 <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
-                                    Habitacion
+                                    Tipo Habitacion
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Estado Habitacion
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Tipo Documento
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Tipo Nacionalidad
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Tipo Sexo
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Tipo Estacionamiento
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Tipo Reserva
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Tipo Comprobante
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Unidad Medida Producto
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Categoria Producto
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item @(((RoomticaFrontEnd.Models.TrabajadorModel)Context.Items["trabajador"])?.id_rol == 1 ? "d-block" : "d-none")">
+                                    Rol Trabajador
                                 </a>
                             </li>
                         </ul>
@@ -74,13 +112,96 @@
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="bi bi-box-seam"></i> Inventario
+                            <i class="bi bi-gear"></i> Ges. de Hab. y Est.
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Habitacion
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                    Estacionamiento
+                                </a>
+                            </li>
                         </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="bi bi-gear"></i> Ges. de Per.
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item @(((RoomticaFrontEnd.Models.TrabajadorModel)Context.Items["trabajador"])?.id_rol == 1 ? "d-block" : "d-none")">
+                                    Trabajador
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Cliente" asp-action="Listar" class="dropdown-item">
+                                    Cliente
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="bi bi-gear"></i> Ges de Pro. y Con.
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a asp-area="" asp-controller="Consumo" asp-action="Listar" class="dropdown-item">
+                                    Consumo
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Productos" asp-action="Listar" class="dropdown-item">
+                                    Productos
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="bi bi-gear"></i> Ges. de Res. y Pag.
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a asp-area="" asp-controller="Consumo" asp-action="Listar" class="dropdown-item">
+                                    Reserva
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Consumo" asp-action="Listar" class="dropdown-item">
+                                    Reserva Estacionamiento
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Productos" asp-action="Listar" class="dropdown-item">
+                                    Pago
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="CerrarSesion">
+                            Cerrar Sesión
+                        </a>
+                    </li>
+                    <li>
+                        
                     </li>
                 </ul>
             </div>
