@@ -52,7 +52,8 @@ namespace RoomticaFrontEnd.Controllers
                     numero = item.Numero,
                     piso = item.Piso,
                     precio_diario = item.PrecioDiario,
-                    id_tipo = item.IdTipo
+                    id_tipo = item.IdTipo,
+                    id_estado = item.IdEstado
                 });
             }
             return habitacionModel;
@@ -90,7 +91,8 @@ namespace RoomticaFrontEnd.Controllers
                     Numero = habitacion.numero,
                     Piso = habitacion.piso,
                     PrecioDiario = habitacion.precio_diario,
-                    IdTipo = habitacion.id_tipo
+                    IdTipo = habitacion.id_tipo,
+                    IdEstado = habitacion.id_estado ?? 0
                 };
                 var mensajeRespuesta = await habitacionService.CreateAsync(request);
                 mensaje = $"{mensajeRespuesta} Habitacion Agregada";
@@ -136,7 +138,8 @@ namespace RoomticaFrontEnd.Controllers
                     numero = mensajeRespuesta.Numero,
                     piso = mensajeRespuesta.Piso,
                     precio_diario = mensajeRespuesta.PrecioDiario,
-                    id_tipo = mensajeRespuesta.IdTipo
+                    id_tipo = mensajeRespuesta.IdTipo,
+                    id_estado = mensajeRespuesta.IdEstado
                 };
             }
             catch (Exception ex) { throw ex; }
@@ -159,7 +162,8 @@ namespace RoomticaFrontEnd.Controllers
                     numero = mensajeRespuesta.Numero,
                     piso = mensajeRespuesta.Piso,
                     precio_diario = mensajeRespuesta.PrecioDiario,
-                    id_tipo = mensajeRespuesta.IdTipo
+                    id_tipo = mensajeRespuesta.IdTipo,
+                    id_estado = mensajeRespuesta.IdEstado
                 };
             }
             catch (Exception ex) { throw ex; }
@@ -186,7 +190,8 @@ namespace RoomticaFrontEnd.Controllers
                     Numero = habitacion.numero,
                     Piso = habitacion.piso,
                     PrecioDiario = habitacion.precio_diario,
-                    IdTipo = habitacion.id_tipo
+                    IdTipo = habitacion.id_tipo,
+                    IdEstado = habitacion.id_estado ?? 0
                 };
                 var mensajeRespuesta = await habitacionService.UpdateAsync(request);
                 mensaje = $"{mensajeRespuesta} Habitacion Actualizada";

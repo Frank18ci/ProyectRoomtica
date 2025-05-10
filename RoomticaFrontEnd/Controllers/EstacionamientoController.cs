@@ -31,9 +31,9 @@ namespace RoomticaFrontEnd.Controllers
             {
                 temporal.Add(new TipoEstacionamientoModel()
                 {
-                    id = item.Id,
-                    tipo = item.Tipo,
-                    costo = item.Costo
+                    Id = item.Id,
+                    Tipo = item.Tipo,
+                    Costo = item.Costo
                 });
             }
             return temporal;
