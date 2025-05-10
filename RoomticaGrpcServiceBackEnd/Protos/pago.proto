@@ -3,7 +3,7 @@
 option csharp_namespace = "RoomticaGrpcServiceBackEnd";
 
 package pago;
-
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 service PagoService {
@@ -21,8 +21,8 @@ message Pago {
     int32 id_tipo_comprobante = 3;
     double igv = 4;
     double total_pago = 5;
-    string fecha_emision = 6;
-    string fecha_pago = 7;
+    google.protobuf.Timestamp fecha_emision = 6;
+    google.protobuf.Timestamp fecha_pago = 7;
     bool estado = 8;
 }
 message PagoDTO {
@@ -31,8 +31,8 @@ message PagoDTO {
     string id_tipo_comprobante = 3;
     double igv = 4;
     double total_pago = 5;
-    string fecha_emision = 6;
-    string fecha_pago = 7;
+    google.protobuf.Timestamp fecha_emision = 6;
+    google.protobuf.Timestamp fecha_pago = 7;
     bool estado = 8;
 }
 

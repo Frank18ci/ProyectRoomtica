@@ -13,8 +13,13 @@ service ClienteService {
     rpc Create(Cliente) returns (Cliente);
     rpc Update(Cliente) returns (Cliente);
     rpc Delete(ClienteId) returns (google.protobuf.Empty);
+
+    rpc GetByNumeroDocumento(ClienteNumeroDocumento) returns (Cliente);
 }
 
+message ClienteNumeroDocumento{
+    string numero_documento = 1;
+}
 message Cliente {
     int32 id = 1;
     string primer_nombre = 2;

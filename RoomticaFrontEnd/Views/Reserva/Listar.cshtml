@@ -28,7 +28,6 @@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.id)</th>
                     <th>@Html.DisplayNameFor(model => model.id_habitacion)</th>
-                    <th>@Html.DisplayNameFor(model => model.id_cliente)</th>
                     <th>@Html.DisplayNameFor(model => model.id_trabajador)</th>
                     <th>@Html.DisplayNameFor(model => model.id_tipo_reserva)</th>
                     <th>@Html.DisplayNameFor(model => model.fecha_ingreso)</th>
@@ -43,7 +42,6 @@
                 <tr>
                     <td>@item.id</td>
                     <td>@item.id_habitacion</td>
-                    <td>@item.id_cliente</td>
                     <td>@item.id_trabajador</td>
                     <td>@item.id_tipo_reserva</td>
                     <td>@(item.fecha_ingreso.HasValue ? item.fecha_ingreso.Value.ToString("yyyy-MM-dd") : "")</td>

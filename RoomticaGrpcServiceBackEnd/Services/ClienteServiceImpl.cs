@@ -85,6 +85,39 @@ namespace RoomticaGrpcServiceBackEnd.Services
             }
             return Task.FromResult(clienteDTO);
         }
+        public override Task<Cliente> GetByNumeroDocumento(ClienteNumeroDocumento request, ServerCallContext context)
+        {
+            Cliente? cliente = null;
+            using (SqlConnection cn = new SqlConnection(_cadena))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand("usp_obtener_cliente_por_dni", cn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@numero_documento", request.NumeroDocumento);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    cliente = new Cliente
+                    {
+                        Id = dr.GetInt32(0),
+                        PrimerNombre = dr.GetString(1),
+                        SegundoNombre = dr.GetString(2),
+                        PrimerApellido = dr.GetString(3),
+                        SegundoApellido = dr.GetString(4),
+                        IdTipoDocumento = dr.GetInt32(5),
+                        NumeroDocumento = dr.GetString(6),
+                        Telefono = dr.GetString(7),
+                        Email = dr.GetString(8),
+                        FechaNacimiento = Timestamp.FromDateTime(dr.GetDateTime(9).ToUniversalTime()),
+                        IdTipoNacionalidad = dr.GetInt32(10),
+                        IdTipoSexo = dr.GetInt32(11),
+                        Estado = dr.GetBoolean(12)
+                    };
+                }
+                dr.Close();
+            }
+            return Task.FromResult(cliente);
+        }
 
         public override Task<Cliente> GetById(ClienteId request, ServerCallContext context)
         {
