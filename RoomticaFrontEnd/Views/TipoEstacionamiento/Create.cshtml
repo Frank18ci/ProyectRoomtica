@@ -1,0 +1,39 @@
+﻿@model RoomticaFrontEnd.Models.TipoEstacionamientoModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-xl pb-4 pt-2">
+    <h2>Registrar Tipo Estacionamiento</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Tipo" class="control-label"></label>
+                    <input asp-for="Tipo" class="form-control" />
+                    <span asp-validation-for="Tipo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Costo" class="control-label"></label>
+                    <input asp-for="Costo" class="form-control" />
+                    <span asp-validation-for="Costo" class="text-danger"></span>
+                </div>              
+            </form>
+        </div>
+    </div>
+    <div>
+        <span class="text-danger fw-bold">@ViewBag.mensaje</span>
+    </div>
+    <div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</div>

@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RoomticaFrontEnd.Models;
 using RoomticaGrpcServiceBackEnd;
 using static RoomticaGrpcServiceBackEnd.CategoriaProductoService;
@@ -11,45 +12,148 @@ namespace RoomticaFrontEnd.Controllers
     public class RolTrabajadorController : Controller
     {
         private RolTrabajadorService.RolTrabajadorServiceClient? rolTrabajadorService;
-        public async Task<ActionResult> Listar()
+        private GrpcChannel? chanal;
+        public RolTrabajadorController()
         {
-            var canal = GrpcChannel.ForAddress("http://localhost:5225");
-            rolTrabajadorService = new RolTrabajadorService.RolTrabajadorServiceClient(canal);
+            chanal = GrpcChannel.ForAddress("https://localhost:5001");
+            rolTrabajadorService = new RolTrabajadorService.RolTrabajadorServiceClient(chanal);
+        }
+        async Task<IEnumerable<RolTrabajadorModel>> listarRolTrabajador()
+        {
+            List<RolTrabajadorModel> rolTrabajadorModels = new List<RolTrabajadorModel>();
             var request = new Empty();
             var mensaje = await rolTrabajadorService.GetAllAsync(request);
-            List<RolTrabajadorModel> rolTrabajadorModels = new List<RolTrabajadorModel>();
+
             foreach (var item in mensaje.RolTrabajadores_)
             {
                 rolTrabajadorModels.Add(new RolTrabajadorModel()
                 {
                     Id = item.Id,
-                    rol = item.Rol
+                    Rol = item.Rol
                 });
             }
-            return View(rolTrabajadorModels);
+            return rolTrabajadorModels;
         }
-
-        public async Task<ActionResult> Detail(int id = 0)
+        async Task<string> guardarRolTrabajador(RolTrabajadorModel rolTrabajador)
         {
-            var canal = GrpcChannel.ForAddress("http://localhost:5225");
-            rolTrabajadorService = new RolTrabajadorService.RolTrabajadorServiceClient(canal);
-            var request = new RolTrabajadorId()
+            string mensaje = string.Empty;
+            try
             {
-                Id = id,
-            };
-            var mensaje = await rolTrabajadorService.GetByIdAsync(request);
+                var request = new RolTrabajador()
+                {
+                    Id = rolTrabajador.Id,
+                    Rol = rolTrabajador.Rol
 
-            RolTrabajadorModel rolTrabajadorModel = new RolTrabajadorModel()
-            {
-                Id = mensaje.Id,
-                rol = mensaje.Rol
-            };
-            return View(rolTrabajadorModel);
+                };
+                var mensajeRespuesta = await rolTrabajadorService.CreateAsync(request);
+                mensaje = $"{mensajeRespuesta} Rol Trabajador Agregado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
         }
-
-        public IActionResult Index()
+        async Task<RolTrabajadorModel> buscarRolTrabajadorPorId(int id)
         {
-            return View();
+            RolTrabajadorModel rolTrabajador = null;
+            try
+            {
+                var request = new RolTrabajadorId()
+                {
+                    Id = id
+                };
+                var mensajeRespuesta = await rolTrabajadorService.GetByIdAsync(request);
+                rolTrabajador = new RolTrabajadorModel()
+                {
+                    Id = mensajeRespuesta.Id,
+                    Rol = mensajeRespuesta.Rol                    
+                };
+            }
+            catch (Exception ex) { return null; }
+            return rolTrabajador;
         }
+        async Task<string> actualizarRolTrabajador(RolTrabajadorModel rolTrabajador)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                var request = new RolTrabajador()
+                {
+                    Id = rolTrabajador.Id,
+                    Rol = rolTrabajador.Rol
+                };
+                var mensajeRespuesta = await rolTrabajadorService.UpdateAsync(request);
+                mensaje = $"{mensajeRespuesta} Rol Trabajador Agregado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
+        }
+        async Task<string> eliminarRolTrabajador(int id)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                var request = new RolTrabajadorId()
+                {
+                    Id = id
+                };
+                var mensajeRespuesta = await rolTrabajadorService.DeleteAsync(request);
+                mensaje = $"{mensajeRespuesta} Rol Trabajador Eliminado";
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            return mensaje;
+        }
+
+        public async Task<ActionResult> Listar(int p = 0, string nombre = "", string mensaje = "")
+        {
+            IEnumerable<RolTrabajadorModel> temporal = await listarRolTrabajador();
+
+            if (!string.IsNullOrWhiteSpace(nombre))
+            {
+                temporal = temporal.Where(c =>
+                    (c.Rol)
+                    .ToLower()
+                    .Contains(nombre.ToLower()));
+            }
+
+            int fila = 5;
+            int c = temporal.Count();
+            int pags = c % fila == 0 ? c / fila : c / fila + 1;
+            ViewBag.p = p;
+            ViewBag.pags = pags;
+            ViewBag.nombre = nombre;
+            ViewBag.mensaje = mensaje;
+            return View(temporal.Skip(p * fila).Take(fila));
+        }
+        public async Task<ActionResult> Create()
+        {           
+            return View(new RolTrabajadorModel());
+        }
+        [HttpPost]
+        public async Task<ActionResult> Create(RolTrabajadorModel rolTrabajador)
+        {
+            ViewBag.mensaje = await guardarRolTrabajador(rolTrabajador);            
+            return View(rolTrabajador);
+        }
+        public async Task<ActionResult> Edit(int id = 0)
+        {
+            RolTrabajadorModel rolTrabajador = await buscarRolTrabajadorPorId(id);           
+            return View(rolTrabajador);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit(RolTrabajadorModel rolTrabajador)
+        {
+            ViewBag.mensaje = await actualizarRolTrabajador(rolTrabajador);           
+            return View(rolTrabajador);
+        }
+        public async Task<ActionResult> Details(int id = 0)
+        {
+            RolTrabajadorModel rolTrabajador = await buscarRolTrabajadorPorId(id);
+            return View(rolTrabajador);
+        }
+        public async Task<ActionResult> Delete(int id = 0)
+        {
+            string mensajeRespuesta = await eliminarRolTrabajador(id);
+            return RedirectToAction("Listar", new { mensaje = mensajeRespuesta });
+        }
+
     }
 }
