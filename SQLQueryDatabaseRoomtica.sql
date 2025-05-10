@@ -1,7 +1,7 @@
 use master
 go
 
-drop database db_roomtica
+drop database if exists db_roomtica;
 go
 
 create database db_roomtica
@@ -9,6 +9,7 @@ go
 
 use db_roomtica
 go
+
 create table caracteristica_habitacion(
 	id int identity(1, 1) primary key,
 	caracteristica varchar(100),
@@ -38,7 +39,7 @@ create table estado_habitacion(
 	estado bit
 );
 go
-exec usp_listar_productos
+
 create table habitacion(
 	id int identity(1, 1) primary key,
 	numero varchar(5),
@@ -216,277 +217,182 @@ create table consumo(
 );
 go
 
-<<<<<<< HEAD
---Insertando tipo
-INSERT INTO tipo_reserva (tipo, estado) VALUES
-('Reserva Directa', 1),
-('Reserva Online', 1),
-('Reserva Telefónica', 1),
-('Reserva Corporativa', 1),
-('Reserva por Agencia', 1);
+use db_roomtica
 go
- 
-INSERT INTO producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado) VALUES
-('Agua Mineral 500ml', 2, 1, 5.50, 100, 1),
-('Jugo de Naranja', 2, 1, 6.00, 80, 1),
-('Cerveza Lata 355ml', 2, 1, 8.25, 60, 1),
-('Galletas Chocolate', 3, 2, 4.75, 120, 1),
-('Barra Energética', 1, 2, 3.50, 200, 1),
-('Cepillo de Dientes', 1, 3, 2.00, 150, 1),
-('Shampoo 250ml', 2, 3, 9.90, 90, 1),
-('Jabón de Tocador', 1, 3, 1.25, 180, 1),
-('Detergente 1kg', 3, 4, 12.00, 50, 1),
-('Limpiavidrios 500ml', 2, 4, 7.50, 70, 1),
-('Toalla de Papel', 3, 4, 5.00, 110, 1),
-('Refresco Cola 600ml', 2, 1, 6.75, 100, 1),
-('Agua con Gas', 2, 1, 6.10, 95, 1),
-('Chocolatina', 1, 2, 2.50, 130, 1),
-('Papas Fritas', 3, 2, 3.80, 140, 1),
-('Desodorante', 1, 3, 11.50, 85, 1),
-('Gel Antibacterial', 1, 3, 3.20, 160, 1),
-('Lavaplatos 500ml', 2, 4, 6.30, 75, 1),
-('Desinfectante 1L', 2, 4, 13.40, 65, 1),
-('Servilletas Pack', 3, 4, 4.60, 105, 1);
-go
- 
-INSERT INTO consumo (id_reserva, id_producto, cantidad, precio_venta, estado) VALUES
-(1, 2, 3, 15.50, 1),
-(1, 5, 1, 45.00, 1),
-(2, 3, 2, 12.00, 1),
-(2, 2, 1, 30.00, 1),
-(3, 4, 5, 8.25, 1),
-(4, 6, 2, 22.90, 1),
-(5, 2, 3, 15.50, 1),
-(5, 3, 1, 12.00, 1),
-(6, 7, 4, 10.75, 1),
-(7, 2, 2, 30.00, 1),
-(8, 4, 1, 8.25, 1),
-(9, 5, 2, 45.00, 1),
-(10, 6, 1, 22.90, 1),
-(11, 2, 5, 15.50, 1),
-(12, 3, 3, 12.00, 1),
-(13, 7, 2, 10.75, 1),
-(14, 2, 1, 30.00, 1),
-(15, 4, 3, 8.25, 1),
-(16, 5, 2, 45.00, 1),
-(17, 6, 1, 22.90, 1);
-go
- 
-=======
--- Insertar datos
->>>>>>> 329417a8a518b6c0e194ede1ac8fd4efdfbf354f
-INSERT INTO caracteristica_habitacion (caracteristica, estado) VALUES
+
+-- caracteristica_habitacion
+insert into caracteristica_habitacion (caracteristica, estado) values
 ('Vista al mar', 1),
 ('Aire acondicionado', 1),
-('Televisión por cable', 1),
+('Jacuzzi', 1),
+('Balcón privado', 1),
+('WiFi gratuito', 1),
+('TV 50"', 1),
+('Mini Bar', 1),
 ('Caja fuerte', 1),
-('Minibar', 1),
-('Balcón', 1),
-('Cama king size', 1),
-('No fumadores', 1),
-('Accesible para discapacitados', 1),
-('Jacuzzi', 1);
-go
- 
-INSERT INTO tipo_habitacion (tipo, descripccion, estado) VALUES
-('Individual', 'Habitación para una persona con cama individual.', 1),
-('Doble', 'Habitación con dos camas individuales o una doble.', 1),
-('Suite', 'Habitación amplia con sala y comodidades extras.', 1),
-('Familiar', 'Habitación para familias, con varias camas.', 1),
-('Económica', 'Habitación básica con servicios mínimos.', 1),
-('Premium', 'Habitación de lujo con servicios exclusivos.', 1);
-<<<<<<< HEAD
-go
- 
-=======
+('Escritorio', 1),
+('Secador de cabello', 1);
 
->>>>>>> 329417a8a518b6c0e194ede1ac8fd4efdfbf354f
-INSERT INTO caracteristica_habitacion_tipo_habitacion (id_caracteristica_habitacion, id_tipo_habitacion, estado) VALUES
-(1, 1, 1),
-(2, 1, 1),
-(3, 2, 1),
-(4, 2, 1),
-(5, 3, 1),
-(6, 3, 1),
-(7, 4, 1),
-(8, 4, 1),
-(9, 1, 1),
-(10, 2, 1);
-go
- 
-INSERT INTO estado_habitacion (estado_habitacion, estado) VALUES
+-- tipo_habitacion
+insert into tipo_habitacion (tipo, descripccion, estado) values
+('Simple', 'Habitación para una persona', 1),
+('Doble', 'Habitación para dos personas', 1),
+('Suite', 'Habitación de lujo', 1),
+('Familiar', 'Habitación para cuatro personas', 1),
+('Penthouse', 'Suite de lujo con terraza', 1),
+('Superior', 'Habitación de categoría superior', 1),
+('Económica', 'Habitación económica', 1),
+('Deluxe', 'Habitación deluxe', 1),
+('Junior Suite', 'Habitación ejecutiva', 1),
+('Estándar', 'Habitación estándar', 1);
+
+-- estado_habitacion
+insert into estado_habitacion (estado_habitacion, estado) values
 ('Disponible', 1),
 ('Ocupada', 1),
+('Limpieza', 1),
 ('Mantenimiento', 1),
 ('Reservada', 1);
-go
- 
-INSERT INTO rol_trabajador (rol, estado) VALUES
-('Recepcionista', 1),
+
+-- rol_trabajador
+insert into rol_trabajador (rol, estado) values
 ('Administrador', 1),
-('Housekeeping', 1),
-('Seguridad', 1);
-go
- 
-INSERT INTO tipo_documento (tipo, estado) VALUES
+('Recepcionista', 1),
+('Limpieza', 1),
+('Mantenimiento', 1),
+('Chef', 1),
+('Gerente', 1),
+('Botones', 1),
+('Contador', 1),
+('Guardia', 1),
+('Conserje', 1);
+
+-- tipo_documento
+insert into tipo_documento (tipo, estado) values
 ('DNI', 1),
 ('Pasaporte', 1),
-('Carnet de Extranjería', 1);
-go
- 
-INSERT INTO tipo_nacionalidad (tipo, estado) VALUES
+('Carnet de Extranjería', 1),
+('Licencia de Conducir', 1);
+
+-- tipo_nacionalidad
+insert into tipo_nacionalidad (tipo, estado) values
 ('Peruana', 1),
+('Colombiana', 1),
 ('Argentina', 1),
 ('Chilena', 1),
-('Colombiana', 1);
-go
- 
-INSERT INTO tipo_sexo (tipo, estado) VALUES
+('Ecuatoriana', 1),
+('Boliviana', 1),
+('Venezolana', 1),
+('Brasileña', 1),
+('Uruguaya', 1),
+('Paraguaya', 1);
+
+-- tipo_sexo
+insert into tipo_sexo (tipo, estado) values
 ('Masculino', 1),
 ('Femenino', 1),
-('Otro', 1);
-go
- 
-INSERT INTO tipo_estacionamiento (tipo, costo, estado) VALUES
+('No Binario', 1);
+
+-- tipo_estacionamiento
+insert into tipo_estacionamiento (tipo, costo, estado) values
 ('Cubierto', 20.00, 1),
-('Descubierto', 10.00, 1);
-go
- 
-INSERT INTO tipo_reserva (tipo, estado) VALUES
-('Online', 1),
-('Presencial', 1);
-go
- 
-INSERT INTO tipo_comprobante (tipo, estado) VALUES
+('Libre', 0.00, 1),
+('VIP', 50.00, 1);
+
+-- tipo_reserva
+insert into tipo_reserva (tipo, estado) values
+('Normal', 1),
+('Corporativa', 1),
+('Paquete', 1);
+
+-- tipo_comprobante
+insert into tipo_comprobante (tipo, estado) values
 ('Boleta', 1),
 ('Factura', 1),
-('Recibo', 1);
-go
- 
-INSERT INTO unidad_medida_producto (unidad, estado) VALUES
+('Ticket', 1);
+
+-- unidad_medida_producto
+insert into unidad_medida_producto (unidad, estado) values
 ('Unidad', 1),
 ('Litro', 1),
-('Gramo', 1),
-('Caja', 1);
-go
- 
-INSERT INTO categoria_producto (categoria, estado) VALUES
+('Botella', 1),
+('Paquete', 1);
+
+-- categoria_producto
+insert into categoria_producto (categoria, estado) values
 ('Bebidas', 1),
 ('Snacks', 1),
-('Higiene', 1),
-('Souvenirs', 1);
-go
--- Habitaciones
-INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
+('Licores', 1),
+('Higiene', 1);
+
+-- producto
+insert into producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado) values
+('Agua Mineral', 2, 1, 5.00, 100, 1),
+('Cerveza', 3, 3, 12.00, 50, 1),
+('Galletas', 4, 2, 8.50, 200, 1),
+('Vino Tinto', 3, 3, 45.00, 20, 1),
+('Pasta Dental', 1, 4, 10.00, 30, 1),
+('Shampoo', 2, 4, 15.00, 25, 1),
+('Jugo de Naranja', 2, 1, 7.50, 60, 1),
+('Whisky', 3, 3, 80.00, 10, 1),
+('Papas Fritas', 4, 2, 6.00, 150, 1),
+('Refresco', 2, 1, 4.50, 80, 1);
+
+-- trabajador
+insert into trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) values
+('Carlos', 'Andrés', 'Gómez', 'Pérez', 'carlosg', '123456', 2500.00, 1, '12345678', '987654321', 'carlos@gmail.com', 1, 1),
+('Lucía', 'María', 'Vega', 'Rojas', 'luciar', 'abcdef', 1800.00, 2, 'A1234567', '912345678', 'lucia@gmail.com', 2, 1),
+('Marcos', 'José', 'Reyes', 'Díaz', 'marcosr', 'pass123', 2000.00, 1, '87654321', '998877665', 'marcos@gmail.com', 3, 1),
+('Elena', 'Rocío', 'Castro', 'López', 'elenac', 'qwerty', 2200.00, 3, 'E123456', '987654310', 'elena@gmail.com', 4, 1),
+('David', 'Antonio', 'Soto', 'García', 'davids', 'clave', 3000.00, 1, '65432178', '976543210', 'david@gmail.com', 5, 1);
+
+-- cliente
+insert into cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) values
+('Ana', 'Luisa', 'Torres', 'Fernández', 1, '45678912', '987123456', 'ana@gmail.com', '1990-05-20', 1, 2, 1),
+('Pedro', 'Luis', 'Mendoza', 'Salas', 2, 'P567891', '912345679', 'pedro@gmail.com', '1985-08-15', 2, 1, 1),
+('María', 'Carmen', 'Ríos', 'Sánchez', 1, '45678913', '987654311', 'maria@gmail.com', '1992-07-25', 3, 2, 1),
+('José', 'Manuel', 'Palacios', 'Paredes', 1, '45678914', '976543212', 'jose@gmail.com', '1980-03-05', 1, 1, 1),
+('Valeria', 'Isabel', 'Morales', 'Reyes', 2, 'V789123', '923456789', 'valeria@gmail.com', '1995-09-10', 4, 2, 1);
+
+-- habitacion
+insert into habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) values
 ('101', '1', 150.00, 1, 1, 1),
 ('102', '1', 200.00, 2, 1, 1),
-('201', '2', 350.00, 3, 1, 1);
+('201', '2', 350.00, 3, 1, 1),
+('202', '2', 120.00, 4, 1, 1),
+('301', '3', 400.00, 5, 1, 1);
 
--- Trabajadores
-INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) VALUES
-('Luis', 'Carlos', 'Gomez', 'Fernandez', 'lgomez', '123456', 2500.00, 1, '12345678', '987654321', 'luis@example.com', 1, 1),
-('Maria', 'Elena', 'Rojas', 'Perez', 'mrojas', 'abcdef', 3000.00, 2, 'A1234567', '912345678', 'maria@example.com', 2, 1);
+-- estacionamiento
+insert into estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado) values
+('A01', '5m', '2m', '3m', 1, 1),
+('A02', '5m', '2m', '3m', 2, 1),
+('A03', '5m', '2m', '3m', 3, 1);
 
--- Clientes
-INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) VALUES
-('Carlos', 'Andres', 'Lopez', 'Mendoza', 1, '87654321', '999888777', 'carlos@example.com', '1990-05-10', 1, 1, 1),
-('Ana', 'Lucia', 'Ramirez', 'Vega', 2, 'P1234567', '988776655', 'ana@example.com', '1985-12-22', 2, 2, 1);
+-- reserva
+insert into reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) values
+(1, 1, 1, 1, '2025-05-01', '2025-05-05', 600.00, 1),
+(2, 2, 1, 2, '2025-05-02', '2025-05-04', 400.00, 1),
+(3, 3, 2, 1, '2025-05-03', '2025-05-06', 1050.00, 1);
 
--- Estacionamientos
-INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado) VALUES
-('E01', '5', '2.5', '2', 1, 1),
-('E02', '5', '2.5', '2', 2, 1);
+-- pago
+insert into pago (id_reserva, id_tipo_comprobante, igv, total_pago, fecha_emision, fecha_pago, estado) values
+(1, 1, 108.00, 708.00, '2025-05-01', '2025-05-01', 1),
+(2, 2, 72.00, 472.00, '2025-05-02', '2025-05-02', 1),
+(3, 1, 189.00, 1239.00, '2025-05-03', '2025-05-03', 1);
 
--- Reservas
-INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) VALUES
-(1, 1, 1, 1, '2025-05-15', '2025-05-18', 450.00, 1),
-(2, 2, 2, 2, '2025-05-16', '2025-05-19', 600.00, 1);
-
--- Pagos
-INSERT INTO pago (id_reserva, id_tipo_comprobante, igv, total_pago, fecha_emision, fecha_pago, estado) VALUES
-(1, 1, 81.00, 531.00, '2025-05-15', '2025-05-15', 1),
-(2, 2, 108.00, 708.00, '2025-05-16', '2025-05-16', 1);
-
--- Reserva Estacionamiento
-INSERT INTO reserva_estacionamiento (id_reserva, id_estacionamiento, cantidad, precio_estacionamiento, estado) VALUES
+-- reserva_estacionamiento
+insert into reserva_estacionamiento (id_reserva, id_estacionamiento, cantidad, precio_estacionamiento, estado) values
 (1, 1, 1, 20.00, 1),
-(2, 2, 1, 10.00, 1);
+(2, 2, 1, 0.00, 1),
+(3, 3, 1, 50.00, 1);
 
--- Productos
-INSERT INTO producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado) VALUES
-('Agua Mineral', 2, 1, 5.00, 100, 1),
-('Galletas', 1, 2, 3.50, 50, 1),
-('Jabón', 1, 3, 2.00, 30, 1);
-
--- Consumo
-INSERT INTO consumo (id_reserva, id_producto, cantidad, precio_venta, estado) VALUES
-(1, 1, 2, 10.00, 1),
-(1, 2, 1, 3.50, 1),
-(2, 3, 1, 2.00, 1);
-
-INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
-('101', '1', 250.00, 1, 1, 1),
-('102', '1', 200.00, 2, 1, 1),
-('103', '1', 220.00, 2, 1, 1),
-('201', '2', 300.00, 1, 1, 1),
-('202', '2', 180.00, 3, 1, 1),
-('203', '2', 280.00, 4, 1, 1),
-('301', '3', 350.00, 1, 1, 1),
-('302', '3', 250.00, 3, 1, 1),
-('303', '3', 200.00, 2, 1, 1),
-('304', '3', 400.00, 1, 1, 1);
-go
- 
-INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) VALUES
-('Carlos', 'Andrés', 'Pérez', 'Ramírez', 'cperez', '1234', 1500.00, 1, '12345678', '987654321', 'carlos@example.com', 1, 1),
-('Ana', 'María', 'Lopez', 'Díaz', 'alopez', 'abcd', 2000.00, 1, '87654321', '912345678', 'ana@example.com', 2, 1),
-('Luis', 'Fernando', 'Mendoza', 'Vega', 'lmendoza', 'pass', 1300.00, 1, '11223344', '987123456', 'luis@example.com', 3, 1),
-('Elena', 'Paola', 'Torres', 'Gomez', 'etorres', '3210', 1250.00, 1, '22334455', '999123123', 'elena@example.com', 1, 1),
-('Raúl', 'David', 'Cruz', 'Santos', 'rcruz', 'qwerty', 1100.00, 2, '33445566', '988654321', 'raul@example.com', 4, 1),
-('Patricia', 'Sofia', 'Morales', 'Núñez', 'pmorales', 'asdf', 1700.00, 1, '44556677', '911223344', 'patricia@example.com', 2, 1),
-('Javier', 'Enrique', 'Vargas', 'Alva', 'jvargas', 'password', 1800.00, 3, '55667788', '944332211', 'javier@example.com', 1, 1),
-('Lucía', 'Isabel', 'Cáceres', 'Mora', 'lcaceres', '9876', 1400.00, 1, '66778899', '922334455', 'lucia@example.com', 3, 1),
-('Ricardo', 'Manuel', 'Salas', 'Ibañez', 'rsalas', '7410', 1600.00, 2, '77889900', '933221100', 'ricardo@example.com', 1, 1),
-('Verónica', 'Fernanda', 'Reyes', 'Palacios', 'vreyes', '3698', 2000.00, 1, '88990011', '911223311', 'vero@example.com', 2, 1);
-go
- 
-INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) VALUES
-('Mario', 'Andrés', 'Gómez', 'Paz', 1, '11111111', '900000001', 'mario@gmail.com', '1990-01-01', 1, 1, 1),
-('Lucía', 'María', 'Salinas', 'Lopez', 1, '22222222', '900000002', 'lucia@gmail.com', '1985-05-12', 1, 2, 1),
-('Carmen', 'Patricia', 'Torres', 'Vega', 2, '33333333', '900000003', 'carmen@gmail.com', '1992-07-21', 2, 2, 1),
-('Raúl', 'Ignacio', 'Vargas', 'Soto', 1, '44444444', '900000004', 'raul@gmail.com', '1988-03-14', 3, 1, 1),
-('Elena', 'Gabriela', 'Martinez', 'Aguilar', 3, '55555555', '900000005', 'elena@gmail.com', '1995-11-30', 4, 2, 1),
-('Pedro', 'Manuel', 'Reyes', 'Delgado', 1, '66666666', '900000006', 'pedro@gmail.com', '1991-09-05', 1, 1, 1),
-('Claudia', 'Patricia', 'Nuñez', 'Ibarra', 2, '77777777', '900000007', 'claudia@gmail.com', '1987-06-25', 2, 2, 1),
-('Jorge', 'Eduardo', 'Flores', 'Pineda', 1, '88888888', '900000008', 'jorge@gmail.com', '1993-08-19', 3, 1, 1),
-('Mónica', 'Isabel', 'Ramirez', 'Quispe', 3, '99999999', '900000009', 'monica@gmail.com', '1997-12-22', 4, 2, 1),
-('Felipe', 'Antonio', 'Ponce', 'Cornejo', 1, '10101010', '900000010', 'felipe@gmail.com', '1990-04-02', 1, 1, 1);
-go
- 
-INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado) VALUES
-('E01', '5', '2', '3', 1, 1),
-('E02', '5', '2', '3', 2, 1),
-('E03', '5', '2', '3', 1, 1),
-('E04', '5', '2', '3', 2, 1),
-('E05', '5', '2', '3', 1, 1),
-('E06', '5', '2', '3', 2, 1),
-('E07', '5', '2', '3', 1, 1),
-('E08', '5', '2', '3', 2, 1),
-('E09', '5', '2', '3', 1, 1),
-('E10', '5', '2', '3', 2, 1);
-go
- 
-INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) VALUES
-(1, 1, 1, 1, '2025-04-01', '2025-04-05', 1000.00, 1),
-(2, 2, 2, 2, '2025-04-03', '2025-04-04', 200.00, 1),
-(3, 3, 3, 1, '2025-04-02', '2025-04-06', 800.00, 1),
-(4, 4, 4, 2, '2025-04-07', '2025-04-10', 900.00, 1),
-(5, 5, 5, 1, '2025-04-01', '2025-04-03', 360.00, 1),
-(6, 6, 6, 1, '2025-04-05', '2025-04-08', 840.00, 1),
-(7, 7, 7, 2, '2025-04-09', '2025-04-12', 1050.00, 1),
-(8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
-(9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
-(10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
+-- consumo
+insert into consumo (id_reserva, id_producto, cantidad, precio_venta, estado) values
+(1, 1, 2, 5.00, 1),
+(1, 2, 4, 12.00, 1),
+(2, 3, 3, 8.50, 1),
+(3, 4, 1, 45.00, 1),
+(3, 5, 1, 10.00, 1);
 go
 
 ------------------------------------
