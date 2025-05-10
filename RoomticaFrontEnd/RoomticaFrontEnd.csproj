@@ -35,6 +35,9 @@
     <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\categoria_producto.proto" GrpcServices="Client">
       <Link>Protos\categoria_producto.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\cliente_reserva.proto" GrpcServices="Client">
+      <Link>Protos\cliente_reserva.proto</Link>
+    </Protobuf>
     <Protobuf Include="..\RoomticaGrpcServiceBackEnd\Protos\producto.proto" GrpcServices="Client">
       <Link>Protos\producto.proto</Link>
     </Protobuf>

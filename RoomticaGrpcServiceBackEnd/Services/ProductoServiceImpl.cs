@@ -89,7 +89,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         Nombre = dr.GetString(1),
                         IdUnidadMedidaProducto = dr.GetInt32(2),
                         IdCategoriaProducto = dr.GetInt32(3),
-                        PrecioUnico = dr.GetDouble(4),
+                        PrecioUnico = Double.Parse(dr.GetDecimal(4).ToString()),
                         Cantidad = dr.GetInt32(5),
                         Estado = dr.GetBoolean(6)
                     };

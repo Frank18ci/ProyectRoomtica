@@ -2,6 +2,7 @@
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using RoomticaFrontEnd.Models;
+using RoomticaFrontEnd.Permisos;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaFrontEnd.Controllers
@@ -34,7 +35,7 @@ namespace RoomticaFrontEnd.Controllers
             }
             return estadoHabitacionModel;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Listar(int p = 0, string nombre = "", string mensaje = "")
         {
             IEnumerable<EstadoHabitacionModel> temporal = await listarEstadoHabitacion();
@@ -55,7 +56,7 @@ namespace RoomticaFrontEnd.Controllers
             return View(temporal.Skip(p * fila).Take(fila));
         }
 
-        //CREATE
+       
         async Task<string> guardarEstadoHabitacion(EstadoHabitacionModel estadoHabitacion)
         {
             string mensaje = string.Empty;
@@ -72,12 +73,12 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Create()
         {
             return View(new EstadoHabitacionModel());
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Create(EstadoHabitacionModel estadoHabitacion)
         {
@@ -85,7 +86,7 @@ namespace RoomticaFrontEnd.Controllers
             return View(estadoHabitacion);
         }
 
-        //DETAIL
+        [ValidarSesion]
         public async Task<ActionResult> Details(int id = 0)
         {
             EstadoHabitacionModel estadoHabitacion = await buscarEstadoHabitacionPorId(id);
@@ -112,14 +113,14 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { throw null; }
             return estadoHabitacion;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Edit(int id = 0)
         {
             EstadoHabitacionModel estadoHabitacion = await buscarEstadoHabitacionPorId(id);
             return View(estadoHabitacion);
         }
 
-        //------------------- EDIT TAMBIEN
+
         async Task<string> actualizarEstadoHabitacion(EstadoHabitacionModel estadoHabitacion)
         {
             string mensaje = string.Empty;
@@ -136,7 +137,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Edit(EstadoHabitacionModel estadoHabitacion)
         {

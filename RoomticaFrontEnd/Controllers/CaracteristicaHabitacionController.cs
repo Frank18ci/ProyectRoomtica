@@ -5,6 +5,7 @@ using RoomticaGrpcServiceBackEnd;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Channels;
+using RoomticaFrontEnd.Permisos;
 
 namespace RoomticaFrontEnd.Controllers
 {
@@ -77,12 +78,12 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Create()
         {
             return View(new CaracteristicaHabitacionModel());
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Create(CaracteristicaHabitacionModel caracteristicaHabitacion)
         {
@@ -91,6 +92,7 @@ namespace RoomticaFrontEnd.Controllers
         }
 
         // DETAIL
+        [ValidarSesion]
         public async Task<ActionResult> Details(int id = 0)
         {
             CaracteristicaHabitacionModel caracteristicaHabitacion = await buscarCaracteristicaHabitacionPorId(id);
@@ -118,13 +120,13 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { return null; }
             return caracteristicaHabitacion;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Edit(int id = 0)
         {
             CaracteristicaHabitacionModel caracteristicaHabitacion = await buscarCaracteristicaHabitacionPorId(id);
             return View(caracteristicaHabitacion);
         }
-        //----------------------------------- EDIT TAMBIEN
+        
         async Task<string> actualizarCaracteristicaHabitacion(CaracteristicaHabitacionModel caracteristicaHabitacion)
         {
             string mensaje = string.Empty;
@@ -141,7 +143,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Edit(CaracteristicaHabitacionModel caracteristicaHabitacion)
         {

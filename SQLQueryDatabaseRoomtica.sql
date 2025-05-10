@@ -343,9 +343,9 @@ insert into producto (nombre, id_unidad_medida_producto, id_categoria_producto, 
 insert into trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) values
 ('Carlos', 'Andrés', 'Gómez', 'Pérez', 'carlosg', '123456', 2500.00, 1, '12345678', '987654321', 'carlos@gmail.com', 1, 1),
 ('Lucía', 'María', 'Vega', 'Rojas', 'luciar', 'abcdef', 1800.00, 2, 'A1234567', '912345678', 'lucia@gmail.com', 2, 1),
-('Marcos', 'José', 'Reyes', 'Díaz', 'marcosr', 'pass123', 2000.00, 2, '87654321', '998877665', 'marcos@gmail.com', 3, 1),
-('Elena', 'Rocío', 'Castro', 'López', 'elenac', 'qwerty', 2200.00, 2, 'E123456', '987654310', 'elena@gmail.com', 4, 1),
-('David', 'Antonio', 'Soto', 'García', 'davids', 'clave', 3000.00, 2, '65432178', '976543210', 'david@gmail.com', 5, 1);
+('Marcos', 'José', 'Reyes', 'Díaz', 'marcosr', 'pass123', 2000.00, 2, '87654321', '998877665', 'marcos@gmail.com', 2, 1),
+('Elena', 'Rocío', 'Castro', 'López', 'elenac', 'qwerty', 2200.00, 2, 'E123456', '987654310', 'elena@gmail.com', 2, 1),
+('David', 'Antonio', 'Soto', 'García', 'davids', 'clave', 3000.00, 2, '65432178', '976543210', 'david@gmail.com', 2, 1);
 
 -- cliente
 insert into cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) values
@@ -1095,7 +1095,7 @@ AS
 BEGIN
     SELECT 
        p.id,
-	   r.costo_alojamiento,
+	   h.numero,
 	   c.tipo,
 	   p.igv,
 	   p.total_pago,
@@ -1105,6 +1105,7 @@ BEGIN
     FROM pago p
     INNER JOIN reserva r ON p.id_reserva = r.id
     INNER JOIN tipo_comprobante c ON p.id_tipo_comprobante = c.id
+	inner join habitacion h on r.id_habitacion = h.id
 	where p.estado = 1;
 END
 go
@@ -1443,9 +1444,15 @@ BEGIN
     INSERT INTO reserva (id_habitacion, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado)
     VALUES (@id_habitacion, @id_trabajador, @id_tipo_reserva, @fecha_ingreso, @fecha_salida, @costo_alojamiento, 1);
 
+	UPDATE habitacion
+		SET id_estado = 2
+		WHERE id = @id_trabajador;	
+
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
 go
+
+
 CREATE or alter proc usp_actualizar_reserva
     @id INT,
     @id_habitacion INT,
@@ -1483,11 +1490,30 @@ go
 
 CREATE or alter proc usp_listar_cliente_reserva
 AS
-    select * from cliente_reserva
-	where estado = 1
+    select 
+	cr.id,
+	c.primer_nombre,
+	r.id
+	from cliente_reserva cr
+	join cliente c on cr.id_cliente = c.id
+	join reserva r on r.id = cr.id_reserva
+	where cr.estado = 1
 GO
 
 CREATE or alter proc usp_obtener_cliente_reserva_por_id
+    @id INT
+AS
+	select 
+	id, 
+	id_cliente,
+	id_reserva
+	from cliente_reserva
+	
+	where estado = 1 and @id = id
+go
+
+
+CREATE or alter proc usp_obtener_cliente_reservaDTO_por_id
     @id INT
 AS
 	select 
@@ -1521,8 +1547,8 @@ GO
 CREATE or alter proc usp_eliminar_cliente_reserva
     @id INT
 AS
-    UPDATE cliente_reserva
-    SET estado = 0 
+    UPDATE cliente_reserva 
+	set estado = 0
     WHERE Id = @id;
 go
 
@@ -2325,5 +2351,3 @@ as
 	where t.username = @username and t.password = @password
 go
 
-
-SELECT * FROM tipo_reserva

@@ -37,8 +37,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_habitacion = item.IdHabitacion,
                     id_trabajador = item.IdTrabajador,
                     id_tipo_reserva = item.IdTipoReserva,
-                    fecha_ingreso = item.FechaIngreso.ToDateTime(),
-                    fecha_salida = item.FechaSalida.ToDateTime(),
+                    fecha_ingreso = item.FechaIngreso?.ToDateTime(),
+                    fecha_salida = item.FechaSalida?.ToDateTime(),
                     costo_alojamiento = item.CostoAlojamiento
                 });
             }
@@ -75,6 +75,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_tipo_comprobante = item.IdTipoComprobante,
                     igv = item.Igv,
                     total_pago = item.TotalPago,
+                    fecha_emision = item.FechaEmision.ToDateTime(),
+                    fecha_pago = item.FechaPago.ToDateTime()
                 });
             }
             return pagoDTOModel;
@@ -127,15 +129,15 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Create()
         {
             ViewBag.reservaService = new SelectList(await listarReserva(), "id", "id_habitacion");
-            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "id", "tipo");
+            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "Id", "Tipo");
             return View(new PagoModel());
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(PagoModel pago)
         {
-            ViewBag.reservaService = new SelectList(await listarReserva(), "id", "id_habitacion");
-            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "id", "tipo");
+            ViewBag.reservaService = new SelectList(await listarReserva(), "id", "id_habitacion", pago.id_reserva);
+            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "Id", "Tipo", pago.id_tipo_comprobante);
             ViewBag.mensaje = await guardarPago(pago);
             return View(pago);
         }
@@ -201,8 +203,8 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(int id = 0)
         {
             PagoModel pago = await buscarPagoPorId(id);
-            ViewBag.reservaService = new SelectList(await listarReserva(), "id", "id_habitacion");
-            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "id", "tipo");
+            ViewBag.reservaService = new SelectList(await listarReserva(), "id", "id_habitacion", pago.id_reserva);
+            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "Id", "Tipo", pago.id_tipo_comprobante);
             return View(pago);
         }
 
@@ -233,8 +235,8 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(PagoModel pago)
         {
             ViewBag.mensaje = await actualizarPago(pago);
-            ViewBag.reservaService = new SelectList(await listarReserva(), "id", "id_habitacion");
-            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "id", "tipo");
+            ViewBag.reservaService = new SelectList(await listarReserva(), "id", "id_habitacion", pago.id_reserva);
+            ViewBag.tipoComprobanteService = new SelectList(await listarTipoComprobante(), "Id", "Tipo", pago.id_tipo_comprobante);
             return View(pago);
         }
 
