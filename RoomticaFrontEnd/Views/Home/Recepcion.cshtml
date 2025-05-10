@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="container-xl pb-4 pt-2">
+    <h2>Recepcion</h2>
+    <div class="col-md-6">
+        <label>Numero de Identidad client</label>
+        <input class="form-control" type="text" name="numero" id="numero" value="" />
+        <button type="button" id="btnBuscar">Buscar</button>
+        <button>Quitar</button>
+    </div>
+
+    <br /><br />
+    <form asp-action="Recepcion">
+        
+    </form>
+    <select multiple class="">
+        <option value="1">One</option>
+    </select>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let clientesSeleccionados = [];
+
+        $("#btnBuscar").click(function () {
+            const numero = $("#numero").val();
+            if (!dni) {
+                alert("Ingrese un numero de cliente");
+                return;
+            }
+
+            $.ajax({
+                url: '/Home/BuscarClientePorNumero?numero=' + numero,
+                method: 'GET',
+                success: function (data) {
+                    if (data) {
+                        if (clientesSeleccionados.includes(data.clienteId)) {
+                            alert("El cliente ya está en la lista.");
+                            return;
+                        }
+
+                        clientesSeleccionados.push(data.clienteId);
+                        $("#clientesSeleccionados").append(
+                            `<option value="${data.clienteId}">${data.nombre}</option>`
+                        );
+                        actualizarHidden();
+                    } else {
+                        alert("Cliente no encontrado.");
+                    }
+                },
+                error: function () {
+                    alert("Error al buscar cliente.");
+                }
+            });
+        });
+
+        function actualizarHidden() {
+            $("#clientesHidden").val(clientesSeleccionados.join(","));
+        }
+    </script>
+}

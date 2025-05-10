@@ -114,6 +114,8 @@ create table cliente(
 );
 go
 
+
+
 create table tipo_estacionamiento(
 	id int identity(1, 1) primary key,
 	tipo varchar(40) unique,
@@ -143,12 +145,19 @@ go
 create table reserva(
 	id int identity(1, 1) primary key,
 	id_habitacion int references habitacion,
-	id_cliente int references cliente,
 	id_trabajador int references trabajador,
 	id_tipo_reserva int references tipo_reserva,
 	fecha_ingreso date,
 	fecha_salida date,
 	costo_alojamiento decimal(10,2),
+	estado bit
+);
+go
+
+create table cliente_reserva(
+	id int identity(1, 1) primary key,
+	id_cliente int references cliente,
+	id_reserva int references reserva,
 	estado bit
 );
 go
@@ -369,10 +378,17 @@ insert into estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento,
 ('A03', '5m', '2m', '3m', 3, 1);
 
 -- reserva
-insert into reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) values
-(1, 1, 1, 1, '2025-05-01', '2025-05-05', 600.00, 1),
-(2, 2, 1, 2, '2025-05-02', '2025-05-04', 400.00, 1),
-(3, 3, 2, 1, '2025-05-03', '2025-05-06', 1050.00, 1);
+insert into reserva (id_habitacion, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) values
+(1, 1, 1, '2025-05-01', '2025-05-05', 600.00, 1),
+(2, 1, 2, '2025-05-02', '2025-05-04', 400.00, 1),
+(3, 2, 1, '2025-05-03', '2025-05-06', 1050.00, 1);
+
+-- cliente_reserva
+insert into cliente_reserva(id_cliente, id_reserva, estado) values
+(1, 1, 1),
+(2, 1, 1),
+(2, 2, 1),
+(3, 2, 1);
 
 -- pago
 insert into pago (id_reserva, id_tipo_comprobante, igv, total_pago, fecha_emision, fecha_pago, estado) values
@@ -730,7 +746,7 @@ AS
 BEGIN
     SELECT 
       c.id,
-	  cli.primer_apellido + cli.segundo_nombre as Reserva,
+	  r.id,
 	  p.nombre,
 	  c.cantidad,
 	  c.precio_venta,
@@ -738,7 +754,6 @@ BEGIN
     FROM consumo c
 	INNER JOIN reserva r on c.id_reserva = r.id
 	INNER JOIN producto p on c.id_producto = p.id
-	INNER JOIN cliente cli on r.id_cliente = cli.id
 	where c.estado = 1;
 END
 go
@@ -749,7 +764,7 @@ AS
 BEGIN
      SELECT 
       c.id,
-	  cli.primer_apellido +' '+ cli.segundo_nombre as Reserva,
+	  r.id,
 	  p.nombre,
 	  c.cantidad,
 	  c.precio_venta,
@@ -757,7 +772,6 @@ BEGIN
     FROM consumo c
 	INNER JOIN reserva r on c.id_reserva = r.id
 	INNER JOIN producto p on c.id_producto = p.id
-	INNER JOIN cliente cli on r.id_cliente = cli.id
     WHERE c.id = @id and c.estado = 1;
 END
 go
@@ -1369,7 +1383,6 @@ BEGIN
     SELECT 
        r.id,
 	   h.numero,
-	   c.primer_apellido,
 	   t.primer_nombre,
 	   tr.tipo,
 	   r.fecha_ingreso,
@@ -1378,7 +1391,6 @@ BEGIN
 	   r.estado
     FROM reserva r
     INNER JOIN habitacion h ON r.id_habitacion = h.id
-    INNER JOIN cliente c ON r.id_cliente = c.id
 	INNER JOIN trabajador t ON r.id_trabajador = t.id
 	INNER JOIN tipo_reserva tr ON r.id_tipo_reserva = tr.id
 	where r.estado = 1;
@@ -1391,7 +1403,6 @@ BEGIN
     SELECT 
        r.id,
 	   h.numero,
-	   c.primer_apellido,
 	   t.primer_nombre,
 	   tr.tipo,
 	   r.fecha_ingreso,
@@ -1400,7 +1411,6 @@ BEGIN
 	   r.estado
     FROM reserva r
     INNER JOIN habitacion h ON r.id_habitacion = h.id
-    INNER JOIN cliente c ON r.id_cliente = c.id
 	INNER JOIN trabajador t ON r.id_trabajador = t.id
 	INNER JOIN tipo_reserva tr ON r.id_tipo_reserva = tr.id
     WHERE r.id = @id and r.estado = 1;
@@ -1419,7 +1429,6 @@ GO
 
 CREATE or alter proc usp_crear_reserva
     @id_habitacion INT,
-    @id_cliente INT,
     @id_trabajador INT,
     @id_tipo_reserva INT,
     @fecha_ingreso date,
@@ -1428,8 +1437,8 @@ CREATE or alter proc usp_crear_reserva
     @estado BIT
 AS
 BEGIN
-    INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado)
-    VALUES (@id_habitacion, @id_cliente, @id_trabajador, @id_tipo_reserva, @fecha_ingreso, @fecha_salida, @costo_alojamiento, 1);
+    INSERT INTO reserva (id_habitacion, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado)
+    VALUES (@id_habitacion, @id_trabajador, @id_tipo_reserva, @fecha_ingreso, @fecha_salida, @costo_alojamiento, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1437,7 +1446,6 @@ go
 CREATE or alter proc usp_actualizar_reserva
     @id INT,
     @id_habitacion INT,
-    @id_cliente INT,
     @id_trabajador INT,
     @id_tipo_reserva INT,
     @fecha_ingreso date,
@@ -1448,7 +1456,6 @@ AS
 BEGIN
     UPDATE reserva
     SET id_habitacion = @id_habitacion,
-        id_cliente = @id_cliente,
         id_trabajador = @id_trabajador,
         id_tipo_reserva = @id_tipo_reserva,
         fecha_ingreso = @fecha_ingreso,
@@ -1468,6 +1475,55 @@ BEGIN
     WHERE Id = @id;
 END
 go
+------------------------------------
+------------------------------------
+
+CREATE or alter proc usp_listar_cliente_reserva
+AS
+    select * from cliente_reserva
+	where estado = 1
+GO
+
+CREATE or alter proc usp_obtener_cliente_reserva_por_id
+    @id INT
+AS
+	select 
+	c.primer_nombre,
+	r.id
+	from cliente_reserva cr 
+	join cliente c on cr.id_cliente = c.id
+	join reserva r on r.id = cr.id_reserva
+	where cr.estado = 1 and @id = cr.id
+go
+
+
+CREATE or alter proc usp_insertar_cliente_reserva
+    @id_cliente INT,
+    @id_reserva INT
+AS
+    INSERT INTO cliente_reserva (id_cliente, id_reserva, estado)
+    VALUES (@id_cliente, @id_reserva, 1);
+GO
+
+CREATE OR ALTER PROCEDURE usp_actualizar_cliente_reserva
+    @id INT,
+    @id_cliente INT,
+    @id_reserva INT
+AS
+    UPDATE cliente_reserva
+    SET id_cliente = @id_cliente,
+        id_reserva = @id_reserva
+    WHERE id = @id and estado = 1;
+GO
+CREATE or alter proc usp_eliminar_cliente_reserva
+    @id INT
+AS
+    UPDATE cliente_reserva
+    SET estado = 0 
+    WHERE Id = @id;
+go
+
+
 ------------------------------------
 ------------------------------------
 
@@ -2265,3 +2321,6 @@ as
 	trabajador t 
 	where t.username = @username and t.password = @password
 go
+
+
+

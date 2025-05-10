@@ -31,10 +31,10 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     lista.Add(new PagoDTO
                     {
                         Id = dr.GetInt32(0),
-                        IdReserva = dr.GetString(1),
+                        IdReserva = dr.GetDecimal(1).ToString(),
                         IdTipoComprobante = dr.GetString(2),
-                        Igv = dr.GetDouble(3),
-                        TotalPago = dr.GetDouble(4),
+                        Igv = Double.Parse(dr.GetDecimal(3).ToString()),
+                        TotalPago = Double.Parse(dr.GetDecimal(4).ToString()),
                         FechaEmision = dr.GetString(5),
                         FechaPago = dr.GetString(6),
                     });
@@ -61,10 +61,10 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     pagoDTO = new PagoDTO
                     {
                         Id = dr.GetInt32(0),
-                        IdReserva = dr.GetString(1),
+                        IdReserva = dr.GetDecimal(1).ToString(),
                         IdTipoComprobante = dr.GetString(2),
-                        Igv = dr.GetDouble(3),
-                        TotalPago = dr.GetDouble(4),
+                        Igv = Double.Parse(dr.GetDecimal(3).ToString()),
+                        TotalPago = Double.Parse(dr.GetDecimal(4).ToString()),
                         FechaEmision = dr.GetString(5),
                         FechaPago = dr.GetString(6),
                         Estado = dr.GetBoolean(7)
@@ -92,8 +92,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         Id = dr.GetInt32(0),
                         IdReserva = dr.GetInt32(1),
                         IdTipoComprobante = dr.GetInt32(2),
-                        Igv = dr.GetDouble(3),
-                        TotalPago = dr.GetDouble(4),
+                        Igv = Double.Parse(dr.GetDecimal(3).ToString()),
+                        TotalPago = Double.Parse(dr.GetDecimal(4).ToString()),
                         FechaEmision = dr.GetString(5),
                         FechaPago = dr.GetString(6),
                         Estado = dr.GetBoolean(7)

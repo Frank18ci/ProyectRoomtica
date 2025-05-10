@@ -27,11 +27,15 @@ namespace RoomticaFrontEnd.Models
 
         [Required]
         [Display(Name = "Fecha de Ingreso")]
-        public string? fecha_ingreso { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_ingreso { get; set; }
 
         [Required]
         [Display(Name = "Fecha de Salida")]
-        public string? fecha_salida { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_salida { get; set; }
 
         [Required]
         [Display(Name = "Costo de Alojamiento")]
@@ -42,7 +46,7 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Required]
-        [Display(Name = "Id Reserva")]
+        [Display(Name = "Reserva")]
         public int? id { get; set; }
 
         [Required]
@@ -62,12 +66,16 @@ namespace RoomticaFrontEnd.Models
         public string? id_tipo_reserva { get; set; }
 
         [Required]
-        [Display(Name = "Fecha de Ingreso")]        
-        public string? fecha_ingreso { get; set; }
+        [Display(Name = "Fecha de Ingreso")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_ingreso { get; set; }
 
         [Required]
-        [Display(Name = "Fecha de Salida")]        
-        public string? fecha_salida { get; set; }
+        [Display(Name = "Fecha de Salida")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_salida { get; set; }
 
         [Required]
         [Display(Name = "Costo de Alojamiento")]
