@@ -31,7 +31,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     lista.Add(new ConsumoDTO
                     {
                         Id = dr.GetInt32(0),
-                        IdReserva = dr.GetString(1),
+                        IdReserva = dr.GetInt32(1).ToString(),
                         IdProducto = dr.GetString(2),
                         Cantidad = dr.GetInt32(3),
                         PrecioVenta = Double.Parse(dr.GetDecimal(4).ToString()),

@@ -3,6 +3,7 @@ using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RoomticaFrontEnd.Models;
+using RoomticaFrontEnd.Permisos;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaFrontEnd.Controllers
@@ -58,7 +59,7 @@ namespace RoomticaFrontEnd.Controllers
             }
             return estacionamientoDTOModel;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Listar(int p = 0, string nombre = "", string mensaje = "")
         {
             IEnumerable<EstacionamientoDTOModel> temporal = await listarEstacionamiento();
@@ -100,13 +101,13 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex){mensaje = ex.Message;}
             return mensaje;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Create()
         {
             ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "Id", "Tipo");
             return View(new EstacionamientoModel());
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Create(EstacionamientoModel estacionamiento)
         {
@@ -115,7 +116,7 @@ namespace RoomticaFrontEnd.Controllers
             return View(estacionamiento);
         }
 
-        //DETAIL
+        [ValidarSesion]
         public async Task<ActionResult> Details(int id = 0)
         {
             EstacionamientoDTOModel estacionamiento = await buscarEstacionamientoDTOPorId(id);
@@ -170,7 +171,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { throw ex; }
             return estacionamiento;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Edit(int id = 0)
         {
             EstacionamientoModel estacionamiento = await buscarEstacionamientoPorId(id);
@@ -178,7 +179,6 @@ namespace RoomticaFrontEnd.Controllers
             return View(estacionamiento);
         }
 
-        //------------------- EDIT TAMBIEN
         async Task<string> actualizarEstacionamiento(EstacionamientoModel estacionamiento)
         {
             string mensaje = string.Empty;
@@ -199,7 +199,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Edit(EstacionamientoModel estacionamiento)
         {

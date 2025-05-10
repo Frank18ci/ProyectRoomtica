@@ -31,6 +31,7 @@ app.MapGrpcService<TipoReservaServiceImpl>();
 app.MapGrpcService<TipoSexoServiceImpl>();
 app.MapGrpcService<TrabajadorServiceImpl>();
 app.MapGrpcService<UnidadMedidaProductoServiceImpl>();
+app.MapGrpcService<ClienteReservaServiceImpl>();
 
 
 

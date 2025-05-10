@@ -20,6 +20,7 @@ namespace RoomticaFrontEnd.Controllers
             chanal = GrpcChannel.ForAddress("http://localhost:5225");
             habitacionService = new HabitacionServices.HabitacionServicesClient(chanal);
             estadoHabitacionService = new EstadoHabitacionServices.EstadoHabitacionServicesClient(chanal);
+            tipoHabitacionService = new TipoHabitacionService.TipoHabitacionServiceClient(chanal);
         }
 
         //LISTAR
@@ -120,16 +121,16 @@ namespace RoomticaFrontEnd.Controllers
         }
         public async Task<ActionResult> Create()
         {
-            ViewBag.estado_habitacion = await listarEstadoHabitacion();
-            ViewBag.tipo_habitacion = await listarTipoHabitacion();
+            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion");
+            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo");
             return View(new HabitacionModel());
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(HabitacionModel habitacion)
         {
-            ViewBag.estado_habitacion = await listarEstadoHabitacion();
-            ViewBag.tipo_habitacion = await listarTipoHabitacion();
+            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion", habitacion.id_estado);
+            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo", habitacion.id_tipo);
             ViewBag.mensaje = await guardarHabitacion(habitacion);
             return View(habitacion);
         }
@@ -193,12 +194,11 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(int id = 0)
         {
             HabitacionModel habitacion = await buscarHabitacionPorId(id);
-            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion");
-            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo");
+            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion", habitacion.id_estado);
+            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo", habitacion.id_tipo);
             return View(habitacion);
         }
 
-        //-------------------------------
 
         async Task<string> actualizarHabitacion(HabitacionModel habitacion)
         {
@@ -225,12 +225,12 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(HabitacionModel habitacion)
         {
             ViewBag.mensaje = await actualizarHabitacion(habitacion);
-            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion");
-            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo");
+            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion", habitacion.id_estado);
+            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo", habitacion.id_tipo);
             return View(habitacion);
         }
 
-        //DELETE
+        
         async Task<string> eliminarHabitacion(int id)
         {
             string mensaje = string.Empty;

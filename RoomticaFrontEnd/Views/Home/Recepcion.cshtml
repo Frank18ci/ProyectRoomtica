@@ -25,10 +25,12 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col-md-6">
             Clientes Agregados
-            <select class="form-select" multiple id="clientesSeleccionados" name="ClientesId" >
+            <select class="form-select" multiple id="clientesSeleccionados" name="clientesSeleccionados">
             </select>
         </div>
         <div class="col-md-6">
+            <input type="hidden" id="id_trabajador" name="id_trabajador" value="@(((RoomticaFrontEnd.Models.TrabajadorModel)Context.Items["trabajador"])?.id)" />
+
             <div class="form-group">
                 <label asp-for="fecha_ingreso" class="control-label"></label>
                 <input asp-for="fecha_ingreso" class="form-control" />
@@ -117,7 +119,7 @@
 
                         clientesSeleccionados.push(data);
                         $("#clientesSeleccionados").append(
-                            `<option value="${data.id}">${data.primer_nombre} ${data.primer_apellido}</option>`
+                            `<option selected value="${data.id}">${data.primer_nombre} ${data.primer_apellido}</option>`
                         );
                         actualizarHidden();
                     } else {

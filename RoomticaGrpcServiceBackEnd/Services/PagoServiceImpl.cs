@@ -31,12 +31,13 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     lista.Add(new PagoDTO
                     {
                         Id = dr.GetInt32(0),
-                        IdReserva = dr.GetDecimal(1).ToString(),
+                        IdReserva = dr.GetString(1),
                         IdTipoComprobante = dr.GetString(2),
                         Igv = Double.Parse(dr.GetDecimal(3).ToString()),
                         TotalPago = Double.Parse(dr.GetDecimal(4).ToString()),
                         FechaEmision = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
                         FechaPago = Timestamp.FromDateTime(dr.GetDateTime(6).ToUniversalTime()),
+                        Estado = dr.GetBoolean(7)
                     });
                 }
                 dr.Close();

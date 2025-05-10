@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RoomticaGrpcServiceBackEnd;
 using Google.Protobuf.WellKnownTypes;
 using RoomticaFrontEnd.Models;
+using RoomticaFrontEnd.Permisos;
 namespace RoomticaFrontEnd.Controllers
 {
     public class CaracteristicaHabitacionTipoHabitacionController : Controller
@@ -72,12 +73,12 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Create()
         {
             return View(new CaracteristicaHabitacionTipoHabitacionModel());
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Create(CaracteristicaHabitacionTipoHabitacionModel chth)
         {

@@ -3,6 +3,7 @@ using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RoomticaFrontEnd.Models;
+using RoomticaFrontEnd.Permisos;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaFrontEnd.Controllers
@@ -83,7 +84,7 @@ namespace RoomticaFrontEnd.Controllers
             }
             return consumoDTOModel;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Listar(int p = 0, string nombre = "", string mensaje = "")
         {
             IEnumerable<ConsumoDTOModel> temporal = await listarConsumo();
@@ -124,14 +125,14 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Create()
         {
             ViewBag.reserva = new SelectList(await listarReservaDTO(), "id", "id_habitacion");
             ViewBag.producto = new SelectList(await listarProductoDTO(), "Id", "Nombre");
             return View(new ConsumoModel());
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Create(ConsumoModel consumo)
         {
@@ -141,14 +142,14 @@ namespace RoomticaFrontEnd.Controllers
             return View(consumo);
         }
 
-        //DETAIL
+        [ValidarSesion]
         public async Task<ActionResult> Details(int id = 0)
         {
             ConsumoDTOModel consumo = await buscarConsumoDTOPorId(id);
             return View(consumo);
         }
 
-        //EDIT
+        
         async Task<ConsumoDTOModel> buscarConsumoDTOPorId(int id)
         {
             ConsumoDTOModel consumo = null;
@@ -194,7 +195,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { throw ex; }
             return consumo;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Edit(int id = 0)
         {
             ConsumoModel consumo = await buscarConsumoPorId(id);
@@ -223,7 +224,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Edit(ConsumoModel consumo)
         {

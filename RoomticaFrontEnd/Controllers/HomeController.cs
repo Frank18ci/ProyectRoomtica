@@ -16,13 +16,16 @@ namespace RoomticaFrontEnd.Controllers
         private HabitacionServices.HabitacionServicesClient? habitacionService;
         private ClienteService.ClienteServiceClient? clienteService;
         private TipoReservaService.TipoReservaServiceClient? tipoReservaService;
-
+        private ReservaService.ReservaServiceClient? reservaService;
+        private ClienteReservaService.ClienteReservaServiceClient? clienteReservaService; 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             var canal = GrpcChannel.ForAddress("http://localhost:5225");
             habitacionService = new HabitacionServices.HabitacionServicesClient(canal);
             tipoReservaService = new TipoReservaService.TipoReservaServiceClient(canal);
+            reservaService = new ReservaService.ReservaServiceClient(canal);
+            clienteReservaService = new ClienteReservaService.ClienteReservaServiceClient(canal);
         }
 
         [ValidarSesion]
@@ -88,7 +91,7 @@ namespace RoomticaFrontEnd.Controllers
             }
             return habitacionModel;
         }
-
+        [ValidarSesion]
         public async Task<IActionResult> Recepcion()
         {
             ViewBag.tipoReservas = new SelectList(await listarTipoReserva(), "id", "tipo");
@@ -101,12 +104,64 @@ namespace RoomticaFrontEnd.Controllers
             ViewBag.habitaciones = new SelectList(habitacionesSelect, "id", "Texto");
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> Recepcion(List<int> ClientesId, [FromForm] ReservaModel reservaModel)
-        {
-            
-            return RedirectToAction("Index"); 
 
+
+        async Task<Reserva> guardarReserva(ReservaModel reserva)
+        {
+            Reserva mensaje = new Reserva();
+            try
+            {
+                var request = new Reserva()
+                {
+                    Id = reserva.id,
+                    IdHabitacion = reserva.id_habitacion,
+                    IdTrabajador = reserva.id_trabajador,
+                    IdTipoReserva = reserva.id_tipo_reserva,
+                    FechaIngreso = reserva.fecha_ingreso.HasValue ? Timestamp.FromDateTime(reserva.fecha_ingreso.Value.ToUniversalTime()) : null,
+                    FechaSalida = reserva.fecha_salida.HasValue ? Timestamp.FromDateTime(reserva.fecha_salida.Value.ToUniversalTime()) : null,
+                    CostoAlojamiento = reserva.costo_alojamiento
+                };
+                var mensajeRespuesta = await reservaService.CreateAsync(request);
+                mensaje = mensajeRespuesta;
+            }
+            catch (Exception ex) {  }
+            return mensaje;
+        }
+
+        async Task<ClienteReserva> guardarClienteReserva(ClienteReservaModel clienteReservaModel )
+        {
+            ClienteReserva mensaje = new ClienteReserva();
+            try
+            {
+                var request = new ClienteReserva()
+                {
+                    Id = clienteReservaModel.Id,
+                    IdCliente = clienteReservaModel.IdCliente,
+                    IdReserva = clienteReservaModel.IdReserva,
+                };
+                var mensajeRespuesta = await clienteReservaService.CreateAsync(request);
+                mensaje = mensajeRespuesta;
+            }
+            catch (Exception ex) {
+                Console.WriteLine("Error al guardar cliente reserva: " + ex.Message);
+            }
+            return mensaje;
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Recepcion(List<int> clientesSeleccionados, [FromForm] ReservaModel reservaModel)
+        {
+            Reserva reserva = await guardarReserva(reservaModel);
+            foreach (var c in clientesSeleccionados)
+            {
+                await guardarClienteReserva(new ClienteReservaModel()
+                {
+                    IdReserva = reserva.Id,
+                    IdCliente = c
+                });
+            }
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

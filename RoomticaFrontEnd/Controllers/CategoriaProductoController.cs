@@ -2,6 +2,7 @@
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using RoomticaFrontEnd.Models;
+using RoomticaFrontEnd.Permisos;
 using RoomticaGrpcServiceBackEnd;
 
 namespace RoomticaFrontEnd.Controllers
@@ -73,12 +74,12 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Create()
         {
             return View(new CategoriaProductoModel());
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Create(CategoriaProductoModel categoriaProducto)
         {
@@ -87,6 +88,7 @@ namespace RoomticaFrontEnd.Controllers
         }
 
         //DETAIL
+        [ValidarSesion]
         public async Task<ActionResult> Details(int id = 0)
         {
             CategoriaProductoModel categoriaProducto = await buscarCategoriaProductoPorId(id);
@@ -113,14 +115,13 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { return null; }
             return categoriaProducto;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Edit(int id = 0)
         {
             CategoriaProductoModel categoriaProducto = await buscarCategoriaProductoPorId(id);
             return View(categoriaProducto);
         }
 
-        //------------------------------- EDIT TAMBIEN
 
         async Task<string> actualizarCategoriaProducto(CategoriaProductoModel categoriaProducto)
         {
@@ -138,7 +139,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Edit(CategoriaProductoModel categoriaProducto)
         {
@@ -146,7 +147,7 @@ namespace RoomticaFrontEnd.Controllers
             return View(categoriaProducto);
         }
 
-        //DELETE
+        
         async Task<string> eliminarCategoriaProducto(int id)
         {
             string mensaje = string.Empty;

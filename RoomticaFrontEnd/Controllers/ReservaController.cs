@@ -194,10 +194,9 @@ namespace RoomticaFrontEnd.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ReservaModel reserva)
         {
-            ViewBag.habitacion = new SelectList(await listarHabitacion(), "id", "numero");
-            ViewBag.cliente = new SelectList(await listarCliente(), "Id", "primer_nombre");
-            ViewBag.trabajador = new SelectList(await listarTrabajador(), "id", "primer_nombre");
-            ViewBag.tipo_reserva = new SelectList(await listarTipoReserva(), "id", "tipo");
+            ViewBag.habitacion = new SelectList(await listarHabitacion(), "id", "numero", reserva.id_habitacion);
+            ViewBag.trabajador = new SelectList(await listarTrabajador(), "id", "primer_nombre", reserva.id_trabajador);
+            ViewBag.tipo_reserva = new SelectList(await listarTipoReserva(), "id", "tipo", reserva.id_tipo_reserva);
             ViewBag.mensaje = await guardarReserva(reserva);
             return View(reserva);
         }
@@ -263,10 +262,9 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(int id = 0)
         {
             ReservaModel reserva = await buscarReservaPorId(id);
-            ViewBag.habitacion = new SelectList(await listarHabitacion(), "id", "numero");
-            ViewBag.cliente = new SelectList(await listarCliente(), "Id", "primer_nombre");
-            ViewBag.trabajador = new SelectList(await listarTrabajador(), "id", "primer_nombre");
-            ViewBag.tipo_reserva = new SelectList(await listarTipoReserva(), "id", "tipo");
+            ViewBag.habitacion = new SelectList(await listarHabitacion(), "id", "numero", reserva.id_habitacion);
+            ViewBag.trabajador = new SelectList(await listarTrabajador(), "id", "primer_nombre", reserva.id_trabajador);
+            ViewBag.tipo_reserva = new SelectList(await listarTipoReserva(), "id", "tipo", reserva.id_tipo_reserva);
             return View(reserva);
         }
 
@@ -298,10 +296,9 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(ReservaModel reserva)
         {
             ViewBag.mensaje = await actualizarReserva(reserva);
-            ViewBag.habitacion = new SelectList(await listarHabitacion(), "id", "numero");
-            ViewBag.cliente = new SelectList(await listarCliente(), "Id", "primer_nombre");
-            ViewBag.trabajador = new SelectList(await listarTrabajador(), "id", "primer_nombre");
-            ViewBag.tipo_reserva = new SelectList(await listarTipoReserva(), "id", "tipo");
+            ViewBag.habitacion = new SelectList(await listarHabitacion(), "id", "numero", reserva.id_habitacion);
+            ViewBag.trabajador = new SelectList(await listarTrabajador(), "id", "primer_nombre", reserva.id_trabajador);
+            ViewBag.tipo_reserva = new SelectList(await listarTipoReserva(), "id", "tipo", reserva.id_tipo_reserva);
             return View(reserva);
         }
 

@@ -10,6 +10,7 @@ using static RoomticaGrpcServiceBackEnd.ClienteService;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Channels;
 using NuGet.Configuration;
+using RoomticaFrontEnd.Permisos;
 
 namespace RoomticaFrontEnd.Controllers
 {
@@ -232,7 +233,7 @@ namespace RoomticaFrontEnd.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
-
+        [ValidarSesion]
         public async Task<ActionResult> Listar(int p = 0, string nombre = "", string mensaje = "")
         { 
             IEnumerable<ClienteDTOModel> temporal = await listarClientes();
@@ -254,6 +255,7 @@ namespace RoomticaFrontEnd.Controllers
             ViewBag.mensaje = mensaje;
             return View(temporal.Skip(p * fila).Take(fila));
         }
+        [ValidarSesion]
         public async Task<ActionResult> Create()
         {
             ViewBag.tipoNacionalidad = new SelectList(await listarTipoNacionalidad(), "Id", "tipo");
@@ -261,6 +263,7 @@ namespace RoomticaFrontEnd.Controllers
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo");
             return View(new ClienteModel());
         }
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Create(ClienteModel cliente)
         {
@@ -270,6 +273,7 @@ namespace RoomticaFrontEnd.Controllers
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo", cliente.id_tipo_sexo);
             return View(cliente);
         }
+        [ValidarSesion]
         public async Task<ActionResult> Edit(int id = 0)
         {
             ClienteModel cliente = await buscarClientePorId(id);
@@ -278,6 +282,7 @@ namespace RoomticaFrontEnd.Controllers
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo", cliente.id_tipo_sexo);
             return View(cliente);
         }
+        [ValidarSesion]
         [HttpPost]
         public async Task<ActionResult> Edit(ClienteModel cliente)
         {
@@ -287,6 +292,7 @@ namespace RoomticaFrontEnd.Controllers
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo", cliente.id_tipo_sexo);
             return View(cliente);
         }
+        [ValidarSesion]
         public async Task<ActionResult> Details(int id = 0)
         {
             ClienteDTOModel cliente = await buscarClienteDTOPorId(id);
