@@ -1,4 +1,6 @@
-﻿@*
+﻿@model RoomticaFrontEnd.Models.ReservaModel
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -8,19 +10,57 @@
 <div class="container-xl pb-4 pt-2">
     <h2>Recepcion</h2>
     <div class="col-md-6">
-        <label>Numero de Identidad client</label>
+        <label>Numero de Identidad de Cliente</label>
         <input class="form-control" type="text" name="numero" id="numero" value="" />
-        <button type="button" id="btnBuscar">Buscar</button>
-        <button>Quitar</button>
+        <div class="mt-1">
+            <button type="button" class="btn btn-primary" id="btnBuscar">Buscar</button>
+            <button class="btn btn-danger" id="btnQuitarCliente">Quitar</button>
+            <a asp-action="Create" asp-controller="Cliente" class="btn btn-success">Ir A Registrar Cliente</a>
+        </div>
     </div>
 
     <br /><br />
     <form asp-action="Recepcion">
-        
+        <h2>Registrar Recepcion</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-6">
+            Clientes Agregados
+            <select class="form-select" multiple id="clientesSeleccionados" name="ClientesId" >
+            </select>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="fecha_ingreso" class="control-label"></label>
+                <input asp-for="fecha_ingreso" class="form-control" />
+                <span asp-validation-for="fecha_ingreso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fecha_salida" class="control-label"></label>
+                <input asp-for="fecha_salida" class="form-control" />
+                <span asp-validation-for="fecha_salida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_tipo_reserva" class="control-label"></label>
+                <select asp-for="id_tipo_reserva" class="form-select" asp-items="@ViewBag.tipoReservas"></select>
+                <span asp-validation-for="id_tipo_reserva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_habitacion" class="control-label"></label>
+                <select asp-for="id_habitacion" class="form-select" asp-items="@ViewBag.habitaciones"></select>
+                <span asp-validation-for="id_habitacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="costo_alojamiento" class="control-label"></label>
+                <input asp-for="costo_alojamiento" class="form-control" />
+                <span asp-validation-for="costo_alojamiento" class="text-danger"></span>
+            </div>
+            <div class="mt-2">
+                <button class="btn btn-primary">Registrar</button>
+            </div>
+        </div>
     </form>
-    <select multiple class="">
-        <option value="1">One</option>
-    </select>
+    
+    
 </div>
 
 
@@ -28,10 +68,38 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         let clientesSeleccionados = [];
+        $("#btnQuitarCliente").click(function(){
+            const numero = $("#numero").val();
+            if (!numero) {
+                alert("Ingrese un numero de cliente");
+                return;
+            }
 
+
+
+            if (clientesSeleccionados.length === 0) {
+                alert("No hay clientes.");
+                return;
+            }
+            const cliente = clientesSeleccionados.find(c => c.numero_documento == numero);
+            if (!cliente) {
+                alert("El cliente no está en la lista.");
+                return;
+            }
+            $("#clientesSeleccionados option").filter(function () {
+                return $(this).val() == cliente.id;
+            }).remove();
+            clientesSeleccionados = clientesSeleccionados.filter(cliente => {
+
+                return cliente.numero_documento != numero
+            });
+
+            actualizarHidden();
+            
+        });
         $("#btnBuscar").click(function () {
             const numero = $("#numero").val();
-            if (!dni) {
+            if (!numero) {
                 alert("Ingrese un numero de cliente");
                 return;
             }
@@ -41,14 +109,15 @@
                 method: 'GET',
                 success: function (data) {
                     if (data) {
-                        if (clientesSeleccionados.includes(data.clienteId)) {
+                        console.log(data)
+                       if (clientesSeleccionados.some(c => c.id == data.id)) {
                             alert("El cliente ya está en la lista.");
                             return;
                         }
 
-                        clientesSeleccionados.push(data.clienteId);
+                        clientesSeleccionados.push(data);
                         $("#clientesSeleccionados").append(
-                            `<option value="${data.clienteId}">${data.nombre}</option>`
+                            `<option value="${data.id}">${data.primer_nombre} ${data.primer_apellido}</option>`
                         );
                         actualizarHidden();
                     } else {
@@ -60,7 +129,6 @@
                 }
             });
         });
-
         function actualizarHidden() {
             $("#clientesHidden").val(clientesSeleccionados.join(","));
         }

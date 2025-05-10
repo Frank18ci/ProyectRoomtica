@@ -35,8 +35,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         IdTipoComprobante = dr.GetString(2),
                         Igv = Double.Parse(dr.GetDecimal(3).ToString()),
                         TotalPago = Double.Parse(dr.GetDecimal(4).ToString()),
-                        FechaEmision = dr.GetString(5),
-                        FechaPago = dr.GetString(6),
+                        FechaEmision = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
+                        FechaPago = Timestamp.FromDateTime(dr.GetDateTime(6).ToUniversalTime()),
                     });
                 }
                 dr.Close();
@@ -65,8 +65,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         IdTipoComprobante = dr.GetString(2),
                         Igv = Double.Parse(dr.GetDecimal(3).ToString()),
                         TotalPago = Double.Parse(dr.GetDecimal(4).ToString()),
-                        FechaEmision = dr.GetString(5),
-                        FechaPago = dr.GetString(6),
+                        FechaEmision = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
+                        FechaPago = Timestamp.FromDateTime(dr.GetDateTime(6).ToUniversalTime()),
                         Estado = dr.GetBoolean(7)
                     };
                 }
@@ -94,8 +94,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         IdTipoComprobante = dr.GetInt32(2),
                         Igv = Double.Parse(dr.GetDecimal(3).ToString()),
                         TotalPago = Double.Parse(dr.GetDecimal(4).ToString()),
-                        FechaEmision = dr.GetString(5),
-                        FechaPago = dr.GetString(6),
+                        FechaEmision = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
+                        FechaPago = Timestamp.FromDateTime(dr.GetDateTime(6).ToUniversalTime()),
                         Estado = dr.GetBoolean(7)
                     };
                 }
@@ -115,8 +115,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.Parameters.AddWithValue("@id_tipo_comprobante", request.IdTipoComprobante);
                 cmd.Parameters.AddWithValue("@igv", request.Igv);
                 cmd.Parameters.AddWithValue("@total_pago", request.TotalPago);
-                cmd.Parameters.AddWithValue("@fecha_emision", request.FechaEmision);
-                cmd.Parameters.AddWithValue("@fecha_pago", request.FechaPago);
+                cmd.Parameters.AddWithValue("@fecha_emision", request.FechaEmision.ToDateTime());
+                cmd.Parameters.AddWithValue("@fecha_pago", request.FechaPago.ToDateTime());
                 cmd.Parameters.AddWithValue("@estado", request.Estado);
 
                 var id = Convert.ToInt32(cmd.ExecuteScalar());
@@ -137,8 +137,8 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.Parameters.AddWithValue("@id_tipo_comprobante", request.IdTipoComprobante);
                 cmd.Parameters.AddWithValue("@igv", request.Igv);
                 cmd.Parameters.AddWithValue("@total_pago", request.TotalPago);
-                cmd.Parameters.AddWithValue("@fecha_emision", request.FechaEmision);
-                cmd.Parameters.AddWithValue("@fecha_pago", request.FechaPago);
+                cmd.Parameters.AddWithValue("@fecha_emision", request.FechaEmision.ToDateTime());
+                cmd.Parameters.AddWithValue("@fecha_pago", request.FechaPago.ToDateTime());
                 cmd.Parameters.AddWithValue("@estado", request.Estado);
 
                 cmd.ExecuteNonQuery();

@@ -128,7 +128,6 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     id = item.Id,
                     id_habitacion = item.IdHabitacion,
-                    id_cliente = item.IdCliente,
                     id_trabajador = item.IdTrabajador,
                     id_tipo_reserva = item.IdTipoReserva,
                     fecha_ingreso = item.FechaIngreso.ToDateTime(),
@@ -145,7 +144,7 @@ namespace RoomticaFrontEnd.Controllers
             if (!string.IsNullOrWhiteSpace(nombre))
             {
                 temporal = temporal.Where(c =>
-                    (c.id_cliente)
+                    (c.id_habitacion)
                     .ToString()
                     .ToLower()
                     .Contains(nombre.ToLower()));
@@ -170,7 +169,6 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     Id = reserva.id,
                     IdHabitacion = reserva.id_habitacion,
-                    IdCliente = reserva.id_cliente,
                     IdTrabajador = reserva.id_trabajador,
                     IdTipoReserva = reserva.id_tipo_reserva,
                     FechaIngreso = reserva.fecha_ingreso.HasValue ? Timestamp.FromDateTime(reserva.fecha_ingreso.Value.ToUniversalTime()) : null,
@@ -226,7 +224,6 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     id = mensajeRespuesta.Id,
                     id_habitacion = mensajeRespuesta.IdHabitacion,
-                    id_cliente = mensajeRespuesta.IdCliente,
                     id_trabajador = mensajeRespuesta.IdTrabajador,
                     id_tipo_reserva = mensajeRespuesta.IdTipoReserva,
                     fecha_ingreso = mensajeRespuesta.FechaIngreso.ToDateTime(),
@@ -252,7 +249,6 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     id = mensajeRespuesta.Id,
                     id_habitacion = mensajeRespuesta.IdHabitacion,
-                    id_cliente = mensajeRespuesta.IdCliente,
                     id_trabajador = mensajeRespuesta.IdTrabajador,
                     id_tipo_reserva = mensajeRespuesta.IdTipoReserva,
                     fecha_ingreso = mensajeRespuesta.FechaIngreso.ToDateTime(),
@@ -285,7 +281,6 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     Id = reserva.id,
                     IdHabitacion = reserva.id_habitacion,
-                    IdCliente = reserva.id_cliente,
                     IdTrabajador = reserva.id_trabajador,
                     IdTipoReserva = reserva.id_tipo_reserva,
                     FechaIngreso = reserva.fecha_ingreso.HasValue ? Timestamp.FromDateTime(reserva.fecha_ingreso.Value.ToUniversalTime()) : null,

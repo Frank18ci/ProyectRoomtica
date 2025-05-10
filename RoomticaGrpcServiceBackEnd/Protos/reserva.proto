@@ -19,7 +19,6 @@ service ReservaService {
 message Reserva {
     int32 id = 1;
     int32 id_habitacion = 2;
-    int32 id_cliente = 3;
     int32 id_trabajador = 4;
     int32 id_tipo_reserva = 5;
     google.protobuf.Timestamp fecha_ingreso = 6;
@@ -30,7 +29,6 @@ message Reserva {
 message ReservaDTO {
     int32 id = 1;
     string id_habitacion = 2;
-    string id_cliente = 3;
     string id_trabajador = 4;
     string id_tipo_reserva = 5;
     google.protobuf.Timestamp fecha_ingreso = 6;

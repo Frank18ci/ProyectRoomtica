@@ -32,13 +32,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     {
                         Id = dr.GetInt32(0),
                         IdHabitacion = dr.GetString(1),
-                        IdCliente = dr.GetString(2),
-                        IdTrabajador = dr.GetString(3),
-                        IdTipoReserva = dr.GetString(4),
-                        FechaIngreso = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
-                        FechaSalida = Timestamp.FromDateTime(dr.GetDateTime(6).ToUniversalTime()),
-                        CostoAlojamiento = Double.Parse(dr.GetDecimal(7).ToString()),
-                        Estado = dr.GetBoolean(8)
+                        IdTrabajador = dr.GetString(2),
+                        IdTipoReserva = dr.GetString(3),
+                        FechaIngreso = Timestamp.FromDateTime(dr.GetDateTime(4).ToUniversalTime()),
+                        FechaSalida = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
+                        CostoAlojamiento = Double.Parse(dr.GetDecimal(6).ToString()),
+                        Estado = dr.GetBoolean(7)
                     });
                 }
                 dr.Close();
@@ -64,13 +63,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     {
                         Id = dr.GetInt32(0),
                         IdHabitacion = dr.GetString(1),
-                        IdCliente = dr.GetString(2),
-                        IdTrabajador = dr.GetString(3),
-                        IdTipoReserva = dr.GetString(4),
-                        FechaIngreso = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
-                        FechaSalida = Timestamp.FromDateTime(dr.GetDateTime(6).ToUniversalTime()),
-                        CostoAlojamiento = Double.Parse(dr.GetDecimal(7).ToString()),
-                        Estado = dr.GetBoolean(8)
+                        IdTrabajador = dr.GetString(2),
+                        IdTipoReserva = dr.GetString(3),
+                        FechaIngreso = Timestamp.FromDateTime(dr.GetDateTime(4).ToUniversalTime()),
+                        FechaSalida = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
+                        CostoAlojamiento = Double.Parse(dr.GetDecimal(6).ToString()),
+                        Estado = dr.GetBoolean(7)
                     };
                 }
                 dr.Close();
@@ -94,13 +92,12 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     {
                         Id = dr.GetInt32(0),
                         IdHabitacion = dr.GetInt32(1),
-                        IdCliente = dr.GetInt32(2),
-                        IdTrabajador = dr.GetInt32(3),
-                        IdTipoReserva = dr.GetInt32(4),
-                        FechaIngreso = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
+                        IdTrabajador = dr.GetInt32(2),
+                        IdTipoReserva = dr.GetInt32(3),
+                        FechaIngreso = Timestamp.FromDateTime(dr.GetDateTime(4).ToUniversalTime()),
                         FechaSalida = Timestamp.FromDateTime(dr.GetDateTime(5).ToUniversalTime()),
-                        CostoAlojamiento = Double.Parse(dr.GetDecimal(7).ToString()),
-                        Estado = dr.GetBoolean(8)
+                        CostoAlojamiento = Double.Parse(dr.GetDecimal(6).ToString()),
+                        Estado = dr.GetBoolean(7)
                     };
                 }
                 dr.Close();
@@ -116,7 +113,6 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 SqlCommand cmd = new SqlCommand("usp_crear_reserva", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id_habitacion", request.IdHabitacion);
-                cmd.Parameters.AddWithValue("@id_cliente", request.IdCliente);
                 cmd.Parameters.AddWithValue("@id_trabajador", request.IdTrabajador);
                 cmd.Parameters.AddWithValue("@id_tipo_reserva", request.IdTipoReserva);
                 cmd.Parameters.AddWithValue("@fecha_ingreso", request.FechaIngreso.ToDateTime());
@@ -139,7 +135,6 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
                 cmd.Parameters.AddWithValue("@id_habitacion", request.IdHabitacion);
-                cmd.Parameters.AddWithValue("@id_cliente", request.IdCliente);
                 cmd.Parameters.AddWithValue("@id_trabajador", request.IdTrabajador);
                 cmd.Parameters.AddWithValue("@id_tipo_reserva", request.IdTipoReserva);
                 cmd.Parameters.AddWithValue("@fecha_ingreso", request.FechaIngreso.ToDateTime());

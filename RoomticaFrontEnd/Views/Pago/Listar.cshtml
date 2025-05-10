@@ -45,8 +45,8 @@
                         <td>@item.id_tipo_comprobante</td>
                         <td>@item.igv</td>
                         <td>@item.total_pago</td>
-                        <td>@item.fecha_emision</td>
-                        <td>@item.fecha_pago</td>
+                        <td>@(item.fecha_emision.HasValue ? item.fecha_emision.Value.ToString("yyyy-MM-dd") : "")</td>
+                        <td>@(item.fecha_pago.HasValue ? item.fecha_pago.Value.ToString("yyyy-MM-dd") : "")</td>
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.id">

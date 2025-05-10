@@ -26,12 +26,16 @@ namespace RoomticaFrontEnd.Models
         public double total_pago { get; set; }
 
         [Required]
-        [Display(Name = "Fecha Emisión")]                
-        public string? fecha_emision { get; set; }
+        [Display(Name = "Fecha Emisión")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_emision { get; set; }
 
         [Required]
-        [Display(Name = "Fecha Pago")]        
-        public string? fecha_pago { get; set; }
+        [Display(Name = "Fecha Pago")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_pago { get; set; }
     }
 
     public class PagoDTOModel
@@ -57,11 +61,15 @@ namespace RoomticaFrontEnd.Models
         public double total_pago { get; set; }
 
         [Required]
-        [Display(Name = "Fecha Emisión")]       
-        public string? fecha_emision { get; set; }
+        [Display(Name = "Fecha Emisión")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_emision { get; set; }
 
         [Required]
-        [Display(Name = "Fecha Pago")]       
-        public string? fecha_pago { get; set; }
+        [Display(Name = "Fecha Pago")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? fecha_pago { get; set; }
     }
 }

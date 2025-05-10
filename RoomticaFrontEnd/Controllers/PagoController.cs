@@ -35,7 +35,6 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     id = item.Id,
                     id_habitacion = item.IdHabitacion,
-                    id_cliente = item.IdCliente,
                     id_trabajador = item.IdTrabajador,
                     id_tipo_reserva = item.IdTipoReserva,
                     fecha_ingreso = item.FechaIngreso.ToDateTime(),
@@ -114,9 +113,9 @@ namespace RoomticaFrontEnd.Controllers
                     IdTipoComprobante = pago.id_tipo_comprobante,
                     Igv = pago.igv,
                     TotalPago = pago.total_pago,
-                    FechaEmision = pago.fecha_emision,
-                    FechaPago = pago.fecha_pago,
-                    
+                    FechaEmision = pago.fecha_emision.HasValue ? Timestamp.FromDateTime(pago.fecha_emision.Value.ToUniversalTime()) : null,
+                    FechaPago = pago.fecha_pago.HasValue ? Timestamp.FromDateTime(pago.fecha_pago.Value.ToUniversalTime()) : null,
+
                 };
                 var mensajeRespuesta = await pagoService.CreateAsync(request);
                 mensaje = $"{mensajeRespuesta} Pago Agregado";
@@ -166,8 +165,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_tipo_comprobante = mensajeRespuesta.IdTipoComprobante,
                     igv = mensajeRespuesta.Igv,
                     total_pago = mensajeRespuesta.TotalPago,
-                    fecha_emision = mensajeRespuesta.FechaEmision,
-                    fecha_pago = mensajeRespuesta.FechaPago
+                    fecha_emision = mensajeRespuesta.FechaEmision.ToDateTime(),
+                    fecha_pago = mensajeRespuesta.FechaPago.ToDateTime()
                 };
             }
             catch (Exception ex) { throw ex; }
@@ -191,8 +190,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_tipo_comprobante = mensajeRespuesta.IdTipoComprobante,
                     igv = mensajeRespuesta.Igv,
                     total_pago = mensajeRespuesta.TotalPago,
-                    fecha_emision = mensajeRespuesta.FechaEmision,
-                    fecha_pago = mensajeRespuesta.FechaPago
+                    fecha_emision = mensajeRespuesta.FechaEmision.ToDateTime(),
+                    fecha_pago = mensajeRespuesta.FechaPago.ToDateTime()
                 };
             }
             catch (Exception ex) { throw ex; }
@@ -220,8 +219,8 @@ namespace RoomticaFrontEnd.Controllers
                     IdTipoComprobante = pago.id_tipo_comprobante,
                     Igv = pago.igv,
                     TotalPago = pago.total_pago,
-                    FechaEmision = pago.fecha_emision,
-                    FechaPago = pago.fecha_pago
+                    FechaEmision = pago.fecha_emision.HasValue ? Timestamp.FromDateTime(pago.fecha_emision.Value.ToUniversalTime()) : null,
+                    FechaPago = pago.fecha_pago.HasValue ? Timestamp.FromDateTime(pago.fecha_pago.Value.ToUniversalTime()) : null,
                 };
                 var mensajeRespuesta = await pagoService.UpdateAsync(request);
                 mensaje = $"{mensajeRespuesta} Pago Actualizado";

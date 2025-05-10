@@ -35,7 +35,6 @@ namespace RoomticaFrontEnd.Controllers
                 {
                     id = item.Id,
                     id_habitacion = item.IdHabitacion,
-                    id_cliente = item.IdCliente,
                     id_trabajador = item.IdTrabajador,
                     id_tipo_reserva = item.IdTipoReserva,
                     fecha_ingreso = item.FechaIngreso.ToDateTime(),

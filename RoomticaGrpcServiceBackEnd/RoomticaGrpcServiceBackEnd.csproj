@@ -17,6 +17,7 @@
 	  <Protobuf Include="Protos\habitacion.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\pago.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\producto.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\cliente_reserva.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\reserva.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\reserva_estacionamiento.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\rol_trabajador.proto" GrpcServices="Server" />

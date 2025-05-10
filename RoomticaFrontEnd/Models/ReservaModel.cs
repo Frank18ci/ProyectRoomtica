@@ -14,10 +14,6 @@ namespace RoomticaFrontEnd.Models
         public int id_habitacion { get; set; }
 
         [Required]
-        [Display(Name = "Cliente")]
-        public int id_cliente { get; set; }
-
-        [Required]
         [Display(Name = "Trabajador")]
         public int id_trabajador { get; set; }
 
@@ -52,10 +48,6 @@ namespace RoomticaFrontEnd.Models
         [Required]
         [Display(Name = "Habitación")]
         public string? id_habitacion { get; set; }
-
-        [Required]
-        [Display(Name = "Cliente")]
-        public string? id_cliente { get; set; }
 
         [Required]
         [Display(Name = "Trabajador")]
