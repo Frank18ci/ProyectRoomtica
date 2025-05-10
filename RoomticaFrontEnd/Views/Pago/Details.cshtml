@@ -1,0 +1,60 @@
+﻿@model RoomticaFrontEnd.Models.PagoDTOModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container-xl pb-4 pt-2">
+    <h1>Detalle Pago</h1>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.id_reserva)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.id_reserva)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.id_tipo_comprobante)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.id_tipo_comprobante)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.igv)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.igv)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.total_pago)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.total_pago)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fecha_emision)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fecha_emision)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fecha_pago)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fecha_pago)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }, new { @class = "btn btn-warning" })
+        <a asp-action="Listar" class="btn btn-primary">Volver al Listado</a>
+    </div>
+</div>

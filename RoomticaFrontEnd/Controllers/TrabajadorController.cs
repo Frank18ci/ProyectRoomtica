@@ -57,7 +57,7 @@ namespace RoomticaFrontEnd.Controllers
                 temporal.Add(new TipoDocumentoModel()
                 {
                     Id = item.Id,
-                    tipo = item.Tipo
+                    Tipo = item.Tipo
                 });
             }
             return temporal;

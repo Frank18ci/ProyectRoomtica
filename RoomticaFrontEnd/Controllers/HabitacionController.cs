@@ -10,6 +10,7 @@ namespace RoomticaFrontEnd.Controllers
     public class HabitacionController : Controller
     {
         private HabitacionServices.HabitacionServicesClient? habitacionService;
+        private TipoHabitacionService.TipoHabitacionServiceClient? tipoHabitacionService;
         private EstadoHabitacionServices.EstadoHabitacionServicesClient? estadoHabitacionService;
         private GrpcChannel? chanal;
 
@@ -39,6 +40,23 @@ namespace RoomticaFrontEnd.Controllers
             return temporal;
         }
 
+        async Task<IEnumerable<TipoHabitacionModel>> listarTipoHabitacion()
+        {
+            List<TipoHabitacionModel> temporal = new List<TipoHabitacionModel>();
+            var request = new Empty();
+            var mensaje = await tipoHabitacionService.GetAllAsync(request);
+            foreach (var item in mensaje.TipoHabitaciones_)
+            {
+                temporal.Add(new TipoHabitacionModel()
+                {
+                    Id = item.Id,
+                    Tipo = item.Tipo,
+                    descripccion = item.Descripccion
+                });
+            }
+            return temporal;
+        }
+
         async Task<IEnumerable<HabitacionDTOModel>> listarHabitacion()
         {
             List<HabitacionDTOModel> habitacionModel = new List<HabitacionDTOModel>();
@@ -52,7 +70,8 @@ namespace RoomticaFrontEnd.Controllers
                     numero = item.Numero,
                     piso = item.Piso,
                     precio_diario = item.PrecioDiario,
-                    id_tipo = item.IdTipo
+                    id_tipo = item.IdTipo,
+                    id_estado = item.IdEstado
                 });
             }
             return habitacionModel;
@@ -90,7 +109,8 @@ namespace RoomticaFrontEnd.Controllers
                     Numero = habitacion.numero,
                     Piso = habitacion.piso,
                     PrecioDiario = habitacion.precio_diario,
-                    IdTipo = habitacion.id_tipo
+                    IdTipo = habitacion.id_tipo,
+                    IdEstado = habitacion.id_estado
                 };
                 var mensajeRespuesta = await habitacionService.CreateAsync(request);
                 mensaje = $"{mensajeRespuesta} Habitacion Agregada";
@@ -101,6 +121,7 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Create()
         {
             ViewBag.estado_habitacion = await listarEstadoHabitacion();
+            ViewBag.tipo_habitacion = await listarTipoHabitacion();
             return View(new HabitacionModel());
         }
 
@@ -108,6 +129,7 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Create(HabitacionModel habitacion)
         {
             ViewBag.estado_habitacion = await listarEstadoHabitacion();
+            ViewBag.tipo_habitacion = await listarTipoHabitacion();
             ViewBag.mensaje = await guardarHabitacion(habitacion);
             return View(habitacion);
         }
@@ -159,7 +181,8 @@ namespace RoomticaFrontEnd.Controllers
                     numero = mensajeRespuesta.Numero,
                     piso = mensajeRespuesta.Piso,
                     precio_diario = mensajeRespuesta.PrecioDiario,
-                    id_tipo = mensajeRespuesta.IdTipo
+                    id_tipo = mensajeRespuesta.IdTipo,
+                    id_estado = mensajeRespuesta.IdEstado
                 };
             }
             catch (Exception ex) { throw ex; }
@@ -169,7 +192,8 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(int id = 0)
         {
             HabitacionModel habitacion = await buscarHabitacionPorId(id);
-            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "numero");
+            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion");
+            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo");
             return View(habitacion);
         }
 
@@ -186,7 +210,8 @@ namespace RoomticaFrontEnd.Controllers
                     Numero = habitacion.numero,
                     Piso = habitacion.piso,
                     PrecioDiario = habitacion.precio_diario,
-                    IdTipo = habitacion.id_tipo
+                    IdTipo = habitacion.id_tipo,
+                    IdEstado = habitacion.id_estado
                 };
                 var mensajeRespuesta = await habitacionService.UpdateAsync(request);
                 mensaje = $"{mensajeRespuesta} Habitacion Actualizada";
@@ -199,7 +224,8 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(HabitacionModel habitacion)
         {
             ViewBag.mensaje = await actualizarHabitacion(habitacion);
-            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "numero");
+            ViewBag.estado_habitacion = new SelectList(await listarEstadoHabitacion(), "id", "estado_habitacion");
+            ViewBag.tipo_habitacion = new SelectList(await listarTipoHabitacion(), "Id", "Tipo");
             return View(habitacion);
         }
 

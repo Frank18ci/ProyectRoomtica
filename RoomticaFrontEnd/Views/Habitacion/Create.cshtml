@@ -1,0 +1,59 @@
+﻿@model RoomticaFrontEnd.Models.HabitacionModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-xl pb-4 pt-2">
+    <h2>Registrar Habitacion</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="numero" class="control-label"></label>
+                    <input asp-for="numero" class="form-control" />
+                    <span asp-validation-for="numero" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="piso" class="control-label"></label>
+                    <input asp-for="piso" class="form-control" />
+                    <span asp-validation-for="piso" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="precio_diario" class="control-label"></label>
+                    <input asp-for="precio_diario" class="form-control" />
+                    <span asp-validation-for="precio_diario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="id_tipo" class="control-label"></label>
+                    <select asp-for="id_tipo" asp-items="@ViewBag.tipo_habitacion" class="form-select"></select>
+                    <span asp-validation-for="id_tipo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="id_estado" class="control-label"></label>
+                    <select asp-for="id_estado" asp-items="@ViewBag.estado_habitacion" class="form-select"></select>
+                    <span asp-validation-for="id_estado" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <a asp-action="Create" class="btn btn-success">Nuevo</a>
+                    <input type="submit" value="Registrar" class="btn btn-primary" />
+                    <a asp-action="Listar" class="btn btn-warning">Volver al Listado</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <span class="text-danger fw-bold">@ViewBag.mensaje</span>
+    </div>
+    <div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</div>

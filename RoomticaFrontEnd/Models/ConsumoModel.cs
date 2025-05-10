@@ -6,30 +6,30 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Id Reserva")]
-        public int? id_reserva { get; set; }
+        public int id_reserva { get; set; }
 
         [Required]
         [Display(Name = "Id Producto")]
-        public int? id_producto { get; set; }
+        public int id_producto { get; set; }
 
         [Required]
         [Display(Name = "Cantidad")]
-        public int? cantidad { get; set; }
+        public int cantidad { get; set; }
 
         [Required]
         [Display(Name = "Precio Venta")]
-        public double? precio_venta { get; set; }
+        public double precio_venta { get; set; }
     }
     public class ConsumoDTOModel
     {
         [Key]
         [Required]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Reserva")]
@@ -41,10 +41,10 @@ namespace RoomticaFrontEnd.Models
 
         [Required]
         [Display(Name = "Cantidad")]
-        public int? cantidad { get; set; }
+        public int cantidad { get; set; }
 
         [Required]
         [Display(Name = "Precio Venta")]
-        public double? precio_venta { get; set; }
+        public double precio_venta { get; set; }
     }
 }
