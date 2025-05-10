@@ -37,7 +37,6 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         TotalPago = dr.GetDouble(4),
                         FechaEmision = dr.GetString(5),
                         FechaPago = dr.GetString(6),
-                        Estado = dr.GetBoolean(7)
                     });
                 }
                 dr.Close();

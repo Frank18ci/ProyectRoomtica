@@ -257,7 +257,7 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Create()
         {
             ViewBag.tipoNacionalidad = new SelectList(await listarTipoNacionalidad(), "Id", "tipo");
-            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo");
+            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo");
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo");
             return View(new ClienteModel());
         }
@@ -266,7 +266,7 @@ namespace RoomticaFrontEnd.Controllers
         {
             ViewBag.mensaje = await guardarCliente(cliente);
             ViewBag.tipoNacionalidad = new SelectList(await listarTipoNacionalidad(), "Id", "tipo", cliente.id_tipo_nacionalidad);
-            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo", cliente.id_tipo_documento);
+            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo", cliente.id_tipo_documento);
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo", cliente.id_tipo_sexo);
             return View(cliente);
         }
@@ -274,7 +274,7 @@ namespace RoomticaFrontEnd.Controllers
         {
             ClienteModel cliente = await buscarClientePorId(id);
             ViewBag.tipoNacionalidad = new SelectList(await listarTipoNacionalidad(), "Id", "tipo", cliente.id_tipo_nacionalidad);
-            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo", cliente.id_tipo_documento);
+            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo", cliente.id_tipo_documento);
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo", cliente.id_tipo_sexo);
             return View(cliente);
         }
@@ -283,7 +283,7 @@ namespace RoomticaFrontEnd.Controllers
         {
             ViewBag.mensaje = await actualizarCliente(cliente);
             ViewBag.tipoNacionalidad = new SelectList(await listarTipoNacionalidad(), "Id", "tipo", cliente.id_tipo_nacionalidad);
-            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo", cliente.id_tipo_documento);
+            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo", cliente.id_tipo_documento);
             ViewBag.tipoSexo = new SelectList(await listarTipoSexo(), "Id", "tipo", cliente.id_tipo_sexo);
             return View(cliente);
         }
