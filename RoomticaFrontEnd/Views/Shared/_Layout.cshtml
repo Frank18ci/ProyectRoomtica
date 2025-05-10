@@ -42,65 +42,65 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="CaracteristicaHabitacion" asp-action="Listar" class="dropdown-item">
                                     Caracteristica Habitacion
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="TipoHabitacion" asp-action="Listar" class="dropdown-item">
                                     Tipo Habitacion
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="EstadoHabitacion" asp-action="Listar" class="dropdown-item">
                                     Estado Habitacion
                                 </a>
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="TipoDocumento" asp-action="Listar" class="dropdown-item">
                                     Tipo Documento
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="TipoNacionalidad" asp-action="Listar" class="dropdown-item">
                                     Tipo Nacionalidad
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="TipoSexo" asp-action="Listar" class="dropdown-item">
                                     Tipo Sexo
                                 </a>
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="TipoEstacionamiento" asp-action="Listar" class="dropdown-item">
                                     Tipo Estacionamiento
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="TipoReserva" asp-action="Listar" class="dropdown-item">
                                     Tipo Reserva
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="TipoComprobante" asp-action="Listar" class="dropdown-item">
                                     Tipo Comprobante
                                 </a>
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="UnidadMedidaProducto" asp-action="Listar" class="dropdown-item">
                                     Unidad Medida Producto
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="CategoriaProducto" asp-action="Listar" class="dropdown-item">
                                     Categoria Producto
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item @(((RoomticaFrontEnd.Models.TrabajadorModel)Context.Items["trabajador"])?.id_rol == 1 ? "d-block" : "d-none")">
+                                <a asp-area="" asp-controller="RolTrabajador" asp-action="Listar" class="dropdown-item @(((RoomticaFrontEnd.Models.TrabajadorModel)Context.Items["trabajador"])?.id_rol == 1 ? "d-block" : "d-none")">
                                     Rol Trabajador
                                 </a>
                             </li>
@@ -121,7 +121,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="Estacionamiento" asp-action="Listar" class="dropdown-item">
                                     Estacionamiento
                                 </a>
                             </li>
@@ -137,7 +137,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a asp-area="" asp-controller="Habitacion" asp-action="Listar" class="dropdown-item @(((RoomticaFrontEnd.Models.TrabajadorModel)Context.Items["trabajador"])?.id_rol == 1 ? "d-block" : "d-none")">
+                                <a asp-area="" asp-controller="Trabajador" asp-action="Listar" class="dropdown-item @(((RoomticaFrontEnd.Models.TrabajadorModel)Context.Items["trabajador"])?.id_rol == 1 ? "d-block" : "d-none")">
                                     Trabajador
                                 </a>
                             </li>
@@ -179,17 +179,17 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a asp-area="" asp-controller="Consumo" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="Reserva" asp-action="Listar" class="dropdown-item">
                                     Reserva
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Consumo" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="ReservaEstacionamiento" asp-action="Listar" class="dropdown-item">
                                     Reserva Estacionamiento
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Productos" asp-action="Listar" class="dropdown-item">
+                                <a asp-area="" asp-controller="Pago" asp-action="Listar" class="dropdown-item">
                                     Pago
                                 </a>
                             </li>

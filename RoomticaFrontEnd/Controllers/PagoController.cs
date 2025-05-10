@@ -38,8 +38,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_cliente = item.IdCliente,
                     id_trabajador = item.IdTrabajador,
                     id_tipo_reserva = item.IdTipoReserva,
-                    fecha_ingreso = item.FechaIngreso,
-                    fecha_salida = item.FechaSalida,
+                    fecha_ingreso = item.FechaIngreso.ToDateTime(),
+                    fecha_salida = item.FechaSalida.ToDateTime(),
                     costo_alojamiento = item.CostoAlojamiento
                 });
             }

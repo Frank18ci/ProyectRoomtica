@@ -5,6 +5,7 @@ option csharp_namespace = "RoomticaGrpcServiceBackEnd";
 package reserva;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 service ReservaService {
     rpc GetAll(google.protobuf.Empty) returns (Reservas);
@@ -21,8 +22,8 @@ message Reserva {
     int32 id_cliente = 3;
     int32 id_trabajador = 4;
     int32 id_tipo_reserva = 5;
-    string fecha_ingreso = 6;
-    string fecha_salida = 7;
+    google.protobuf.Timestamp fecha_ingreso = 6;
+    google.protobuf.Timestamp fecha_salida = 7;
     double costo_alojamiento = 8;
     bool estado = 9;
 }
@@ -32,8 +33,8 @@ message ReservaDTO {
     string id_cliente = 3;
     string id_trabajador = 4;
     string id_tipo_reserva = 5;
-    string fecha_ingreso = 6;
-    string fecha_salida = 7;
+    google.protobuf.Timestamp fecha_ingreso = 6;
+    google.protobuf.Timestamp fecha_salida = 7;
     double costo_alojamiento = 8;
     bool estado = 9;
 }

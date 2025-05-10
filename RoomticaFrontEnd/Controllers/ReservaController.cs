@@ -131,8 +131,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_cliente = item.IdCliente,
                     id_trabajador = item.IdTrabajador,
                     id_tipo_reserva = item.IdTipoReserva,
-                    fecha_ingreso = item.FechaIngreso,
-                    fecha_salida = item.FechaSalida,
+                    fecha_ingreso = item.FechaIngreso.ToDateTime(),
+                    fecha_salida = item.FechaSalida.ToDateTime(),
                     costo_alojamiento = item.CostoAlojamiento,
                 });
             }
@@ -160,7 +160,7 @@ namespace RoomticaFrontEnd.Controllers
             return View(temporal.Skip(p * fila).Take(fila));
         }
 
-        //CREATE
+        //CREATE  
         async Task<string> guardarReserva(ReservaModel reserva)
         {
             string mensaje = string.Empty;
@@ -173,14 +173,14 @@ namespace RoomticaFrontEnd.Controllers
                     IdCliente = reserva.id_cliente,
                     IdTrabajador = reserva.id_trabajador,
                     IdTipoReserva = reserva.id_tipo_reserva,
-                    FechaIngreso = reserva.fecha_ingreso,
-                    FechaSalida = reserva.fecha_salida,
+                    FechaIngreso = reserva.fecha_ingreso.HasValue ? Timestamp.FromDateTime(reserva.fecha_ingreso.Value.ToUniversalTime()) : null,
+                    FechaSalida = reserva.fecha_salida.HasValue ? Timestamp.FromDateTime(reserva.fecha_salida.Value.ToUniversalTime()) : null,
                     CostoAlojamiento = reserva.costo_alojamiento
                 };
                 var mensajeRespuesta = await reservaService.CreateAsync(request);
                 mensaje = $"{mensajeRespuesta} Estacionamiento Agregado";
             }
-            catch (Exception ex) {mensaje = ex.Message;}
+            catch (Exception ex) { mensaje = ex.Message; }
             return mensaje;
         }
 
@@ -229,8 +229,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_cliente = mensajeRespuesta.IdCliente,
                     id_trabajador = mensajeRespuesta.IdTrabajador,
                     id_tipo_reserva = mensajeRespuesta.IdTipoReserva,
-                    fecha_ingreso = mensajeRespuesta.FechaIngreso,
-                    fecha_salida = mensajeRespuesta.FechaSalida,
+                    fecha_ingreso = mensajeRespuesta.FechaIngreso.ToDateTime(),
+                    fecha_salida = mensajeRespuesta.FechaSalida.ToDateTime(),
                     costo_alojamiento = mensajeRespuesta.CostoAlojamiento
                 };
             }
@@ -255,8 +255,8 @@ namespace RoomticaFrontEnd.Controllers
                     id_cliente = mensajeRespuesta.IdCliente,
                     id_trabajador = mensajeRespuesta.IdTrabajador,
                     id_tipo_reserva = mensajeRespuesta.IdTipoReserva,
-                    fecha_ingreso = mensajeRespuesta.FechaIngreso,
-                    fecha_salida = mensajeRespuesta.FechaSalida,
+                    fecha_ingreso = mensajeRespuesta.FechaIngreso.ToDateTime(),
+                    fecha_salida = mensajeRespuesta.FechaSalida.ToDateTime(),
                     costo_alojamiento = mensajeRespuesta.CostoAlojamiento
                 };
             }
@@ -288,8 +288,8 @@ namespace RoomticaFrontEnd.Controllers
                     IdCliente = reserva.id_cliente,
                     IdTrabajador = reserva.id_trabajador,
                     IdTipoReserva = reserva.id_tipo_reserva,
-                    FechaIngreso = reserva.fecha_ingreso,
-                    FechaSalida = reserva.fecha_salida,
+                    FechaIngreso = reserva.fecha_ingreso.HasValue ? Timestamp.FromDateTime(reserva.fecha_ingreso.Value.ToUniversalTime()) : null,
+                    FechaSalida = reserva.fecha_salida.HasValue ? Timestamp.FromDateTime(reserva.fecha_salida.Value.ToUniversalTime()) : null,
                     CostoAlojamiento = reserva.costo_alojamiento
                 };
                 var mensajeRespuesta = await reservaService.UpdateAsync(request);
