@@ -15,7 +15,7 @@ namespace RoomticaFrontEnd.Controllers
         private GrpcChannel? chanal;
         public TrabajadorController()
         {
-            chanal = GrpcChannel.ForAddress("https://localhost:5001");
+            chanal = GrpcChannel.ForAddress("http://localhost:5225");
             trabajadorService = new TrabajadorService.TrabajadorServiceClient(chanal);
             tipoDocumentoService = new TipoDocumentoService.TipoDocumentoServiceClient(chanal);
             rolTrabajadorService = new RolTrabajadorService.RolTrabajadorServiceClient(chanal);
@@ -57,7 +57,7 @@ namespace RoomticaFrontEnd.Controllers
                 temporal.Add(new TipoDocumentoModel()
                 {
                     Id = item.Id,
-                    tipo = item.Tipo
+                    Tipo = item.Tipo
                 });
             }
             return temporal;
@@ -231,31 +231,31 @@ namespace RoomticaFrontEnd.Controllers
         }
         public async Task<ActionResult> Create()
         {
-            ViewBag.TipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo");
-            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "rol");
-            return View(new ClienteModel());
+            ViewBag.TipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo");
+            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "Rol");
+            return View(new TrabajadorModel());
         }
         [HttpPost]
         public async Task<ActionResult> Create(TrabajadorModel trabajador)
         {
             ViewBag.mensaje = await guardarTrabajador(trabajador);
-            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo", trabajador.id_tipo_documento);
-            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "rol", trabajador.id_rol);
+            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo", trabajador.id_tipo_documento);
+            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "Rol", trabajador.id_rol);
             return View(trabajador);
         }
         public async Task<ActionResult> Edit(int id = 0)
         {
             TrabajadorModel trabajador = await buscarTrabajadorPorId(id);
-            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo", trabajador.id_tipo_documento);
-            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "rol", trabajador.id_rol);
+            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo", trabajador.id_tipo_documento);
+            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "Rol", trabajador.id_rol);
             return View(trabajador);
         }
         [HttpPost]
         public async Task<ActionResult> Edit(TrabajadorModel trabajador)
         {
             ViewBag.mensaje = await actualizarTrabajador(trabajador);
-            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "tipo", trabajador.id_tipo_documento);
-            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "rol", trabajador.id_rol);
+            ViewBag.tipoDocumento = new SelectList(await listarTipoDocumento(), "Id", "Tipo", trabajador.id_tipo_documento);
+            ViewBag.TipoRol = new SelectList(await listarTipoRol(), "Id", "Rol", trabajador.id_rol);
             return View(trabajador);
         }
         public async Task<ActionResult> Details(int id = 0)
