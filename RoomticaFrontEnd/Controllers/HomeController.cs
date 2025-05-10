@@ -34,8 +34,7 @@ namespace RoomticaFrontEnd.Controllers
                     numero = item.Numero,
                     piso = item.Piso,
                     precio_diario = item.PrecioDiario,
-                    id_tipo = item.IdTipo,
-                    id_estado = item.IdEstado
+                    id_tipo = item.IdTipo
                 });
             }
             ViewBag.habitaciones = habitacionDTOModels;

@@ -27,6 +27,7 @@ namespace RoomticaFrontEnd.Models
         [Required]
         [Display(Name = "Estado de Habitacion")]
         public int id_estado { get; set; }
+
     }
 
     public class HabitacionDTOModel
@@ -54,5 +55,6 @@ namespace RoomticaFrontEnd.Models
         [Required]
         [Display(Name = "Estado de Habitacion")]
         public string ? id_estado { get; set; }
+        
     }
 }

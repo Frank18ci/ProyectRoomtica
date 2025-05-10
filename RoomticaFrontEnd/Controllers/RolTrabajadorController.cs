@@ -15,7 +15,7 @@ namespace RoomticaFrontEnd.Controllers
         private GrpcChannel? chanal;
         public RolTrabajadorController()
         {
-            chanal = GrpcChannel.ForAddress("https://localhost:5001");
+            chanal = GrpcChannel.ForAddress("http://localhost:5225");
             rolTrabajadorService = new RolTrabajadorService.RolTrabajadorServiceClient(chanal);
         }
         async Task<IEnumerable<RolTrabajadorModel>> listarRolTrabajador()

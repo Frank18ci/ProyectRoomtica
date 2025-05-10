@@ -158,7 +158,8 @@ namespace RoomticaFrontEnd.Controllers
                     numero = mensajeRespuesta.Numero,
                     piso = mensajeRespuesta.Piso,
                     precio_diario = mensajeRespuesta.PrecioDiario,
-                    id_tipo = mensajeRespuesta.IdTipo
+                    id_tipo = mensajeRespuesta.IdTipo,
+                    id_estado = mensajeRespuesta.IdEstado
                 };
             }
             catch (Exception ex) { throw ex; }

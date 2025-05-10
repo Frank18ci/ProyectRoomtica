@@ -3,10 +3,10 @@
     ViewData["Title"] = "Listar Clientes";
 }
 <div class="container-xl">
-    <h2>Listado de Clientes</h2>
+    <h2>Listado de Tipo Estacionamiento</h2>
     <p class="my-2">
         <a asp-action="Create" class="btn btn-primary">
-            Nuevo Cliente
+            Nuevo Tipo Estacionamiento
         </a>
     </p>
     <form asp-action="Listar">
@@ -20,7 +20,7 @@
         <span class="text-danger fw-bold ">@ViewBag.mensaje</span>
     </div>
     <div class="my-2">
-        <span>Cantidad de Empleados: @Model.Count()</span>
+        <span>Cantidad de Tipo Estacionamiento: @Model.Count()</span>
     </div>
     <div class="table-responsive">
         <table class="table w-100 table-striped table-bordered">
