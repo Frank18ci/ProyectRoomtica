@@ -38,7 +38,7 @@ create table estado_habitacion(
 	estado bit
 );
 go
-
+exec usp_listar_productos
 create table habitacion(
 	id int identity(1, 1) primary key,
 	numero varchar(5),
@@ -216,7 +216,65 @@ create table consumo(
 );
 go
 
+<<<<<<< HEAD
+--Insertando tipo
+INSERT INTO tipo_reserva (tipo, estado) VALUES
+('Reserva Directa', 1),
+('Reserva Online', 1),
+('Reserva Telefónica', 1),
+('Reserva Corporativa', 1),
+('Reserva por Agencia', 1);
+go
+ 
+INSERT INTO producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado) VALUES
+('Agua Mineral 500ml', 2, 1, 5.50, 100, 1),
+('Jugo de Naranja', 2, 1, 6.00, 80, 1),
+('Cerveza Lata 355ml', 2, 1, 8.25, 60, 1),
+('Galletas Chocolate', 3, 2, 4.75, 120, 1),
+('Barra Energética', 1, 2, 3.50, 200, 1),
+('Cepillo de Dientes', 1, 3, 2.00, 150, 1),
+('Shampoo 250ml', 2, 3, 9.90, 90, 1),
+('Jabón de Tocador', 1, 3, 1.25, 180, 1),
+('Detergente 1kg', 3, 4, 12.00, 50, 1),
+('Limpiavidrios 500ml', 2, 4, 7.50, 70, 1),
+('Toalla de Papel', 3, 4, 5.00, 110, 1),
+('Refresco Cola 600ml', 2, 1, 6.75, 100, 1),
+('Agua con Gas', 2, 1, 6.10, 95, 1),
+('Chocolatina', 1, 2, 2.50, 130, 1),
+('Papas Fritas', 3, 2, 3.80, 140, 1),
+('Desodorante', 1, 3, 11.50, 85, 1),
+('Gel Antibacterial', 1, 3, 3.20, 160, 1),
+('Lavaplatos 500ml', 2, 4, 6.30, 75, 1),
+('Desinfectante 1L', 2, 4, 13.40, 65, 1),
+('Servilletas Pack', 3, 4, 4.60, 105, 1);
+go
+ 
+INSERT INTO consumo (id_reserva, id_producto, cantidad, precio_venta, estado) VALUES
+(1, 2, 3, 15.50, 1),
+(1, 5, 1, 45.00, 1),
+(2, 3, 2, 12.00, 1),
+(2, 2, 1, 30.00, 1),
+(3, 4, 5, 8.25, 1),
+(4, 6, 2, 22.90, 1),
+(5, 2, 3, 15.50, 1),
+(5, 3, 1, 12.00, 1),
+(6, 7, 4, 10.75, 1),
+(7, 2, 2, 30.00, 1),
+(8, 4, 1, 8.25, 1),
+(9, 5, 2, 45.00, 1),
+(10, 6, 1, 22.90, 1),
+(11, 2, 5, 15.50, 1),
+(12, 3, 3, 12.00, 1),
+(13, 7, 2, 10.75, 1),
+(14, 2, 1, 30.00, 1),
+(15, 4, 3, 8.25, 1),
+(16, 5, 2, 45.00, 1),
+(17, 6, 1, 22.90, 1);
+go
+ 
+=======
 -- Insertar datos
+>>>>>>> 329417a8a518b6c0e194ede1ac8fd4efdfbf354f
 INSERT INTO caracteristica_habitacion (caracteristica, estado) VALUES
 ('Vista al mar', 1),
 ('Aire acondicionado', 1),
@@ -228,7 +286,8 @@ INSERT INTO caracteristica_habitacion (caracteristica, estado) VALUES
 ('No fumadores', 1),
 ('Accesible para discapacitados', 1),
 ('Jacuzzi', 1);
-
+go
+ 
 INSERT INTO tipo_habitacion (tipo, descripccion, estado) VALUES
 ('Individual', 'Habitación para una persona con cama individual.', 1),
 ('Doble', 'Habitación con dos camas individuales o una doble.', 1),
@@ -236,7 +295,12 @@ INSERT INTO tipo_habitacion (tipo, descripccion, estado) VALUES
 ('Familiar', 'Habitación para familias, con varias camas.', 1),
 ('Económica', 'Habitación básica con servicios mínimos.', 1),
 ('Premium', 'Habitación de lujo con servicios exclusivos.', 1);
+<<<<<<< HEAD
+go
+ 
+=======
 
+>>>>>>> 329417a8a518b6c0e194ede1ac8fd4efdfbf354f
 INSERT INTO caracteristica_habitacion_tipo_habitacion (id_caracteristica_habitacion, id_tipo_habitacion, estado) VALUES
 (1, 1, 1),
 (2, 1, 1),
@@ -248,54 +312,64 @@ INSERT INTO caracteristica_habitacion_tipo_habitacion (id_caracteristica_habitac
 (8, 4, 1),
 (9, 1, 1),
 (10, 2, 1);
-
+go
+ 
 INSERT INTO estado_habitacion (estado_habitacion, estado) VALUES
 ('Disponible', 1),
 ('Ocupada', 1),
 ('Mantenimiento', 1),
 ('Reservada', 1);
-
+go
+ 
 INSERT INTO rol_trabajador (rol, estado) VALUES
 ('Recepcionista', 1),
 ('Administrador', 1),
 ('Housekeeping', 1),
 ('Seguridad', 1);
-
+go
+ 
 INSERT INTO tipo_documento (tipo, estado) VALUES
 ('DNI', 1),
 ('Pasaporte', 1),
 ('Carnet de Extranjería', 1);
-
+go
+ 
 INSERT INTO tipo_nacionalidad (tipo, estado) VALUES
 ('Peruana', 1),
 ('Argentina', 1),
 ('Chilena', 1),
 ('Colombiana', 1);
-
+go
+ 
 INSERT INTO tipo_sexo (tipo, estado) VALUES
 ('Masculino', 1),
 ('Femenino', 1),
 ('Otro', 1);
-
+go
+ 
 INSERT INTO tipo_estacionamiento (tipo, costo, estado) VALUES
 ('Cubierto', 20.00, 1),
 ('Descubierto', 10.00, 1);
-
+go
+ 
 INSERT INTO tipo_reserva (tipo, estado) VALUES
 ('Online', 1),
 ('Presencial', 1);
-
+go
+ 
 INSERT INTO tipo_comprobante (tipo, estado) VALUES
 ('Boleta', 1),
 ('Factura', 1),
 ('Recibo', 1);
-
+go
+ 
 INSERT INTO unidad_medida_producto (unidad, estado) VALUES
 ('Unidad', 1),
 ('Litro', 1),
 ('Gramo', 1),
 ('Caja', 1);
-
+go
+ 
 INSERT INTO categoria_producto (categoria, estado) VALUES
 ('Bebidas', 1),
 ('Snacks', 1),
@@ -350,12 +424,78 @@ INSERT INTO consumo (id_reserva, id_producto, cantidad, precio_venta, estado) VA
 (1, 2, 1, 3.50, 1),
 (2, 3, 1, 2.00, 1);
 
+INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
+('101', '1', 250.00, 1, 1, 1),
+('102', '1', 200.00, 2, 1, 1),
+('103', '1', 220.00, 2, 1, 1),
+('201', '2', 300.00, 1, 1, 1),
+('202', '2', 180.00, 3, 1, 1),
+('203', '2', 280.00, 4, 1, 1),
+('301', '3', 350.00, 1, 1, 1),
+('302', '3', 250.00, 3, 1, 1),
+('303', '3', 200.00, 2, 1, 1),
+('304', '3', 400.00, 1, 1, 1);
+go
+ 
+INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) VALUES
+('Carlos', 'Andrés', 'Pérez', 'Ramírez', 'cperez', '1234', 1500.00, 1, '12345678', '987654321', 'carlos@example.com', 1, 1),
+('Ana', 'María', 'Lopez', 'Díaz', 'alopez', 'abcd', 2000.00, 1, '87654321', '912345678', 'ana@example.com', 2, 1),
+('Luis', 'Fernando', 'Mendoza', 'Vega', 'lmendoza', 'pass', 1300.00, 1, '11223344', '987123456', 'luis@example.com', 3, 1),
+('Elena', 'Paola', 'Torres', 'Gomez', 'etorres', '3210', 1250.00, 1, '22334455', '999123123', 'elena@example.com', 1, 1),
+('Raúl', 'David', 'Cruz', 'Santos', 'rcruz', 'qwerty', 1100.00, 2, '33445566', '988654321', 'raul@example.com', 4, 1),
+('Patricia', 'Sofia', 'Morales', 'Núñez', 'pmorales', 'asdf', 1700.00, 1, '44556677', '911223344', 'patricia@example.com', 2, 1),
+('Javier', 'Enrique', 'Vargas', 'Alva', 'jvargas', 'password', 1800.00, 3, '55667788', '944332211', 'javier@example.com', 1, 1),
+('Lucía', 'Isabel', 'Cáceres', 'Mora', 'lcaceres', '9876', 1400.00, 1, '66778899', '922334455', 'lucia@example.com', 3, 1),
+('Ricardo', 'Manuel', 'Salas', 'Ibañez', 'rsalas', '7410', 1600.00, 2, '77889900', '933221100', 'ricardo@example.com', 1, 1),
+('Verónica', 'Fernanda', 'Reyes', 'Palacios', 'vreyes', '3698', 2000.00, 1, '88990011', '911223311', 'vero@example.com', 2, 1);
+go
+ 
+INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) VALUES
+('Mario', 'Andrés', 'Gómez', 'Paz', 1, '11111111', '900000001', 'mario@gmail.com', '1990-01-01', 1, 1, 1),
+('Lucía', 'María', 'Salinas', 'Lopez', 1, '22222222', '900000002', 'lucia@gmail.com', '1985-05-12', 1, 2, 1),
+('Carmen', 'Patricia', 'Torres', 'Vega', 2, '33333333', '900000003', 'carmen@gmail.com', '1992-07-21', 2, 2, 1),
+('Raúl', 'Ignacio', 'Vargas', 'Soto', 1, '44444444', '900000004', 'raul@gmail.com', '1988-03-14', 3, 1, 1),
+('Elena', 'Gabriela', 'Martinez', 'Aguilar', 3, '55555555', '900000005', 'elena@gmail.com', '1995-11-30', 4, 2, 1),
+('Pedro', 'Manuel', 'Reyes', 'Delgado', 1, '66666666', '900000006', 'pedro@gmail.com', '1991-09-05', 1, 1, 1),
+('Claudia', 'Patricia', 'Nuñez', 'Ibarra', 2, '77777777', '900000007', 'claudia@gmail.com', '1987-06-25', 2, 2, 1),
+('Jorge', 'Eduardo', 'Flores', 'Pineda', 1, '88888888', '900000008', 'jorge@gmail.com', '1993-08-19', 3, 1, 1),
+('Mónica', 'Isabel', 'Ramirez', 'Quispe', 3, '99999999', '900000009', 'monica@gmail.com', '1997-12-22', 4, 2, 1),
+('Felipe', 'Antonio', 'Ponce', 'Cornejo', 1, '10101010', '900000010', 'felipe@gmail.com', '1990-04-02', 1, 1, 1);
+go
+ 
+INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado) VALUES
+('E01', '5', '2', '3', 1, 1),
+('E02', '5', '2', '3', 2, 1),
+('E03', '5', '2', '3', 1, 1),
+('E04', '5', '2', '3', 2, 1),
+('E05', '5', '2', '3', 1, 1),
+('E06', '5', '2', '3', 2, 1),
+('E07', '5', '2', '3', 1, 1),
+('E08', '5', '2', '3', 2, 1),
+('E09', '5', '2', '3', 1, 1),
+('E10', '5', '2', '3', 2, 1);
+go
+ 
+INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) VALUES
+(1, 1, 1, 1, '2025-04-01', '2025-04-05', 1000.00, 1),
+(2, 2, 2, 2, '2025-04-03', '2025-04-04', 200.00, 1),
+(3, 3, 3, 1, '2025-04-02', '2025-04-06', 800.00, 1),
+(4, 4, 4, 2, '2025-04-07', '2025-04-10', 900.00, 1),
+(5, 5, 5, 1, '2025-04-01', '2025-04-03', 360.00, 1),
+(6, 6, 6, 1, '2025-04-05', '2025-04-08', 840.00, 1),
+(7, 7, 7, 2, '2025-04-09', '2025-04-12', 1050.00, 1),
+(8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
+(9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
+(10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
+go
+
 ------------------------------------
 ------------------------------------
 create or alter proc usp_listar_caracteristica_habitacion
 as
 	select id, caracteristica, estado
-	from caracteristica_habitacion 
+	from caracteristica_habitacion
+	where estado = 1;
 go
 CREATE or alter proc usp_listar_caracteristica_habitacion_por_caracteristica
     @caracteristica NVARCHAR(100)
@@ -367,17 +507,19 @@ go
 CREATE or alter proc usp_obtener_caracteristica_habitacion_por_id
     @id int
 AS
-select id, caracteristica, estado
-	from caracteristica_habitacion 
-	where @id = id 
+	select
+	*
+	from caracteristica_habitacion
+	where id = @id and estado = 1
 go
+
 CREATE or alter proc usp_crear_caracteristica_habitacion
     @caracteristica VARCHAR(100),
     @estado bit
 AS
 BEGIN
     INSERT INTO caracteristica_habitacion (caracteristica, estado)
-    VALUES (@caracteristica, @estado);
+    VALUES (@caracteristica, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -390,7 +532,7 @@ CREATE or alter proc usp_actualizar_caracteristica_habitacion
 AS
 BEGIN
     UPDATE caracteristica_habitacion 
-	set caracteristica = @caracteristica, estado = @estado
+	set caracteristica = @caracteristica, estado = 1
     where @id = id
 END
 go
@@ -412,8 +554,14 @@ go
 CREATE or alter proc usp_listar_caracteristica_habitacion_tipo_habitacion
 AS
 BEGIN
-    SELECT id_caracteristica_habitacion, id_tipo_habitacion, estado
-    FROM caracteristica_habitacion_tipo_habitacion;
+    SELECT 
+		ch.caracteristica,
+		th.tipo,
+		chth.estado
+    FROM caracteristica_habitacion_tipo_habitacion chth 
+	inner join tipo_habitacion th on chth.id_tipo_habitacion = th.id
+	inner join caracteristica_habitacion ch on chth.id_caracteristica_habitacion = ch.id
+	where chth.estado = 1;
 END
 GO
 
@@ -435,7 +583,8 @@ BEGIN
     SELECT id_caracteristica_habitacion, id_tipo_habitacion, estado
     FROM caracteristica_habitacion_tipo_habitacion
     WHERE id_caracteristica_habitacion = @id_caracteristica_habitacion
-      AND id_tipo_habitacion = @id_tipo_habitacion;
+      AND id_tipo_habitacion = @id_tipo_habitacion
+	  AND estado = 1;
 END
 GO
 
@@ -446,7 +595,7 @@ CREATE or alter proc usp_crear_caracteristica_habitacion_tipo_habitacion
 AS
 BEGIN
     INSERT INTO caracteristica_habitacion_tipo_habitacion (id_caracteristica_habitacion, id_tipo_habitacion, estado)
-    VALUES (@id_caracteristica_habitacion, @id_tipo_habitacion, @estado);
+    VALUES (@id_caracteristica_habitacion, @id_tipo_habitacion, 1);
 END
 GO
 
@@ -457,7 +606,7 @@ CREATE or alter proc usp_actualizar_caracteristica_habitacion_tipo_habitacion
 AS
 BEGIN
     UPDATE caracteristica_habitacion_tipo_habitacion
-    SET estado = @estado
+    SET estado = 1
     WHERE id_caracteristica_habitacion = @id_caracteristica_habitacion
       AND id_tipo_habitacion = @id_tipo_habitacion;
 END
@@ -480,7 +629,8 @@ CREATE or alter proc usp_listar_categorias_producto
 AS
 BEGIN
     SELECT id, categoria, estado
-    FROM categoria_producto;
+    FROM categoria_producto
+	where estado = 1;
 END
 GO
 
@@ -500,7 +650,7 @@ AS
 BEGIN
     SELECT id, categoria, estado
     FROM categoria_producto
-    WHERE id = @id;
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -510,7 +660,7 @@ CREATE or alter proc usp_crear_categoria_producto
 AS
 BEGIN
     INSERT INTO categoria_producto (categoria, estado)
-    VALUES (@categoria, @estado);
+    VALUES (@categoria, 1);
 END
 GO
 
@@ -522,7 +672,7 @@ AS
 BEGIN
     UPDATE categoria_producto
     SET categoria = @categoria,
-		estado = @estado
+		estado = 1
     WHERE id = @id
 END
 GO
@@ -683,8 +833,10 @@ BEGIN
 	INNER JOIN reserva r on c.id_reserva = r.id
 	INNER JOIN producto p on c.id_producto = p.id
 	INNER JOIN cliente cli on r.id_cliente = cli.id
+	where c.estado = 1;
 END
 go
+
 CREATE or alter proc usp_obtener_consumoDTO_por_id
     @id INT
 AS
@@ -700,7 +852,7 @@ BEGIN
 	INNER JOIN reserva r on c.id_reserva = r.id
 	INNER JOIN producto p on c.id_producto = p.id
 	INNER JOIN cliente cli on r.id_cliente = cli.id
-    WHERE c.id = @id
+    WHERE c.id = @id and c.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_consumo_por_id
@@ -710,7 +862,7 @@ BEGIN
     SELECT 
        *
     FROM consumo
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -723,7 +875,7 @@ CREATE or alter proc usp_crear_consumo
 AS
 BEGIN
     INSERT INTO consumo (id_reserva, id_producto, cantidad, precio_venta, estado)
-    VALUES (@id_reserva, @id_producto, @cantidad, @precio_venta, @estado);
+    VALUES (@id_reserva, @id_producto, @cantidad, @precio_venta, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -742,7 +894,7 @@ BEGIN
         id_producto = @id_producto,
         cantidad = @cantidad,
         precio_venta = @precio_venta,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -773,6 +925,7 @@ BEGIN
 	   e.estado
     FROM estacionamiento e
     INNER JOIN tipo_estacionamiento u ON e.id_tipo_estacionamiento = u.id
+	where e.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_estacionamientoDTO_por_id
@@ -789,7 +942,7 @@ BEGIN
 	   e.estado
     FROM estacionamiento e
     INNER JOIN tipo_estacionamiento u ON e.id_tipo_estacionamiento = u.id
-    WHERE e.id = @id
+    WHERE e.id = @id and e.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_estacionamiento_por_id
@@ -799,7 +952,7 @@ BEGIN
     SELECT 
        *
     FROM estacionamiento
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -813,7 +966,7 @@ CREATE or alter proc usp_crear_estacionamiento
 AS
 BEGIN
     INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado)
-    VALUES (@lugar, @largo, @alto, @ancho, @id_tipo_estacionamiento, @estado);
+    VALUES (@lugar, @largo, @alto, @ancho, @id_tipo_estacionamiento, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -834,7 +987,7 @@ BEGIN
         alto = @alto,
         ancho = @ancho,
         id_tipo_estacionamiento = @id_tipo_estacionamiento,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -857,7 +1010,8 @@ AS
 BEGIN
     SELECT 
        *
-    FROM estado_habitacion 
+    FROM estado_habitacion
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_listar_estado_habitacion_por_estado
@@ -867,7 +1021,7 @@ BEGIN
      SELECT 
        *
     FROM estado_habitacion
-    WHERE estado = @estado
+    WHERE estado = 1
 END
 go
 CREATE or alter proc usp_obtener_estado_habitacion_por_id
@@ -877,7 +1031,7 @@ BEGIN
     SELECT 
         *
     FROM estado_habitacion
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -887,7 +1041,7 @@ CREATE or alter proc usp_crear_estado_habitacion
 AS
 BEGIN
     INSERT INTO estado_habitacion (estado_habitacion, estado)
-    VALUES (@estado_habitacion, @estado);
+    VALUES (@estado_habitacion, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -900,7 +1054,7 @@ AS
 BEGIN
     UPDATE estado_habitacion
     SET estado_habitacion = @estado_habitacion,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -932,6 +1086,7 @@ BEGIN
     FROM habitacion h
     INNER JOIN tipo_habitacion th ON h.id_tipo = th.id
     INNER JOIN estado_habitacion eh ON h.id_estado = eh.id
+	where h.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_habitacionDTO_por_id
@@ -949,7 +1104,7 @@ BEGIN
     FROM habitacion h
     INNER JOIN tipo_habitacion th ON h.id_tipo = th.id
     INNER JOIN estado_habitacion eh ON h.id_estado = eh.id
-    WHERE h.id = @id
+    WHERE h.id = @id and h.estado = 1
 END
 go
 CREATE or alter proc usp_obtener_habitacion_por_id
@@ -959,7 +1114,7 @@ BEGIN
     SELECT 
       *
     FROM habitacion
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -973,7 +1128,7 @@ CREATE or alter proc usp_crear_habitacion
 AS
 BEGIN
     INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado)
-    VALUES (@numero, @piso, @precio_diario, @id_tipo, @id_estado, @estado);
+    VALUES (@numero, @piso, @precio_diario, @id_tipo, @id_estado, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -994,7 +1149,7 @@ BEGIN
         precio_diario = @precio_diario,
         id_tipo = @id_tipo,
         id_estado = @id_estado,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1027,6 +1182,7 @@ BEGIN
     FROM pago p
     INNER JOIN reserva r ON p.id_reserva = r.id
     INNER JOIN tipo_comprobante c ON p.id_tipo_comprobante = c.id
+	where p.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_pagoDTO_por_id
@@ -1045,7 +1201,7 @@ BEGIN
     FROM pago p
     INNER JOIN reserva r ON p.id_reserva = r.id
     INNER JOIN tipo_comprobante c ON p.id_tipo_comprobante = c.id
-    WHERE p.id = @id
+    WHERE p.id = @id and p.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_pago_por_id
@@ -1055,7 +1211,7 @@ BEGIN
     SELECT 
        *
     FROM pago
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1070,7 +1226,7 @@ CREATE or alter proc usp_crear_pago
 AS
 BEGIN
     INSERT INTO pago (id_reserva, id_tipo_comprobante, igv, total_pago, fecha_emision, fecha_pago, estado)
-    VALUES (@id_reserva, @id_tipo_comprobante, @igv, @total_pago, @fecha_emision,@fecha_pago, @estado);
+    VALUES (@id_reserva, @id_tipo_comprobante, @igv, @total_pago, @fecha_emision,@fecha_pago, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1093,7 +1249,7 @@ BEGIN
         total_pago = @total_pago,
         fecha_emision = @fecha_emision,
 		fecha_pago = @fecha_pago, 
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1124,6 +1280,7 @@ BEGIN
     FROM Producto p
     INNER JOIN unidad_medida_producto u ON p.id_unidad_medida_producto = u.id
     INNER JOIN categoria_producto c ON p.id_categoria_producto = c.id
+	where p.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_productoDTO_por_id
@@ -1141,7 +1298,7 @@ BEGIN
     FROM Producto p
     INNER JOIN unidad_medida_producto u ON p.id_unidad_medida_producto = u.id
     INNER JOIN categoria_producto c ON p.id_categoria_producto = c.id
-    WHERE p.id = @id
+    WHERE p.id = @id and p.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_producto_por_id
@@ -1157,7 +1314,7 @@ BEGIN
         cantidad,
         estado
     FROM Producto
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1171,7 +1328,7 @@ CREATE or alter proc usp_crear_producto
 AS
 BEGIN
     INSERT INTO Producto (nombre, id_unidad_medida_producto, id_categoria_producto, precio_unico, cantidad, estado)
-    VALUES (@nombre, @id_unidad_medida_producto, @id_categoria_producto, @precio_unico, @cantidad, @estado);
+    VALUES (@nombre, @id_unidad_medida_producto, @id_categoria_producto, @precio_unico, @cantidad, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1192,7 +1349,7 @@ BEGIN
         id_categoria_producto = @id_categoria_producto,
         precio_unico = @precio_unico,
         cantidad = @cantidad,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1222,6 +1379,7 @@ BEGIN
     FROM reserva_estacionamiento re
     INNER JOIN estacionamiento e ON re.id_estacionamiento = e.id
     INNER JOIN reserva r ON re.id_reserva = r.id
+	where r.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_reserva_estacionamientoDTO_por_id
@@ -1239,6 +1397,7 @@ BEGIN
     INNER JOIN estacionamiento e ON re.id_estacionamiento = e.id
     INNER JOIN reserva r ON re.id_reserva = r.id
     WHERE re.id_reserva = @id_reserva and re.id_estacionamiento = @id_estacionamiento
+	and r.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_reserva_estacionamiento_por_id
@@ -1250,6 +1409,7 @@ BEGIN
       *
     FROM reserva_estacionamiento 
     WHERE id_reserva = @id_reserva and id_estacionamiento = @id_estacionamiento
+	and estado = 1;
 END
 GO
 
@@ -1262,7 +1422,7 @@ CREATE or alter proc usp_crear_reserva_estacionamiento
 AS
 BEGIN
     INSERT INTO reserva_estacionamiento (id_reserva, id_estacionamiento, cantidad, precio_estacionamiento, estado)
-    VALUES (@id_reserva, @id_estacionamiento, @cantidad, @precio_estacionamiento, @estado);
+    VALUES (@id_reserva, @id_estacionamiento, @cantidad, @precio_estacionamiento, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1278,7 +1438,7 @@ BEGIN
     UPDATE reserva_estacionamiento
     SET cantidad = @cantidad,
         precio_estacionamiento = @precio_estacionamiento,
-        estado = @estado
+        estado = 1
     WHERE id_reserva = @id_reserva and id_estacionamiento = @id_estacionamiento
 END
 go
@@ -1315,6 +1475,7 @@ BEGIN
     INNER JOIN cliente c ON r.id_cliente = c.id
 	INNER JOIN trabajador t ON r.id_trabajador = t.id
 	INNER JOIN tipo_reserva tr ON r.id_tipo_reserva = tr.id
+	where r.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_reservaDTO_por_id
@@ -1336,7 +1497,7 @@ BEGIN
     INNER JOIN cliente c ON r.id_cliente = c.id
 	INNER JOIN trabajador t ON r.id_trabajador = t.id
 	INNER JOIN tipo_reserva tr ON r.id_tipo_reserva = tr.id
-    WHERE r.id = @id
+    WHERE r.id = @id and r.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_reserva_por_id
@@ -1346,7 +1507,7 @@ BEGIN
    SELECT 
       *
     FROM reserva
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1362,7 +1523,7 @@ CREATE or alter proc usp_crear_reserva
 AS
 BEGIN
     INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado)
-    VALUES (@id_habitacion, @id_cliente, @id_trabajador, @id_tipo_reserva, @fecha_ingreso, @fecha_salida, @costo_alojamiento, @estado);
+    VALUES (@id_habitacion, @id_cliente, @id_trabajador, @id_tipo_reserva, @fecha_ingreso, @fecha_salida, @costo_alojamiento, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1387,7 +1548,7 @@ BEGIN
         fecha_ingreso = @fecha_ingreso,
 		fecha_salida = @fecha_salida,
 		costo_alojamiento = @costo_alojamiento,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1410,6 +1571,7 @@ BEGIN
     SELECT 
        *
     FROM rol_trabajador
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_listar_rol_trabajadores_por_rol
@@ -1429,7 +1591,7 @@ BEGIN
     SELECT 
         *
     FROM rol_trabajador
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1439,7 +1601,7 @@ CREATE or alter proc usp_crear_rol_trabajador
 AS
 BEGIN
     INSERT INTO rol_trabajador (rol, estado)
-    VALUES (@rol, @estado);
+    VALUES (@rol, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1452,7 +1614,7 @@ AS
 BEGIN
     UPDATE rol_trabajador
     SET rol = @rol,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1477,7 +1639,8 @@ AS
 BEGIN
     SELECT 
       *
-    FROM tipo_comprobante 
+    FROM tipo_comprobante
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_tipo_comprobante_por_tipo
@@ -1496,7 +1659,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_comprobante 
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1506,7 +1669,7 @@ CREATE or alter proc usp_crear_tipo_comprobante
 AS
 BEGIN
     INSERT INTO tipo_comprobante (tipo, estado)
-    VALUES (@tipo, @estado);
+    VALUES (@tipo, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1519,7 +1682,7 @@ AS
 BEGIN
     UPDATE tipo_comprobante
     SET @tipo = @tipo,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1541,7 +1704,8 @@ AS
 BEGIN
     SELECT 
       *
-    FROM tipo_documento 
+    FROM tipo_documento
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_listar_tipo_documentos_por_tipo
@@ -1560,7 +1724,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_documento 
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1570,7 +1734,7 @@ CREATE or alter proc usp_crear_tipo_documento
 AS
 BEGIN
     INSERT INTO tipo_documento (tipo, estado)
-    VALUES (@tipo, @estado);
+    VALUES (@tipo, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1583,7 +1747,7 @@ AS
 BEGIN
     UPDATE tipo_documento
     SET @tipo = @tipo,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1606,7 +1770,8 @@ AS
 BEGIN
     SELECT 
       *
-    FROM tipo_estacionamiento 
+    FROM tipo_estacionamiento
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_listar_tipo_estacionamiento_por_tipo
@@ -1626,7 +1791,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_estacionamiento 
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1637,7 +1802,7 @@ CREATE or alter proc usp_crear_tipo_estacionamiento
 AS
 BEGIN
     INSERT INTO tipo_estacionamiento (tipo, costo, estado)
-    VALUES (@tipo, @costo, @estado);
+    VALUES (@tipo, @costo, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1652,7 +1817,7 @@ BEGIN
     UPDATE tipo_estacionamiento
     SET tipo = @tipo,
 		costo = @costo,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1675,7 +1840,8 @@ AS
 BEGIN
     SELECT 
       *
-    FROM tipo_habitacion 
+    FROM tipo_habitacion
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_listar_tipo_habitacion_por_tipo
@@ -1695,7 +1861,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_habitacion 
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1706,7 +1872,7 @@ CREATE or alter proc usp_crear_tipo_habitacion
 AS
 BEGIN
     INSERT INTO tipo_habitacion (tipo, descripccion, estado)
-    VALUES (@tipo, @descripccion, @estado);
+    VALUES (@tipo, @descripccion, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1721,7 +1887,7 @@ BEGIN
     UPDATE tipo_habitacion
     SET tipo = @tipo,
 		descripccion = @descripccion,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1744,7 +1910,8 @@ AS
 BEGIN
     SELECT 
       *
-    FROM tipo_nacionalidad 
+    FROM tipo_nacionalidad
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_tipo_nacionalidades_por_tipo
@@ -1764,7 +1931,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_nacionalidad 
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1774,7 +1941,7 @@ CREATE or alter proc usp_crear_tipo_nacionalidad
 AS
 BEGIN
     INSERT INTO tipo_nacionalidad (tipo, estado)
-    VALUES (@tipo, @estado);
+    VALUES (@tipo, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1787,7 +1954,7 @@ AS
 BEGIN
     UPDATE tipo_nacionalidad
     SET tipo = @tipo,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1810,7 +1977,8 @@ AS
 BEGIN
     SELECT 
       *
-    FROM tipo_reserva 
+    FROM tipo_reserva
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_tipo_reserva_por_tipo
@@ -1830,7 +1998,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_reserva 
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1840,7 +2008,7 @@ CREATE or alter proc usp_crear_tipo_reserva
 AS
 BEGIN
     INSERT INTO tipo_reserva (tipo, estado)
-    VALUES (@tipo, @estado);
+    VALUES (@tipo, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1853,7 +2021,7 @@ AS
 BEGIN
     UPDATE tipo_reserva
     SET tipo = @tipo,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1878,6 +2046,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_sexo
+	where estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_tipo_sexo_por_tipo
@@ -1897,7 +2066,7 @@ BEGIN
     SELECT 
       *
     FROM tipo_sexo 
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -1907,7 +2076,7 @@ CREATE or alter proc usp_crear_tipo_sexo
 AS
 BEGIN
     INSERT INTO tipo_sexo (tipo, estado)
-    VALUES (@tipo, @estado);
+    VALUES (@tipo, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -1920,7 +2089,7 @@ AS
 BEGIN
     UPDATE tipo_sexo
     SET tipo = @tipo,
-        estado = @estado
+        estado = 1
     WHERE id = @id
 END
 go
@@ -1959,6 +2128,7 @@ BEGIN
     FROM trabajador t
     INNER JOIN tipo_documento td ON t.id_tipo_documento = td.id
     INNER JOIN rol_trabajador rt ON t.id_rol = rt.id
+	where t.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_trabajadorDTO_por_id
@@ -1983,7 +2153,7 @@ BEGIN
     FROM trabajador t
     INNER JOIN tipo_documento td ON t.id_tipo_documento = td.id
     INNER JOIN rol_trabajador rt ON t.id_rol = rt.id
-    WHERE t.id = @id
+    WHERE t.id = @id and t.estado = 1;
 END
 go
 CREATE or alter proc usp_obtener_trabajador_por_id
@@ -1993,7 +2163,7 @@ BEGIN
    SELECT 
       *
     FROM trabajador
-    WHERE id = @id
+    WHERE id = @id and estado = 1;
 END
 GO
 
@@ -2014,7 +2184,7 @@ CREATE or alter proc usp_crear_trabajador
 AS
 BEGIN
     INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado)
-    VALUES (@primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @username, @password, @sueldo, @id_tipo_documento, @numero_documento, @telefono, @email, @id_rol, @estado);
+    VALUES (@primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @username, @password, @sueldo, @id_tipo_documento, @numero_documento, @telefono, @email, @id_rol, 1);
 
     SELECT SCOPE_IDENTITY() AS nuevo_id;
 END
@@ -2049,7 +2219,7 @@ BEGIN
 		telefono = @telefono, 
 		email = @email, 
 		id_rol = @id_rol, 
-		estado = @estado
+		estado = 1
     WHERE id = @id
 END
 go
@@ -2072,6 +2242,7 @@ create or alter proc usp_listar_unidad_medida_producto
 as
     select *
 	from unidad_medida_producto
+	where estado = 1;
 go
 CREATE or alter proc usp_obtener_unidad_medida_por_unidad
     @unidad VARCHAR(40)
@@ -2088,7 +2259,7 @@ AS
 BEGIN
     select *
 	from unidad_medida_producto
-    WHERE Id = @id;
+    WHERE Id = @id and estado = 1;
 END
 go
 CREATE or alter proc usp_crear_unidad_medida_producto
@@ -2097,7 +2268,7 @@ CREATE or alter proc usp_crear_unidad_medida_producto
 AS
 BEGIN
     INSERT INTO unidad_medida_producto( unidad, estado)
-	VALUES(@unidad, @estado)
+	VALUES(@unidad, 1)
 END
 go
 
@@ -2110,7 +2281,7 @@ BEGIN
     UPDATE unidad_medida_producto
     SET
         unidad = @unidad,
-        estado = @estado
+        estado = 1
     WHERE Id = @id;
 END
 go
@@ -2125,10 +2296,25 @@ BEGIN
 END
 go
 
+----------------------
+----------------------
+
 create or alter proc usp_listar_categoria_producto
 as
     select * from categoria_producto
+	where estado = 1;
 go
+
+CREATE or alter proc usp_obtener_categoria_producto_por_id
+    @id INT
+AS
+BEGIN
+    select *
+	from categoria_producto
+    WHERE id = @id and estado = 1;
+END
+go
+
 CREATE or alter proc usp_insertar_categoria_producto
     @categoria VARCHAR(40),
     @estado BIT
@@ -2137,7 +2323,7 @@ BEGIN
     SET NOCOUNT ON;
 
     INSERT INTO categoria_producto(categoria, estado)
-    VALUES (@categoria, @estado);
+    VALUES (@categoria, 1);
     SELECT SCOPE_IDENTITY() AS Id;
 END
 go
@@ -2150,7 +2336,7 @@ BEGIN
     UPDATE categoria_producto
     SET
         categoria = @categoria,
-        estado = @estado
+        estado = 1
     WHERE Id = @id;
 END
 go
@@ -2165,70 +2351,6 @@ BEGIN
 END
 go
 
-
-
-INSERT INTO habitacion (numero, piso, precio_diario, id_tipo, id_estado, estado) VALUES
-('101', '1', 250.00, 1, 1, 1),
-('102', '1', 200.00, 2, 1, 1),
-('103', '1', 220.00, 2, 1, 1),
-('201', '2', 300.00, 1, 1, 1),
-('202', '2', 180.00, 3, 1, 1),
-('203', '2', 280.00, 4, 1, 1),
-('301', '3', 350.00, 1, 1, 1),
-('302', '3', 250.00, 3, 1, 1),
-('303', '3', 200.00, 2, 1, 1),
-('304', '3', 400.00, 1, 1, 1);
-
-INSERT INTO trabajador (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, username, password, sueldo, id_tipo_documento, numero_documento, telefono, email, id_rol, estado) VALUES
-('Carlos', 'Andrés', 'Pérez', 'Ramírez', 'cperez', '1234', 1500.00, 1, '12345678', '987654321', 'carlos@example.com', 1, 1),
-('Ana', 'María', 'Lopez', 'Díaz', 'alopez', 'abcd', 2000.00, 1, '87654321', '912345678', 'ana@example.com', 2, 1),
-('Luis', 'Fernando', 'Mendoza', 'Vega', 'lmendoza', 'pass', 1300.00, 1, '11223344', '987123456', 'luis@example.com', 3, 1),
-('Elena', 'Paola', 'Torres', 'Gomez', 'etorres', '3210', 1250.00, 1, '22334455', '999123123', 'elena@example.com', 1, 1),
-('Raúl', 'David', 'Cruz', 'Santos', 'rcruz', 'qwerty', 1100.00, 2, '33445566', '988654321', 'raul@example.com', 4, 1),
-('Patricia', 'Sofia', 'Morales', 'Núñez', 'pmorales', 'asdf', 1700.00, 1, '44556677', '911223344', 'patricia@example.com', 2, 1),
-('Javier', 'Enrique', 'Vargas', 'Alva', 'jvargas', 'password', 1800.00, 3, '55667788', '944332211', 'javier@example.com', 1, 1),
-('Lucía', 'Isabel', 'Cáceres', 'Mora', 'lcaceres', '9876', 1400.00, 1, '66778899', '922334455', 'lucia@example.com', 3, 1),
-('Ricardo', 'Manuel', 'Salas', 'Ibañez', 'rsalas', '7410', 1600.00, 2, '77889900', '933221100', 'ricardo@example.com', 1, 1),
-('Verónica', 'Fernanda', 'Reyes', 'Palacios', 'vreyes', '3698', 2000.00, 1, '88990011', '911223311', 'vero@example.com', 2, 1);
-
-INSERT INTO cliente (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, id_tipo_documento, numero_documento, telefono, email, fecha_nacimiento, id_tipo_nacionalidad, id_tipo_sexo, estado) VALUES
-('Mario', 'Andrés', 'Gómez', 'Paz', 1, '11111111', '900000001', 'mario@gmail.com', '1990-01-01', 1, 1, 1),
-('Lucía', 'María', 'Salinas', 'Lopez', 1, '22222222', '900000002', 'lucia@gmail.com', '1985-05-12', 1, 2, 1),
-('Carmen', 'Patricia', 'Torres', 'Vega', 2, '33333333', '900000003', 'carmen@gmail.com', '1992-07-21', 2, 2, 1),
-('Raúl', 'Ignacio', 'Vargas', 'Soto', 1, '44444444', '900000004', 'raul@gmail.com', '1988-03-14', 3, 1, 1),
-('Elena', 'Gabriela', 'Martinez', 'Aguilar', 3, '55555555', '900000005', 'elena@gmail.com', '1995-11-30', 4, 2, 1),
-('Pedro', 'Manuel', 'Reyes', 'Delgado', 1, '66666666', '900000006', 'pedro@gmail.com', '1991-09-05', 1, 1, 1),
-('Claudia', 'Patricia', 'Nuñez', 'Ibarra', 2, '77777777', '900000007', 'claudia@gmail.com', '1987-06-25', 2, 2, 1),
-('Jorge', 'Eduardo', 'Flores', 'Pineda', 1, '88888888', '900000008', 'jorge@gmail.com', '1993-08-19', 3, 1, 1),
-('Mónica', 'Isabel', 'Ramirez', 'Quispe', 3, '99999999', '900000009', 'monica@gmail.com', '1997-12-22', 4, 2, 1),
-('Felipe', 'Antonio', 'Ponce', 'Cornejo', 1, '10101010', '900000010', 'felipe@gmail.com', '1990-04-02', 1, 1, 1);
-
-INSERT INTO estacionamiento (lugar, largo, alto, ancho, id_tipo_estacionamiento, estado) VALUES
-('E01', '5', '2', '3', 1, 1),
-('E02', '5', '2', '3', 2, 1),
-('E03', '5', '2', '3', 1, 1),
-('E04', '5', '2', '3', 2, 1),
-('E05', '5', '2', '3', 1, 1),
-('E06', '5', '2', '3', 2, 1),
-('E07', '5', '2', '3', 1, 1),
-('E08', '5', '2', '3', 2, 1),
-('E09', '5', '2', '3', 1, 1),
-('E10', '5', '2', '3', 2, 1);
-
-INSERT INTO reserva (id_habitacion, id_cliente, id_trabajador, id_tipo_reserva, fecha_ingreso, fecha_salida, costo_alojamiento, estado) VALUES
-(1, 1, 1, 1, '2025-04-01', '2025-04-05', 1000.00, 1),
-(2, 2, 2, 2, '2025-04-03', '2025-04-04', 200.00, 1),
-(3, 3, 3, 1, '2025-04-02', '2025-04-06', 800.00, 1),
-(4, 4, 4, 2, '2025-04-07', '2025-04-10', 900.00, 1),
-(5, 5, 5, 1, '2025-04-01', '2025-04-03', 360.00, 1),
-(6, 6, 6, 1, '2025-04-05', '2025-04-08', 840.00, 1),
-(7, 7, 7, 2, '2025-04-09', '2025-04-12', 1050.00, 1),
-(8, 8, 8, 1, '2025-04-11', '2025-04-15', 1200.00, 1),
-(9, 9, 9, 1, '2025-04-13', '2025-04-14', 400.00, 1),
-(10, 10, 10, 2, '2025-04-16', '2025-04-18', 600.00, 1);
-
-go
-
 create or alter proc usp_login_trabajador
 @username varchar(20),
 @password varchar(355)
@@ -2237,8 +2359,3 @@ as
 	trabajador t 
 	where t.username = @username and t.password = @password
 go
-
-
-exec usp_login_trabajador 'cperez' , '1234'
-
-

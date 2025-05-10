@@ -102,6 +102,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 SqlCommand cmd = new SqlCommand("usp_crear_categoria_producto", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@categoria", request.Categoria);
+                cmd.Parameters.AddWithValue("@estado", request.Estado);
                 var id = Convert.ToInt32(cmd.ExecuteScalar());
                 request.Id = id;
             }
@@ -117,6 +118,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", request.Id);
                 cmd.Parameters.AddWithValue("@categoria", request.Categoria);
+                cmd.Parameters.AddWithValue("@estado", request.Estado);
                 cmd.ExecuteNonQuery();
             }
             return Task.FromResult(request);
