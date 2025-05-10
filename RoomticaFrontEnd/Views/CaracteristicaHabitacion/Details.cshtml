@@ -1,0 +1,30 @@
+﻿@model RoomticaFrontEnd.Models.CaracteristicaHabitacionModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container-xl pb-4 pt-2">
+    <h1>Detalle Caracteristica Habitacion</h1>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Caracteristica)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Caracteristica)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        <a asp-action="Listar" class="btn btn-primary">Volver al Listado</a>
+    </div>
+</div>

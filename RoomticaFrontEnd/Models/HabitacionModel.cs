@@ -6,7 +6,7 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Número")]
@@ -18,22 +18,18 @@ namespace RoomticaFrontEnd.Models
 
         [Required]
         [Display(Name = "Precio Diario")]
-        public double? precio_diario { get; set; }
+        public double precio_diario { get; set; }
 
         [Required]
         [Display(Name = "Tipo de Habitación")]
-        public int? id_tipo { get; set; }
-
-        [Required]
-        [Display(Name = "Estado de Habitación")]
-        public int? id_estado { get; set; }
+        public int id_tipo { get; set; }
     }
 
     public class HabitacionDTOModel
     {
         [Key]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Número")]
@@ -45,14 +41,10 @@ namespace RoomticaFrontEnd.Models
 
         [Required]
         [Display(Name = "Precio Diario")]
-        public double? precio_diario { get; set; }
+        public double precio_diario { get; set; }
 
         [Required]
         [Display(Name = "Tipo de Habitación")]
         public string? id_tipo { get; set; }
-
-        [Required]
-        [Display(Name = "Estado de Habitación")]
-        public string? id_estado { get; set; }
     }
 }

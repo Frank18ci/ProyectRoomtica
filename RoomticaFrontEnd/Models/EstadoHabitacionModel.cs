@@ -6,7 +6,7 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int ? id { get; set; }
+        public int  id { get; set; }
         [Required]
         [Display(Name = "Estado Habitacion")]
         public string ? estado_habitacion { get; set; }

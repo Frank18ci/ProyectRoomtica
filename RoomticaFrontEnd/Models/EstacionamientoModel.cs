@@ -6,7 +6,7 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Lugar")]
@@ -26,14 +26,14 @@ namespace RoomticaFrontEnd.Models
 
         [Required]
         [Display(Name = "Tipo Estacionamiento")]
-        public int? id_tipo_estacionamiento { get; set; }
+        public int id_tipo_estacionamiento { get; set; }
     }
 
     public class EstacionamientoDTOModel
     {
         [Key]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Lugar")]

@@ -14,11 +14,11 @@ namespace RoomticaFrontEnd.Models
 
         [Required]
         [Display(Name = "Unidad")]
-        public string? Unidad { get; set; }
+        public int Unidad { get; set; }
 
         [Required]
         [Display(Name = "Categoría")]
-        public string? Categoria { get; set; }
+        public int Categoria { get; set; }
 
         [Required]
         [Display(Name = "Cantidad")]
