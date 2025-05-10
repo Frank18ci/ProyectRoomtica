@@ -103,14 +103,14 @@ namespace RoomticaFrontEnd.Controllers
 
         public async Task<ActionResult> Create()
         {
-            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "id", "tipo");
+            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "Id", "Tipo");
             return View(new EstacionamientoModel());
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(EstacionamientoModel estacionamiento)
         {
-            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "id", "tipo");
+            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "Id", "Tipo");
             ViewBag.mensaje = await guardarEstacionamiento(estacionamiento);
             return View(estacionamiento);
         }
@@ -174,7 +174,7 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(int id = 0)
         {
             EstacionamientoModel estacionamiento = await buscarEstacionamientoPorId(id);
-            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "id", "tipo");
+            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "Id", "Tipo");
             return View(estacionamiento);
         }
 
@@ -204,7 +204,7 @@ namespace RoomticaFrontEnd.Controllers
         public async Task<ActionResult> Edit(EstacionamientoModel estacionamiento)
         {
             ViewBag.mensaje = await actualizarEstacionamiento(estacionamiento);
-            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "id", "tipo");
+            ViewBag.tipoEstacionamiento = new SelectList(await listarTipoEstacionamiento(), "Id", "Tipo");
             return View(estacionamiento);
         }
 

@@ -1,0 +1,59 @@
+﻿@model RoomticaFrontEnd.Models.PagoModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-xl pb-4 pt-2">
+    <h2>Editar Pago</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="id_reserva" class="control-label"></label>
+                    <select asp-for="id_reserva" asp-items="@ViewBag.reservaService" class="form-select"></select>
+                    <span asp-validation-for="id_reserva" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="id_tipo_comprobante" class="control-label"></label>
+                    <select asp-for="id_tipo_comprobante" asp-items="@ViewBag.tipoComprobanteService" class="form-select"></select>
+                    <span asp-validation-for="id_tipo_comprobante" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="igv" class="control-label"></label>
+                    <input asp-for="igv" class="form-control" />
+                    <span asp-validation-for="igv" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="total_pago" class="control-label"></label>
+                    <input asp-for="total_pago" class="form-control" />
+                    <span asp-validation-for="total_pago" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fecha_emision" class="control-label"></label>
+                    <input asp-for="fecha_emision" class="form-control" />
+                    <span asp-validation-for="fecha_emision" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fecha_pago" class="control-label"></label>
+                    <input asp-for="fecha_pago" class="form-control" />
+                    <span asp-validation-for="fecha_pago" class="text-danger"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <span class="text-danger fw-bold">@ViewBag.mensaje</span>
+    </div>
+    <div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</div>

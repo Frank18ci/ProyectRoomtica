@@ -1,0 +1,48 @@
+﻿@model RoomticaFrontEnd.Models.ConsumoDTOModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container-xl pb-4 pt-2">
+    <h1>Detalle Consumo</h1>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.reserva)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.reserva)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.producto)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.producto)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.cantidad)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.cantidad)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.precio_venta)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.precio_venta)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }, new { @class = "btn btn-warning" })
+        <a asp-action="Listar" class="btn btn-primary">Volver al Listado</a>
+    </div>
+</div>

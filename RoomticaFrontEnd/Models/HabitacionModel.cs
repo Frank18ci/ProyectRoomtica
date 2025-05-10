@@ -24,10 +24,10 @@ namespace RoomticaFrontEnd.Models
         [Display(Name = "Tipo de Habitación")]
         public int id_tipo { get; set; }
 
-
         [Required]
-        [Display(Name = "Estado de Habitación")]
-        public int? id_estado { get; set; }
+        [Display(Name = "Estado de Habitacion")]
+        public int id_estado { get; set; }
+
     }
 
     public class HabitacionDTOModel
@@ -53,8 +53,8 @@ namespace RoomticaFrontEnd.Models
         public string? id_tipo { get; set; }
 
         [Required]
-        [Display(Name = "Estado de Habitación")]
-        public string? id_estado { get; set; }
-
+        [Display(Name = "Estado de Habitacion")]
+        public string ? id_estado { get; set; }
+        
     }
 }

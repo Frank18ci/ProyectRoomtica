@@ -34,7 +34,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                         IdReserva = dr.GetString(1),
                         IdProducto = dr.GetString(2),
                         Cantidad = dr.GetInt32(3),
-                        PrecioVenta = dr.GetDouble(4),
+                        PrecioVenta = Double.Parse(dr.GetDecimal(4).ToString()),
                         Estado = dr.GetBoolean(5)
                     });
                 }

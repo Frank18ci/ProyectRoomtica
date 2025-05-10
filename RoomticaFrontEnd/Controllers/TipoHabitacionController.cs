@@ -13,7 +13,7 @@ namespace RoomticaFrontEnd.Controllers
         private GrpcChannel? chanal;
         public TipoHabitacionController()
         {
-            chanal = GrpcChannel.ForAddress("https://localhost:5001");
+            chanal = GrpcChannel.ForAddress("http://localhost:5225");
             tipoHabitacionService = new TipoHabitacionService.TipoHabitacionServiceClient(chanal);
         }
         async Task<IEnumerable<TipoHabitacionModel>> listarTipoHabitacion()

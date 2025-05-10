@@ -7,23 +7,23 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Id Reserva")]
-        public int? id_reserva { get; set; }
+        public int id_reserva { get; set; }
 
         [Required]
         [Display(Name = "Id Tipo Comprobante")]
-        public int? id_tipo_comprobante { get; set; }
+        public int id_tipo_comprobante { get; set; }
 
         [Required]
         [Display(Name = "IGV")]
-        public double? igv { get; set; }
+        public double igv { get; set; }
 
         [Required]
         [Display(Name = "Total Pago")]
-        public double? total_pago { get; set; }
+        public double total_pago { get; set; }
 
         [Required]
         [Display(Name = "Fecha Emisión")]                
@@ -38,7 +38,7 @@ namespace RoomticaFrontEnd.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Reserva")]
@@ -50,11 +50,11 @@ namespace RoomticaFrontEnd.Models
 
         [Required]
         [Display(Name = "IGV")]        
-        public double? igv { get; set; }
+        public double igv { get; set; }
 
         [Required]
         [Display(Name = "Total Pago")]       
-        public double? total_pago { get; set; }
+        public double total_pago { get; set; }
 
         [Required]
         [Display(Name = "Fecha Emisión")]       

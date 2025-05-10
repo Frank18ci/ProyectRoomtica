@@ -86,7 +86,7 @@ namespace RoomticaGrpcServiceBackEnd.Services
                     {
                         Id = dr.GetInt32(0),
                         Tipo = dr.GetString(1),
-                        Costo = dr.GetDouble(2),
+                        Costo = Double.Parse(dr.GetDecimal(2).ToString()),
                         Estado = dr.GetBoolean(3)
                     };
                 }
