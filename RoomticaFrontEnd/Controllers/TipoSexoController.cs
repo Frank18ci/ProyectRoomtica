@@ -143,6 +143,7 @@ namespace RoomticaFrontEnd.Controllers
             ViewBag.mensaje = await actualizarSexo(s);            
             return View(s);
         }
+
         public async Task<ActionResult> Details(int id = 0)
         {
             TipoSexoModel s = await buscarSexoPorId(id);

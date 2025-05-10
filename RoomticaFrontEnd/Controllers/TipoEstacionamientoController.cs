@@ -13,7 +13,7 @@ namespace RoomticaFrontEnd.Controllers
         private GrpcChannel? chanal;
         public TipoEstacionamientoController()
         {
-            chanal = GrpcChannel.ForAddress("https://localhost:5001");
+            chanal = GrpcChannel.ForAddress("http://localhost:5225");
             tipoEstacionamientoService = new TipoEstacionamientoService.TipoEstacionamientoServiceClient(chanal);
         }
 

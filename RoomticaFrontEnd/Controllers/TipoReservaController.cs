@@ -13,7 +13,7 @@ namespace RoomticaFrontEnd.Controllers
         private GrpcChannel? chanal;
         public TipoReservaController()
         {
-            chanal = GrpcChannel.ForAddress("https://localhost:5001");
+            chanal = GrpcChannel.ForAddress("http://localhost:5225");
             tipoReservaService = new TipoReservaService.TipoReservaServiceClient(chanal);
         }
         async Task<IEnumerable<TipoReservaModel>> listarTipoReserva()
